@@ -1,10 +1,18 @@
 
 package corp.healthware.view;
 
+import com.formdev.flatlaf.themes.FlatMacLightLaf;
+import javax.swing.UIManager;
+
 public class HealthWare {
 
     public static void main(String[] args) {
-        // TODO code application logic here
+        try {
+            UIManager.setLookAndFeel( new FlatMacLightLaf() );
+        } catch( Exception ex ) {
+            System.err.println( "Failed to initialize LaF" );
+        }
+        new MainFrame().setVisible(true);
     }
     
 }
