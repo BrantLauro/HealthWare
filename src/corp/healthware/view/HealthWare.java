@@ -2,7 +2,6 @@
 package corp.healthware.view;
 
 import com.formdev.flatlaf.themes.FlatMacLightLaf;
-import java.awt.Color;
 import javax.swing.UIManager;
 
 public class HealthWare {
