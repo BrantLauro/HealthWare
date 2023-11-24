@@ -16,6 +16,7 @@ public class HealthWare {
         UIManager.put( "Component.focusWidth", 0);
 
         new LoginFrame().setVisible(true);
+        
     }
     
 }
