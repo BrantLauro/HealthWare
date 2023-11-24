@@ -125,13 +125,13 @@ public class MainFrame extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonAlunosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAlunosActionPerformed
-//        MainAlunos tAlunos = new MainAlunos();
-//        tAlunos.setSize(1000, 570);
-//        tAlunos.setLocation(0, 0);
-//        jPanelContent.removeAll();
-//        jPanelContent.add(tAlunos, BorderLayout.CENTER);
-//        jPanelContent.revalidate();
-//        jPanelContent.repaint();
+        MainAlunos tAlunos = new MainAlunos();
+        tAlunos.setSize(1000, 570);
+        tAlunos.setLocation(0, 0);
+        jPanelContent.removeAll();
+        jPanelContent.add(tAlunos, BorderLayout.CENTER);
+        jPanelContent.revalidate();
+        jPanelContent.repaint();
     }//GEN-LAST:event_jButtonAlunosActionPerformed
 
     private void jButtonServicosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonServicosActionPerformed
