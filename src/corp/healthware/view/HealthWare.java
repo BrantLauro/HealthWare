@@ -2,6 +2,7 @@
 package corp.healthware.view;
 
 import com.formdev.flatlaf.themes.FlatMacLightLaf;
+import java.awt.Color;
 import javax.swing.UIManager;
 
 public class HealthWare {
@@ -12,7 +13,9 @@ public class HealthWare {
         } catch( Exception ex ) {
             System.err.println( "Failed to initialize LaF" );
         }
-        new MainFrame().setVisible(true);
+        UIManager.put( "Component.focusWidth", 0);
+
+        new LoginFrame().setVisible(true);
     }
     
 }
