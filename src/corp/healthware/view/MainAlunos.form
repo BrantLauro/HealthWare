@@ -21,12 +21,12 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Component id="jPanelContent" alignment="0" pref="1008" max="32767" attributes="0"/>
+          <Component id="jPanelContent" alignment="0" pref="1012" max="32767" attributes="0"/>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Component id="jPanelContent" alignment="0" pref="565" max="32767" attributes="0"/>
+          <Component id="jPanelContent" alignment="0" max="32767" attributes="0"/>
       </Group>
     </DimensionLayout>
   </Layout>
@@ -79,10 +79,8 @@
                               <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="1" max="-2" attributes="0">
                                   <Component id="jButtonNovoAluno" pref="175" max="32767" attributes="0"/>
-                                  <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                                      <Component id="jButtonNovaMod" alignment="0" pref="175" max="32767" attributes="0"/>
-                                      <Component id="jButtonVoltar" alignment="0" max="32767" attributes="0"/>
-                                  </Group>
+                                  <Component id="jButtonNovaMod" alignment="0" pref="175" max="32767" attributes="0"/>
+                                  <Component id="jButtonVoltar" alignment="0" max="32767" attributes="0"/>
                               </Group>
                           </Group>
                       </Group>
@@ -190,7 +188,7 @@
                               <Component id="jScrollPaneTabela" min="-2" pref="764" max="-2" attributes="0"/>
                           </Group>
                       </Group>
-                      <EmptySpace pref="26" max="32767" attributes="0"/>
+                      <EmptySpace pref="38" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>

@@ -90,9 +90,8 @@ public class MainAlunos extends javax.swing.JPanel {
                         .addContainerGap()
                         .addGroup(jPanelLateralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addComponent(jButtonNovoAluno, javax.swing.GroupLayout.DEFAULT_SIZE, 175, Short.MAX_VALUE)
-                            .addGroup(jPanelLateralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addComponent(jButtonNovaMod, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 175, Short.MAX_VALUE)
-                                .addComponent(jButtonVoltar, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
+                            .addComponent(jButtonNovaMod, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 175, Short.MAX_VALUE)
+                            .addComponent(jButtonVoltar, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanelLateralLayout.setVerticalGroup(
@@ -213,7 +212,7 @@ public class MainAlunos extends javax.swing.JPanel {
                     .addGroup(jPanelCentralLayout.createSequentialGroup()
                         .addGap(17, 17, 17)
                         .addComponent(jScrollPaneTabela, javax.swing.GroupLayout.PREFERRED_SIZE, 764, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(26, Short.MAX_VALUE))
+                .addContainerGap(38, Short.MAX_VALUE))
         );
         jPanelCentralLayout.setVerticalGroup(
             jPanelCentralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -246,11 +245,11 @@ public class MainAlunos extends javax.swing.JPanel {
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanelContent, javax.swing.GroupLayout.DEFAULT_SIZE, 1008, Short.MAX_VALUE)
+            .addComponent(jPanelContent, javax.swing.GroupLayout.DEFAULT_SIZE, 1012, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanelContent, javax.swing.GroupLayout.DEFAULT_SIZE, 565, Short.MAX_VALUE)
+            .addComponent(jPanelContent, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -265,7 +264,13 @@ public class MainAlunos extends javax.swing.JPanel {
     }//GEN-LAST:event_jButtonVoltarActionPerformed
 
     private void jButtonNovoAlunoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonNovoAlunoActionPerformed
-        // TODO add your handling code here:
+        NovoAlunoFrame tCAluno = new NovoAlunoFrame();
+        tCAluno.setSize(820, 570);
+        tCAluno.setLocation(0, 0);
+        jPanelCentral.removeAll();
+        jPanelCentral.add(tCAluno, BorderLayout.CENTER);
+        jPanelCentral.revalidate();
+        jPanelCentral.repaint();
     }//GEN-LAST:event_jButtonNovoAlunoActionPerformed
 
     private void jButtonNovaModActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonNovaModActionPerformed
