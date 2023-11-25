@@ -108,7 +108,7 @@ public class MainAlunos extends javax.swing.JPanel {
         jPanelCentral.setLayout(jPanelCentralLayout);
         jPanelCentralLayout.setHorizontalGroup(
             jPanelCentralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 787, Short.MAX_VALUE)
+            .addGap(0, 0, Short.MAX_VALUE)
         );
         jPanelCentralLayout.setVerticalGroup(
             jPanelCentralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -134,7 +134,7 @@ public class MainAlunos extends javax.swing.JPanel {
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanelContent, javax.swing.GroupLayout.DEFAULT_SIZE, 980, Short.MAX_VALUE)
+            .addComponent(jPanelContent, javax.swing.GroupLayout.DEFAULT_SIZE, 193, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

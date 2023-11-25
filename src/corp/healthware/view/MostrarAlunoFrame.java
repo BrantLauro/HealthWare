@@ -14,8 +14,7 @@ public class MostrarAlunoFrame extends javax.swing.JPanel {
         UIManager.put( "ComboBox.buttonBackground", new Color(212,81,93));
         initComponents();
         jPanel.putClientProperty(FlatClientProperties.STYLE, "arc: 15");
-        jTextFieldPreco.putClientProperty(FlatClientProperties.STYLE, "arc: 9");
-        
+       
         
     }
 

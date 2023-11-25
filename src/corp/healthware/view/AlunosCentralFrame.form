@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 
-<Form version="1.3" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JPanelFormInfo">
+<Form version="1.5" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JPanelFormInfo">
   <Properties>
     <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
       <Color blue="ef" green="ef" red="ef" type="rgb"/>
@@ -91,6 +91,7 @@
               <Color blue="df" green="df" red="df" type="rgb"/>
             </Property>
             <Property name="toolTipText" type="java.lang.String" value=""/>
+            <Property name="focusable" type="boolean" value="false"/>
           </Properties>
 
           <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
@@ -107,32 +108,28 @@
                   <Color blue="29" green="29" red="29" type="rgb"/>
                 </Property>
                 <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-                  <Table columnCount="5" rowCount="20">
+                  <Table columnCount="5" rowCount="3">
                     <Column editable="true" title="Nome" type="java.lang.Object"/>
                     <Column editable="true" title="Modalidade" type="java.lang.Object"/>
                     <Column editable="true" title="Status" type="java.lang.Object"/>
-                    <Column editable="true" title="Vencimento" type="java.lang.Object"/>
+                    <Column editable="true" title="Dia do pagamento" type="java.lang.Object"/>
                     <Column editable="true" title="A&#xe7;&#xe3;o" type="java.lang.Object"/>
                   </Table>
                 </Property>
-                <Property name="enabled" type="boolean" value="false"/>
                 <Property name="focusable" type="boolean" value="false"/>
                 <Property name="gridColor" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="ef" green="ef" red="ef" type="rgb"/>
                 </Property>
-                <Property name="intercellSpacing" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                  <Dimension value="[10, 0]"/>
-                </Property>
-                <Property name="requestFocusEnabled" type="boolean" value="false"/>
                 <Property name="rowHeight" type="int" value="40"/>
+                <Property name="rowSelectionAllowed" type="boolean" value="true"/>
                 <Property name="selectionBackground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="ef" green="ef" red="ef" type="rgb"/>
                 </Property>
                 <Property name="selectionForeground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="29" green="29" red="29" type="rgb"/>
                 </Property>
+                <Property name="selectionMode" type="int" value="0"/>
                 <Property name="showGrid" type="boolean" value="false"/>
-                <Property name="showVerticalLines" type="boolean" value="true"/>
                 <Property name="tableHeader" type="javax.swing.table.JTableHeader" editor="org.netbeans.modules.form.editors2.JTableHeaderEditor">
                   <TableHeader reorderingAllowed="false" resizingAllowed="false"/>
                 </Property>
