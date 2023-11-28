@@ -8,6 +8,21 @@ public class Endereco {
     private String cidade;
     private int numero;
 
+    public Endereco() {
+    }
+
+    public Endereco(int cod_e) {
+        this.cod_e = cod_e;
+    }
+
+    public Endereco(int cod_e, String rua, String bairro, String cidade, int numero) {
+        this.cod_e = cod_e;
+        this.rua = rua;
+        this.bairro = bairro;
+        this.cidade = cidade;
+        this.numero = numero;
+    }
+    
     public int getCod_e() {
         return cod_e;
     }

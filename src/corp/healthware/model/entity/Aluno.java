@@ -13,6 +13,26 @@ public class Aluno {
     private String obj;
     private String horario;
 
+    public Aluno() {
+    }
+
+    public Aluno(int cod_a) {
+        this.cod_a = cod_a;
+    }
+
+    public Aluno(int cod_a, String nome_a, int cod_endereco, String data_nasc_a, int dia_pag, String obs, int status, String tel_a, String obj, String horario) {
+        this.cod_a = cod_a;
+        this.nome_a = nome_a;
+        this.cod_endereco = cod_endereco;
+        this.data_nasc_a = data_nasc_a;
+        this.dia_pag = dia_pag;
+        this.obs = obs;
+        this.status = status;
+        this.tel_a = tel_a;
+        this.obj = obj;
+        this.horario = horario;
+    }
+    
     public int getCod_a() {
         return cod_a;
     }

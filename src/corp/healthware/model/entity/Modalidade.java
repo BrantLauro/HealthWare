@@ -8,6 +8,21 @@ public class Modalidade {
     private int vezes_semana;
     private double preco;
 
+    public Modalidade() {
+    }
+
+    public Modalidade(int cod_m) {
+        this.cod_m = cod_m;
+    }
+
+    public Modalidade(int cod_m, int resp, String nome_m, int vezes_semana, double preco) {
+        this.cod_m = cod_m;
+        this.resp = resp;
+        this.nome_m = nome_m;
+        this.vezes_semana = vezes_semana;
+        this.preco = preco;
+    }
+    
     public int getCod_m() {
         return cod_m;
     }

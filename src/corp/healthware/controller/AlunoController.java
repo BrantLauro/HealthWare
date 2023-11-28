@@ -1,6 +1,7 @@
 
-package corp.healthware.controller;
+/*package corp.healthware.controller;
 
+import corp.healthware.model.dao.DAOexception;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
@@ -38,4 +39,4 @@ public class AlunoController {
     public ArrayList<Aluno> findAll() throws DAOexception, SQLException {
         return new Aluno().findAll();
     }
-}
+}*/

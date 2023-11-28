@@ -8,6 +8,22 @@ public class Aula {
     private String hora_a;
     private String descricao;
 
+    public Aula() {
+    }
+
+    public Aula(int cod_m) {
+        this.cod_m = cod_m;
+        this.cod_a = cod_a;
+    }
+
+    public Aula(int cod_m, int cod_a, String data_a, String hora_a, String descricao) {
+        this.cod_m = cod_m;
+        this.cod_a = cod_a;
+        this.data_a = data_a;
+        this.hora_a = hora_a;
+        this.descricao = descricao;
+    }
+    
     public int getCod_m() {
         return cod_m;
     }
