@@ -140,7 +140,7 @@ public class LoginFrame extends javax.swing.JFrame {
         );
 
         jPanelContent.add(jPanelLogin);
-        jPanelLogin.setBounds(160, 30, 679, 500);
+        jPanelLogin.setBounds(160, 30, 700, 502);
 
         jLabelFundo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/tela_incial_desfoque.png"))); // NOI18N
         jPanelContent.add(jLabelFundo);
