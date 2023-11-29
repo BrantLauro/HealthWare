@@ -123,7 +123,7 @@
                                       <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
                                       <Group type="103" groupAlignment="0" attributes="0">
                                           <Component id="jLabelModalidade" min="-2" pref="73" max="-2" attributes="0"/>
-                                          <Component id="jComboBoxPilates" min="-2" pref="150" max="-2" attributes="0"/>
+                                          <Component id="jComboBoxModalidade" min="-2" pref="150" max="-2" attributes="0"/>
                                       </Group>
                                       <EmptySpace max="32767" attributes="0"/>
                                       <Group type="103" groupAlignment="0" attributes="0">
@@ -175,7 +175,7 @@
                               <EmptySpace min="2" pref="2" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="3" attributes="0">
                                   <Component id="jTextFieldTel" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
-                                  <Component id="jComboBoxPilates" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
+                                  <Component id="jComboBoxModalidade" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
                               </Group>
                           </Group>
                           <Group type="102" attributes="0">
@@ -441,7 +441,7 @@
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonSalvarActionPerformed"/>
               </Events>
             </Component>
-            <Component class="javax.swing.JComboBox" name="jComboBoxPilates">
+            <Component class="javax.swing.JComboBox" name="jComboBoxModalidade">
               <Properties>
                 <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="ef" green="ef" red="ef" type="rgb"/>

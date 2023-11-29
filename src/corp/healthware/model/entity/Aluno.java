@@ -1,6 +1,11 @@
 
 package corp.healthware.model.entity;
 
+import corp.healthware.model.dao.AlunoDAO;
+import corp.healthware.model.dao.DAOexception;
+import java.sql.SQLException;
+import java.util.ArrayList;
+
 public class Aluno {
     private int cod_a;
     private String nome_a;
@@ -20,6 +25,18 @@ public class Aluno {
         this.cod_a = cod_a;
     }
 
+    public Aluno(String nome_a, int cod_endereco, String data_nasc_a, int dia_pag, String obs, int status, String tel_a, String obj, String horario) {
+        this.nome_a = nome_a;
+        this.cod_endereco = cod_endereco;
+        this.data_nasc_a = data_nasc_a;
+        this.dia_pag = dia_pag;
+        this.obs = obs;
+        this.status = status;
+        this.tel_a = tel_a;
+        this.obj = obj;
+        this.horario = horario;
+    }
+
     public Aluno(int cod_a, String nome_a, int cod_endereco, String data_nasc_a, int dia_pag, String obs, int status, String tel_a, String obj, String horario) {
         this.cod_a = cod_a;
         this.nome_a = nome_a;
@@ -31,6 +48,22 @@ public class Aluno {
         this.tel_a = tel_a;
         this.obj = obj;
         this.horario = horario;
+    }
+
+    public int cadastrarAluno(Aluno aluno) throws SQLException, DAOexception {
+        return new AlunoDAO().insert(aluno);
+    }
+    
+     public int updateAluno(Aluno aluno) throws DAOexception, SQLException {
+        return new AlunoDAO().update(aluno);
+    }
+    
+    public int excluirAluno(Aluno aluno)throws SQLException, DAOexception{
+        return new AlunoDAO().delete(aluno);
+    }
+    
+   public ArrayList<Aluno> findAllAluno() throws DAOexception, SQLException {
+       return new AlunoDAO().findAll();
     }
     
     public int getCod_a() {
@@ -112,10 +145,4 @@ public class Aluno {
     public void setHorario(String horario) {
         this.horario = horario;
     }
-
-    public String getCod_endereco_a() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-    
-    
 }

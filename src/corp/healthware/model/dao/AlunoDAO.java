@@ -4,10 +4,6 @@ package corp.healthware.model.dao;
 import java.sql.*;
 import com.mysql.jdbc.Connection;
 import corp.healthware.model.entity.Aluno;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
@@ -19,26 +15,24 @@ public class AlunoDAO implements DAO<Aluno>{
         conn = (Connection) Singleton.getInstancia().getConexao();
     }
 
-    @Override
     public int insert(Aluno a) throws DAOexception {
         int linhasGravadas = 0;
         try {
-            String iQuery = "INSERT INTO aluno (cod_a,nome_a,cod_endereco,data_nasc_a,dia_pag,obs,status,tel_a,obj,horario) VALUES (?,?,?,?,?,?,?,?,?,?)";
+            String iQuery = "INSERT INTO aluno (nome_a,cod_endereco,data_nasc_a,dia_pag,obs,status,tel_a,obj,horario) VALUES (?,?,?,?,?,?,?,?,?)";
 
             PreparedStatement st = conn.prepareStatement(iQuery);
-            st.setInt(1, a.getCod_a());
-            st.setString(2, a.getNome_a());
-            st.setString(3, a.getCod_endereco_a());
-            st.setString(4, a.getData_nasc_a());
-            st.setInt(5, a.getDia_pag());
-            st.setString(6, a.getObs());
-            st.setInt(7, a.getStatus());
-            st.setString(8, a.getTel_a());
-            st.setString(9, a.getObj());
-            st.setString(10, a.getHorario());
+            st.setString(1, a.getNome_a());
+            st.setInt(2, a.getCod_endereco());
+            st.setString(3, a.getData_nasc_a());
+            st.setInt(4, a.getDia_pag());
+            st.setString(5, a.getObs());
+            st.setInt(6, a.getStatus());
+            st.setString(7, a.getTel_a());
+            st.setString(8, a.getObj());
+            st.setString(9, a.getHorario());
             
             linhasGravadas = st.executeUpdate();
-            JOptionPane.showMessageDialog(null, "Cadastrado");
+            JOptionPane.showMessageDialog(null, "Aluno Cadastrado com Sucesso");
         } catch (SQLException e) {
             if (e.getSQLState().equals("23505") || e.getSQLState().equals("23000")) {
                 int resultado = JOptionPane.showConfirmDialog(null, "Aluno já cadastrado, deseja atualizar?", "Erro", JOptionPane.ERROR_MESSAGE);
@@ -49,7 +43,7 @@ public class AlunoDAO implements DAO<Aluno>{
                 }
                 else return 0;
             }
-            System.out.println("sim" + e.getMessage());
+            //System.out.println("sim" + e.getMessage());
         }
         return linhasGravadas;
     }
@@ -63,16 +57,16 @@ public class AlunoDAO implements DAO<Aluno>{
                     + "where cod_a = ?";
 
             PreparedStatement st = conn.prepareStatement(uQuery);
-            st.setInt(1, entidade.getCod_a());
-            st.setString(2, entidade.getNome_a());
-            st.setString(3, entidade.getCod_endereco_a());
-            st.setString(4, entidade.getData_nasc_a());
-            st.setInt(5, entidade.getDia_pag());
-            st.setString(6, entidade.getObs());
-            st.setInt(7, entidade.getStatus());
-            st.setString(8, entidade.getTel_a());
-            st.setString(9, entidade.getObj());
-            st.setString(10, entidade.getHorario());
+            st.setString(1, entidade.getNome_a());
+            st.setInt(2, entidade.getCod_endereco());
+            st.setString(3, entidade.getData_nasc_a());
+            st.setInt(4, entidade.getDia_pag());
+            st.setString(5, entidade.getObs());
+            st.setInt(6, entidade.getStatus());
+            st.setString(7, entidade.getTel_a());
+            st.setString(8, entidade.getObj());
+            st.setString(9, entidade.getHorario());
+            st.setInt(10, entidade.getCod_a());
 
             linhasAfetadas = st.executeUpdate();
 
@@ -98,7 +92,7 @@ public class AlunoDAO implements DAO<Aluno>{
 
         } catch (SQLException ex) {
             if(ex.getSQLState().equals("23000")) {
-                JOptionPane.showMessageDialog(null, "O Aluno tem requisições pendentes!", "Erro", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Erro ao tentar deletar entidade Aluno", "Erro", JOptionPane.ERROR_MESSAGE);
                 return linhasAfetadas;
             }
             throw new DAOexception("Erro ao tentar deletar entidade Aluno SQLSTATE: " + ex.getSQLState());
@@ -148,11 +142,5 @@ public class AlunoDAO implements DAO<Aluno>{
     @Override
     public Aluno findOne(Aluno entidade) throws DAOexception {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    private static class DBSingleton {
-
-        public DBSingleton() {
-        }
     }
 }
