@@ -1,13 +1,37 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package corp.healthware.controller;
 
-/**
- *
- * @author thiago.rezende
- */
+import corp.healthware.model.dao.DAOexception;
+import corp.healthware.model.entity.Modalidade;
+import java.sql.SQLException;
+import java.util.ArrayList;
+
 public class ModalidadeController {
-    
+
+    public int insert(int resp, String nome_m, int vezes_semana, double preco) throws DAOexception, SQLException {
+        if (resp != -1 && nome_m != null && vezes_semana != -1 && preco != -1) {
+            Modalidade modalidade = new Modalidade(resp, nome_m, vezes_semana, preco);
+            return modalidade.cadastrarModalidade(modalidade);
+        }
+        return 0;
+    }
+
+    public int update(int resp, String nome_m, int vezes_semana, double preco) throws DAOexception, SQLException {
+        if (resp != -1 && nome_m != null && vezes_semana != -1 && preco != -1) {
+            Modalidade modalidade = new Modalidade(resp, nome_m, vezes_semana, preco);
+            return modalidade.updateModalidade(modalidade);
+        }
+        return 0;
+    }
+
+    public int delete(int cod_m) throws DAOexception, SQLException {
+        if (cod_m != -1) {
+            Modalidade func = new Modalidade(cod_m);
+            return func.excluirModalidade(func);
+        }
+        return 0;
+    }
+
+    public ArrayList<Modalidade> findAll() throws DAOexception, SQLException {
+        return new Modalidade().findAllModalidade();
+    }
 }

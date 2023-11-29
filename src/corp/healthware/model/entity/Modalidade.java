@@ -1,6 +1,11 @@
 
 package corp.healthware.model.entity;
 
+import corp.healthware.model.dao.ModalidadeDAO;
+import corp.healthware.model.dao.DAOexception;
+import java.sql.SQLException;
+import java.util.ArrayList;
+
 public class Modalidade {
     private int cod_m;
     private int resp;
@@ -15,12 +20,27 @@ public class Modalidade {
         this.cod_m = cod_m;
     }
 
-    public Modalidade(int cod_m, int resp, String nome_m, int vezes_semana, double preco) {
-        this.cod_m = cod_m;
+    public Modalidade(int resp, String nome_m, int vezes_semana, double preco) {
         this.resp = resp;
         this.nome_m = nome_m;
         this.vezes_semana = vezes_semana;
         this.preco = preco;
+    }
+    
+    public int cadastrarModalidade(Modalidade modalidade) throws SQLException, DAOexception {
+        return new ModalidadeDAO().insert(modalidade);
+    }
+    
+     public int updateModalidade(Modalidade modalidade) throws DAOexception, SQLException {
+        return new ModalidadeDAO().update(modalidade);
+    }
+    
+    public int excluirModalidade(Modalidade modalidade)throws SQLException, DAOexception{
+        return new ModalidadeDAO().delete(modalidade);
+    }
+    
+   public ArrayList<Modalidade> findAllModalidade() throws DAOexception, SQLException {
+       return new ModalidadeDAO().findAll();
     }
     
     public int getCod_m() {
@@ -62,6 +82,10 @@ public class Modalidade {
     public void setPreco(double preco) {
         this.preco = preco;
     }
+
+    /*public ArrayList<Modalidade> findAllModalidade() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }*/
     
     
 }

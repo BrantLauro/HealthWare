@@ -1,6 +1,11 @@
 
 package corp.healthware.model.entity;
 
+import corp.healthware.model.dao.DAOexception;
+import corp.healthware.model.dao.ColaboradorDAO;
+import java.sql.SQLException;
+import java.util.ArrayList;
+
 public class Colaborador {
     private int cod_c;
     private String nome_c;
@@ -19,8 +24,7 @@ public class Colaborador {
         this.cod_c = cod_c;
     }
 
-    public Colaborador(int cod_c, String nome_c, String tel_c, String data_nasc_c, String esp, String email, String senha, boolean adm) {
-        this.cod_c = cod_c;
+    public Colaborador(String nome_c, String tel_c, String data_nasc_c, String esp, String email, String senha, boolean adm) {
         this.nome_c = nome_c;
         this.tel_c = tel_c;
         this.data_nasc_c = data_nasc_c;
@@ -28,6 +32,22 @@ public class Colaborador {
         this.email = email;
         this.senha = senha;
         this.adm = adm;
+    }
+    
+    public int cadastrarColaborador(Colaborador colaborador) throws SQLException, DAOexception {
+        return new ColaboradorDAO().insert(colaborador);
+    }
+    
+     public int updateColaborador(Colaborador colaborador) throws DAOexception, SQLException {
+        return new ColaboradorDAO().update(colaborador);
+    }
+    
+    public int excluirColaborador(Colaborador colaborador)throws SQLException, DAOexception{
+        return new ColaboradorDAO().delete(colaborador);
+    }
+    
+   public ArrayList<Colaborador> findAllColaborador() throws DAOexception, SQLException {
+       return new ColaboradorDAO().findAll();
     }
     
     public int getCod_c() {
