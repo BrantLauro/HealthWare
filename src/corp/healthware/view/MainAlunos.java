@@ -154,6 +154,7 @@ public class MainAlunos extends javax.swing.JPanel {
 
     private void jButtonNovoAlunoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonNovoAlunoActionPerformed
         NovoAlunoFrame tCAluno = new NovoAlunoFrame();
+        
         tCAluno.setSize(820, 570);
         tCAluno.setLocation(0, 0);
         jPanelCentral.removeAll();

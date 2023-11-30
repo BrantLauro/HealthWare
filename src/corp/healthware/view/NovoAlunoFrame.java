@@ -2,10 +2,17 @@ package corp.healthware.view;
 
 import com.formdev.flatlaf.FlatClientProperties;
 import corp.healthware.controller.AlunoController;
+import corp.healthware.controller.ModalidadeController;
 import corp.healthware.model.dao.DAOexception;
+import corp.healthware.model.entity.Modalidade;
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Component;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 
@@ -23,7 +30,20 @@ public class NovoAlunoFrame extends javax.swing.JPanel {
         jTextFieldObs.putClientProperty(FlatClientProperties.STYLE, "arc: 9");
         jTextFieldTel.putClientProperty(FlatClientProperties.STYLE, "arc: 9");
         jTextFieldEndereco.putClientProperty(FlatClientProperties.STYLE, "arc: 9");
+        initComboBoxMod();
+    }
 
+    private void initComboBoxMod() {
+        try {
+            ModalidadeController modController = new ModalidadeController();
+            ArrayList<Modalidade> mods = modController.findAll();
+            mods.forEach((Modalidade mod) -> {
+
+                jComboBoxModalidade.addItem(mod.getNome_m() + " " + mod.getVezes_semana() + " Vezes na semana");
+            });
+        } catch (SQLException | DAOexception ex) {
+            Logger.getLogger(NovoAlunoFrame.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     @SuppressWarnings("unchecked")
@@ -42,10 +62,8 @@ public class NovoAlunoFrame extends javax.swing.JPanel {
         jLabelObj = new javax.swing.JLabel();
         jLabelPagamento = new javax.swing.JLabel();
         jTextFieldNome = new javax.swing.JTextField();
-        jTextFieldData = new javax.swing.JTextField();
         jTextFieldObj = new javax.swing.JTextField();
         jTextFieldObs = new javax.swing.JTextField();
-        jTextFieldTel = new javax.swing.JTextField();
         jTextFieldEndereco = new javax.swing.JTextField();
         jButtonSalvar = new javax.swing.JButton();
         jComboBoxModalidade = new javax.swing.JComboBox<>();
@@ -53,6 +71,8 @@ public class NovoAlunoFrame extends javax.swing.JPanel {
         jLabelHorario = new javax.swing.JLabel();
         jComboBoxHorario = new javax.swing.JComboBox<>();
         jButtonVoltar = new javax.swing.JButton();
+        jTextFieldData = new javax.swing.JFormattedTextField();
+        jTextFieldTel = new javax.swing.JFormattedTextField();
 
         setPreferredSize(new java.awt.Dimension(820, 570));
 
@@ -112,21 +132,6 @@ public class NovoAlunoFrame extends javax.swing.JPanel {
             }
         });
 
-        jTextFieldData.setBackground(new java.awt.Color(239, 239, 239));
-        jTextFieldData.setFont(new java.awt.Font("TT Hoves Pro Trial", 0, 12)); // NOI18N
-        jTextFieldData.setForeground(new java.awt.Color(139, 137, 137));
-        jTextFieldData.setText("08/03/1980");
-        jTextFieldData.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                jTextFieldDataFocusGained(evt);
-            }
-        });
-        jTextFieldData.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextFieldDataActionPerformed(evt);
-            }
-        });
-
         jTextFieldObj.setBackground(new java.awt.Color(239, 239, 239));
         jTextFieldObj.setFont(new java.awt.Font("TT Hoves Pro Trial", 0, 12)); // NOI18N
         jTextFieldObj.setForeground(new java.awt.Color(139, 137, 137));
@@ -158,21 +163,6 @@ public class NovoAlunoFrame extends javax.swing.JPanel {
             }
         });
 
-        jTextFieldTel.setBackground(new java.awt.Color(239, 239, 239));
-        jTextFieldTel.setFont(new java.awt.Font("TT Hoves Pro Trial", 0, 12)); // NOI18N
-        jTextFieldTel.setForeground(new java.awt.Color(139, 137, 137));
-        jTextFieldTel.setText("(38) 9958-2856");
-        jTextFieldTel.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                jTextFieldTelFocusGained(evt);
-            }
-        });
-        jTextFieldTel.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextFieldTelActionPerformed(evt);
-            }
-        });
-
         jTextFieldEndereco.setBackground(new java.awt.Color(239, 239, 239));
         jTextFieldEndereco.setFont(new java.awt.Font("TT Hoves Pro Trial", 0, 12)); // NOI18N
         jTextFieldEndereco.setForeground(new java.awt.Color(139, 137, 137));
@@ -201,7 +191,7 @@ public class NovoAlunoFrame extends javax.swing.JPanel {
         jComboBoxModalidade.setBackground(new java.awt.Color(239, 239, 239));
         jComboBoxModalidade.setFont(new java.awt.Font("TT Hoves Pro Trial", 0, 12)); // NOI18N
         jComboBoxModalidade.setForeground(new java.awt.Color(41, 41, 41));
-        jComboBoxModalidade.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Pilates", "Circuito", "Yoga" }));
+        jComboBoxModalidade.setMaximumRowCount(30);
         jComboBoxModalidade.setPreferredSize(new java.awt.Dimension(68, 26));
 
         jComboBoxPagamento.setBackground(new java.awt.Color(239, 239, 239));
@@ -230,6 +220,36 @@ public class NovoAlunoFrame extends javax.swing.JPanel {
             }
         });
 
+        jTextFieldData.setBackground(new java.awt.Color(239, 239, 239));
+        jTextFieldData.setForeground(new java.awt.Color(139, 137, 137));
+        try {
+            jTextFieldData.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##/##/####")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+        jTextFieldData.setText("25/11/1986");
+        jTextFieldData.setFont(new java.awt.Font("TT Hoves Pro Trial", 0, 12)); // NOI18N
+        jTextFieldData.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                jTextFieldDataFocusGained(evt);
+            }
+        });
+
+        jTextFieldTel.setBackground(new java.awt.Color(239, 239, 239));
+        jTextFieldTel.setForeground(new java.awt.Color(139, 137, 137));
+        try {
+            jTextFieldTel.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("(##) #####-####")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+        jTextFieldTel.setText("(38) 99958-2856");
+        jTextFieldTel.setFont(new java.awt.Font("TT Hoves Pro Trial", 0, 12)); // NOI18N
+        jTextFieldTel.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                jTextFieldTelFocusGained(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanelLayout = new javax.swing.GroupLayout(jPanel);
         jPanel.setLayout(jPanelLayout);
         jPanelLayout.setHorizontalGroup(
@@ -239,11 +259,6 @@ public class NovoAlunoFrame extends javax.swing.JPanel {
                     .addGroup(jPanelLayout.createSequentialGroup()
                         .addGap(245, 245, 245)
                         .addComponent(jLabelTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, 282, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanelLayout.createSequentialGroup()
-                        .addGap(60, 60, 60)
-                        .addComponent(jLabelNome)
-                        .addGap(313, 313, 313)
-                        .addComponent(jLabelData))
                     .addGroup(jPanelLayout.createSequentialGroup()
                         .addGap(60, 60, 60)
                         .addComponent(jLabelEndereco))
@@ -282,8 +297,14 @@ public class NovoAlunoFrame extends javax.swing.JPanel {
                                     .addComponent(jComboBoxHorario, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addGroup(jPanelLayout.createSequentialGroup()
                                 .addComponent(jTextFieldNome, javax.swing.GroupLayout.PREFERRED_SIZE, 320, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(30, 30, 30)
-                                .addComponent(jTextFieldData, javax.swing.GroupLayout.PREFERRED_SIZE, 320, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                .addGap(350, 350, 350))))
+                    .addGroup(jPanelLayout.createSequentialGroup()
+                        .addGap(60, 60, 60)
+                        .addComponent(jLabelNome)
+                        .addGap(313, 313, 313)
+                        .addGroup(jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabelData)
+                            .addComponent(jTextFieldData, javax.swing.GroupLayout.PREFERRED_SIZE, 320, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(40, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelLayout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
@@ -302,20 +323,20 @@ public class NovoAlunoFrame extends javax.swing.JPanel {
                     .addComponent(jLabelNome)
                     .addComponent(jLabelData))
                 .addGap(2, 2, 2)
-                .addGroup(jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanelLayout.createSequentialGroup()
-                        .addGroup(jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jTextFieldNome, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jTextFieldData, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
+                .addGroup(jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jTextFieldNome, javax.swing.GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE)
+                    .addComponent(jTextFieldData))
+                .addGap(18, 18, 18)
+                .addGroup(jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelLayout.createSequentialGroup()
                         .addGroup(jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabelTel)
                             .addComponent(jLabelModalidade))
                         .addGap(2, 2, 2)
                         .addGroup(jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jTextFieldTel, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jComboBoxModalidade, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(jPanelLayout.createSequentialGroup()
+                            .addComponent(jComboBoxModalidade, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jTextFieldTel, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelLayout.createSequentialGroup()
                         .addComponent(jLabelHorario)
                         .addGap(2, 2, 2)
                         .addComponent(jComboBoxHorario, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -377,10 +398,6 @@ public class NovoAlunoFrame extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextFieldNomeActionPerformed
 
-    private void jTextFieldDataActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldDataActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextFieldDataActionPerformed
-
     private void jTextFieldObjActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldObjActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextFieldObjActionPerformed
@@ -389,44 +406,43 @@ public class NovoAlunoFrame extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextFieldObsActionPerformed
 
-    private void jTextFieldTelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldTelActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextFieldTelActionPerformed
-
     private void jTextFieldEnderecoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldEnderecoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextFieldEnderecoActionPerformed
 
-    private void limpar() {
-        if (jTextFieldObs.getForeground().equals(new Color(139, 137, 137))) {
-            jTextFieldObs.setText("");
-        }
-        if (jTextFieldObj.getForeground().equals(new Color(139, 137, 137))) {
-            jTextFieldObj.setText("");
-        }
+    private String formatarData() {
+        String str = jTextFieldData.getText();
+        return str.substring(6) + "-" + str.substring(3, 5) + "-" + str.substring(0, 2);
     }
 
     private void jButtonSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSalvarActionPerformed
         try {
             String nome = jTextFieldNome.getText();
-            String dataNascimento = jTextFieldData.getText();
+            String dataNascimento = formatarData();
             String telefone = jTextFieldTel.getText();
-            String modalidade = (String) jComboBoxModalidade.getSelectedItem();
+            int modalidade = (int) jComboBoxModalidade.getSelectedIndex() + 1;
             String horario = (String) jComboBoxHorario.getSelectedItem();
-            int diaPag = (int) jComboBoxPagamento.getSelectedItem();
-            String obs = jTextFieldObs.getText();
-            String obj = jTextFieldObj.getText();
-            limpar(); 
+            String endereco = jTextFieldEndereco.getText();
+            int diaPag = Integer.parseInt((String) jComboBoxPagamento.getSelectedItem());
+            String obs = "";
+            String obj = "";
+            if (!jTextFieldObj.getForeground().equals(new Color(139, 137, 137))) {
+                obj = jTextFieldObj.getText();
+            }
+            if (!jTextFieldObs.getForeground().equals(new Color(139, 137, 137))) {
+                obj = jTextFieldObs.getText();
+            }
             if (!nome.equals("") && !jTextFieldNome.getForeground().equals(new Color(139, 137, 137))
-                    && !dataNascimento.equals("") && !jTextFieldData.getForeground().equals(new Color(139, 137, 137))
-                    && !telefone.equals("") && !jTextFieldTel.getForeground().equals(new Color(139, 137, 137))) {
+                    && !dataNascimento.equals("    -  -  ") && !jTextFieldTel.getForeground().equals(new Color(139, 137, 137))
+                    && !telefone.equals("(  )      -    ") && !jTextFieldTel.getForeground().equals(new Color(139, 137, 137))
+                    && !endereco.equals("") && !jTextFieldEndereco.getForeground().equals(new Color(139, 137, 137))) {
                 AlunoController alunoCtrl = new AlunoController();
-                alunoCtrl.insert(nome, 1, dataNascimento, diaPag, obs, 1, telefone, obj, horario);
+                alunoCtrl.insert(nome, dataNascimento, diaPag, obs, 1, telefone, obj, modalidade, endereco, horario);
             } else {
-                JOptionPane.showMessageDialog(null, "Todos os campos devem ser preenchidos", "Erro", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Todos os campos obrigatórios devem ser preenchidos!", "Erro", JOptionPane.ERROR_MESSAGE);
             }
         } catch (NumberFormatException ex) {
-            JOptionPane.showMessageDialog(null, "Todos os campos devem ser preenchidos", "Erro", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Preencha os campos corretamente!", "Erro", JOptionPane.ERROR_MESSAGE);
         } catch (DAOexception | SQLException ex) {
             System.out.println("Erro criacao statement: " + ex);
             System.exit(0);
@@ -440,20 +456,6 @@ public class NovoAlunoFrame extends javax.swing.JPanel {
             jTextFieldNome.setText("");
         }
     }//GEN-LAST:event_jTextFieldNomeFocusGained
-
-    private void jTextFieldDataFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextFieldDataFocusGained
-        if (jTextFieldData.getForeground().equals(new Color(139, 137, 137))) {
-            jTextFieldData.setForeground(new Color(41, 41, 41));
-            jTextFieldData.setText("");
-        }
-    }//GEN-LAST:event_jTextFieldDataFocusGained
-
-    private void jTextFieldTelFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextFieldTelFocusGained
-        if (jTextFieldTel.getForeground().equals(new Color(139, 137, 137))) {
-            jTextFieldTel.setForeground(new Color(41, 41, 41));
-            jTextFieldTel.setText("");
-        }
-    }//GEN-LAST:event_jTextFieldTelFocusGained
 
     private void jTextFieldEnderecoFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextFieldEnderecoFocusGained
         if (jTextFieldEndereco.getForeground().equals(new Color(139, 137, 137))) {
@@ -486,6 +488,20 @@ public class NovoAlunoFrame extends javax.swing.JPanel {
         repaint();
     }//GEN-LAST:event_jButtonVoltarActionPerformed
 
+    private void jTextFieldDataFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextFieldDataFocusGained
+        if (jTextFieldData.getForeground().equals(new Color(139, 137, 137))) {
+            jTextFieldData.setForeground(new Color(41, 41, 41));
+            jTextFieldData.setText("");
+        }
+    }//GEN-LAST:event_jTextFieldDataFocusGained
+
+    private void jTextFieldTelFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextFieldTelFocusGained
+        if (jTextFieldTel.getForeground().equals(new Color(139, 137, 137))) {
+            jTextFieldTel.setForeground(new Color(41, 41, 41));
+            jTextFieldTel.setText("");
+        }
+    }//GEN-LAST:event_jTextFieldTelFocusGained
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonSalvar;
@@ -505,11 +521,11 @@ public class NovoAlunoFrame extends javax.swing.JPanel {
     private javax.swing.JLabel jLabelTitulo;
     private javax.swing.JPanel jPanel;
     private javax.swing.JPanel jPanelCentral;
-    private javax.swing.JTextField jTextFieldData;
+    private javax.swing.JFormattedTextField jTextFieldData;
     private javax.swing.JTextField jTextFieldEndereco;
     private javax.swing.JTextField jTextFieldNome;
     private javax.swing.JTextField jTextFieldObj;
     private javax.swing.JTextField jTextFieldObs;
-    private javax.swing.JTextField jTextFieldTel;
+    private javax.swing.JFormattedTextField jTextFieldTel;
     // End of variables declaration//GEN-END:variables
 }
