@@ -117,7 +117,7 @@ public class LoginFrame extends javax.swing.JFrame {
                                 .addGap(337, 337, 337))
                             .addComponent(jLabelUsuario, javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jPasswordField))))
-                .addContainerGap(155, Short.MAX_VALUE))
+                .addContainerGap(154, Short.MAX_VALUE))
         );
         jPanelLoginLayout.setVerticalGroup(
             jPanelLoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -135,12 +135,12 @@ public class LoginFrame extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPasswordField, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 90, Short.MAX_VALUE)
-                .addComponent(jButtonLogin)
-                .addGap(59, 59, 59))
+                .addComponent(jButtonLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(51, 51, 51))
         );
 
         jPanelContent.add(jPanelLogin);
-        jPanelLogin.setBounds(160, 30, 679, 500);
+        jPanelLogin.setBounds(160, 30, 678, 500);
 
         jLabelFundo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/tela_incial_desfoque.png"))); // NOI18N
         jPanelContent.add(jLabelFundo);

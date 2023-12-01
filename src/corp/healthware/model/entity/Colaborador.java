@@ -5,11 +5,13 @@
 package corp.healthware.model.entity;
 
 import corp.healthware.model.dao.DAOexception;
+import corp.healthware.model.dao.ColaboradorDAO;
 import java.util.ArrayList;
+import java.sql.SQLException;
 
 /**
  *
- * @author dilce
+ * @author dilceu
  */
 public class Colaborador {
     private int cod_c;
