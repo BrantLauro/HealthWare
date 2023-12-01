@@ -1,10 +1,14 @@
-
 package corp.healthware.view;
 
 import com.formdev.flatlaf.FlatClientProperties;
+import corp.healthware.controller.AlunoController;
+import corp.healthware.model.dao.DAOexception;
+import corp.healthware.model.entity.Aluno;
 import corp.healthware.view.cell.buttons.TableActionCellEditor;
 import corp.healthware.view.cell.buttons.TableActionCellRender;
 import corp.healthware.view.cell.buttons.TableActionEvent;
+import java.sql.SQLException;
+import java.util.ArrayList;
 import javax.swing.table.DefaultTableModel;
 
 public class AlunosCentralFrame extends javax.swing.JPanel {
@@ -12,36 +16,54 @@ public class AlunosCentralFrame extends javax.swing.JPanel {
     public AlunosCentralFrame() {
         initComponents();
         jTextFieldPesquisa.putClientProperty(FlatClientProperties.STYLE, "arc: 9");
-        TableActionEvent event = new TableActionEvent() {
-            @Override
-            public void onMais(int row) {
-                System.out.println("Nova aula para " + row);
-            }
-
-            @Override
-            public void onView(int row) {
-                System.out.println("Ver " + row);
-            }
-
-            @Override
-            public void onEdit(int row) {
-                System.out.println("Editar " + row);   
-            }
-
-            @Override
-            public void onDelete(int row) {
-                if (jTableAlunos.isEditing()) {
-                    jTableAlunos.getCellEditor().stopCellEditing();
-                }
-                DefaultTableModel model = (DefaultTableModel) jTableAlunos.getModel();
-                model.removeRow(row);   
-            }
-        };
-        jTableAlunos.getColumnModel().getColumn(4).setCellRenderer(new TableActionCellRender());
-        jTableAlunos.getColumnModel().getColumn(4).setCellEditor(new TableActionCellEditor(event));
+        initTableAlunos();
 
     }
 
+    private void initTableAlunos() {
+        try {
+            DefaultTableModel tableModel = (DefaultTableModel) jTableAlunos.getModel();
+            tableModel.setRowCount(0);
+            AlunoController alunoCtrl = new AlunoController();
+            ArrayList<Aluno> materiais = alunoCtrl.findAll();
+            materiais.forEach((Aluno a) -> {
+                tableModel.addRow(new Object[]{a.getNome_a(), a.getModalidade(), a.getStatus(), a.getDia_pag()});
+            });
+            jTableAlunos.setModel(tableModel);
+        } catch (SQLException | DAOexception ex) {
+            System.out.println("ERROR: " + ex);
+
+        } catch (NumberFormatException ex) {
+            System.out.println("ERROR: " + ex);
+        }
+            TableActionEvent event = new TableActionEvent() {
+                @Override
+                public void onMais(int row) {
+                    System.out.println("Nova aula para " + row);
+                }
+
+                @Override
+                public void onView(int row) {
+                    System.out.println("Ver " + row);
+                }
+
+                @Override
+                public void onEdit(int row) {
+                    System.out.println("Editar " + row);
+                }
+
+                @Override
+                public void onDelete(int row) {
+                    if (jTableAlunos.isEditing()) {
+                        jTableAlunos.getCellEditor().stopCellEditing();
+                    }
+                    DefaultTableModel model = (DefaultTableModel) jTableAlunos.getModel();
+                    model.removeRow(row);
+                }
+            };
+            jTableAlunos.getColumnModel().getColumn(4).setCellRenderer(new TableActionCellRender());
+            jTableAlunos.getColumnModel().getColumn(4).setCellEditor(new TableActionCellEditor(event));
+        }
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
