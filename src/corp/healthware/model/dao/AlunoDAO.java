@@ -113,7 +113,7 @@ public class AlunoDAO implements DAO<Aluno>{
         PreparedStatement st = null;
 
         try {
-            String query = "SELECT * FROM aluno";
+            String query = "SELECT cod_a, nome_a, data_nasc_a, dia_pag, obs, status, tel_a, obj, nome_m, endereco, horario FROM aluno JOIN modalidade ON modalidade = cod_m";
             st = conn.prepareStatement(query);
             ResultSet res = st.executeQuery();
             if (res != null) {
@@ -131,7 +131,7 @@ public class AlunoDAO implements DAO<Aluno>{
                     func.setStatus(res.getInt("status"));
                     func.setTel_a(res.getString("tel_a"));
                     func.setObj(res.getString("obj"));
-                    func.setModalidade(res.getInt("modalidade"));
+                    func.setNomeModalidade(res.getString("nome_m"));
                     func.setEndereco(res.getString("endereco"));
                     func.setHorario(res.getString("horario"));
 

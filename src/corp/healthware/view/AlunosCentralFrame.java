@@ -7,6 +7,7 @@ import corp.healthware.model.entity.Aluno;
 import corp.healthware.view.cell.buttons.TableActionCellEditor;
 import corp.healthware.view.cell.buttons.TableActionCellRender;
 import corp.healthware.view.cell.buttons.TableActionEvent;
+import java.awt.BorderLayout;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import javax.swing.table.DefaultTableModel;
@@ -27,7 +28,7 @@ public class AlunosCentralFrame extends javax.swing.JPanel {
             AlunoController alunoCtrl = new AlunoController();
             ArrayList<Aluno> alunos = alunoCtrl.findAll();
             alunos.forEach((Aluno a) -> {
-                tableModel.addRow(new Object[]{a.getNome_a(), a.getModalidade(), a.getStatus(), a.getDia_pag()});
+                tableModel.addRow(new Object[]{a.getNome_a(), a.getNomeModalidade(), a.getStatusNome(), "Dia " + a.getDia_pag()});
             });
             jTableAlunos.setModel(tableModel);
         } catch (SQLException | DAOexception ex) {
@@ -36,34 +37,40 @@ public class AlunosCentralFrame extends javax.swing.JPanel {
         } catch (NumberFormatException ex) {
             System.out.println("ERROR: " + ex);
         }
-            TableActionEvent event = new TableActionEvent() {
-                @Override
-                public void onMais(int row) {
-                    System.out.println("Nova aula para " + row);
-                }
+        TableActionEvent event = new TableActionEvent() {
+            @Override
+            public void onMais(int row) {
+                System.out.println("Nova aula para " + row);
+            }
 
-                @Override
-                public void onView(int row) {
-                    System.out.println("Ver " + row);
-                }
+            @Override
+            public void onView(int row) {
+                MostrarAlunoFrame aluno = new MostrarAlunoFrame();
+                aluno.setSize(820, 570);
+                aluno.setLocation(0, 0);
+                removeAll();
+                add(aluno, BorderLayout.CENTER);
+                revalidate();
+                repaint();
+            }
 
-                @Override
-                public void onEdit(int row) {
-                    System.out.println("Editar " + row);
-                }
+            @Override
+            public void onEdit(int row) {
+                System.out.println("Editar " + row);
+            }
 
-                @Override
-                public void onDelete(int row) {
-                    if (jTableAlunos.isEditing()) {
-                        jTableAlunos.getCellEditor().stopCellEditing();
-                    }
-                    DefaultTableModel model = (DefaultTableModel) jTableAlunos.getModel();
-                    model.removeRow(row);
+            @Override
+            public void onDelete(int row) {
+                if (jTableAlunos.isEditing()) {
+                    jTableAlunos.getCellEditor().stopCellEditing();
                 }
-            };
-            jTableAlunos.getColumnModel().getColumn(4).setCellRenderer(new TableActionCellRender());
-            jTableAlunos.getColumnModel().getColumn(4).setCellEditor(new TableActionCellEditor(event));
-        }
+                DefaultTableModel model = (DefaultTableModel) jTableAlunos.getModel();
+                model.removeRow(row);
+            }
+        };
+        jTableAlunos.getColumnModel().getColumn(4).setCellRenderer(new TableActionCellRender());
+        jTableAlunos.getColumnModel().getColumn(4).setCellEditor(new TableActionCellEditor(event));
+    }
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 

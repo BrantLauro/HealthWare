@@ -18,6 +18,7 @@ public class Aluno {
     private int modalidade;
     private String endereco;
     private String horario;
+    private String nomeModalidade;
 
     public Aluno() {
     }
@@ -125,6 +126,12 @@ public class Aluno {
     public int getStatus() {
         return status;
     }
+    
+    public String getStatusNome() {
+        if(status == 1) return "Ativo";
+        else if(status == 2) return "Inativo";
+        else return "Devendo";
+    }
 
     public void setStatus(int status) {
         this.status = status;
@@ -152,6 +159,14 @@ public class Aluno {
     
     public void setModalidade(int modalidade) {
         this.modalidade = modalidade;
+    }
+    
+    public void setNomeModalidade(String nomeModalidade) {
+        this.nomeModalidade = nomeModalidade;
+    }
+    
+    public String getNomeModalidade() {
+        return nomeModalidade;
     }
 
     public String getEndereco() {

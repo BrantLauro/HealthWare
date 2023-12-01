@@ -32,6 +32,16 @@ public class NovoAlunoFrame extends javax.swing.JPanel {
         jTextFieldEndereco.putClientProperty(FlatClientProperties.STYLE, "arc: 9");
         initComboBoxMod();
     }
+    
+    private void voltar() {
+        AlunosCentralFrame central = new AlunosCentralFrame();
+        central.setSize(820, 570);
+        central.setLocation(0, 0);
+        removeAll();
+        add(central, BorderLayout.CENTER);
+        revalidate();
+        repaint();
+    }
 
     private void initComboBoxMod() {
         try {
@@ -448,6 +458,7 @@ public class NovoAlunoFrame extends javax.swing.JPanel {
                     && !endereco.equals("") && !jTextFieldEndereco.getForeground().equals(new Color(139, 137, 137))) {
                 AlunoController alunoCtrl = new AlunoController();
                 alunoCtrl.insert(nome, dataNascimento, diaPag, obs, 1, telefone, obj, modalidade, endereco, horario);
+                voltar();
             } else {
                 JOptionPane.showMessageDialog(null, "Todos os campos obrigatórios devem ser preenchidos!", "Erro", JOptionPane.ERROR_MESSAGE);
             }
@@ -489,13 +500,7 @@ public class NovoAlunoFrame extends javax.swing.JPanel {
     }//GEN-LAST:event_jTextFieldObsFocusGained
 
     private void jButtonVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonVoltarActionPerformed
-        AlunosCentralFrame central = new AlunosCentralFrame();
-        central.setSize(820, 570);
-        central.setLocation(0, 0);
-        removeAll();
-        add(central, BorderLayout.CENTER);
-        revalidate();
-        repaint();
+        voltar();
     }//GEN-LAST:event_jButtonVoltarActionPerformed
 
     private void jTextFieldDataFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextFieldDataFocusGained

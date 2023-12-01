@@ -1,4 +1,3 @@
-
 package corp.healthware.view;
 
 import com.formdev.flatlaf.FlatClientProperties;
@@ -9,13 +8,11 @@ import javax.swing.UIManager;
 public class MostrarAlunoFrame extends javax.swing.JPanel {
 
     public MostrarAlunoFrame() {
-        UIManager.put( "Component.arrowType", "triangle" );
-        UIManager.put( "ComboBox.selectionBackground", new Color(212,81,93));
-        UIManager.put( "ComboBox.buttonBackground", new Color(212,81,93));
         initComponents();
         jPanel.putClientProperty(FlatClientProperties.STYLE, "arc: 15");
-       
-        
+        jPanelMain.putClientProperty(FlatClientProperties.STYLE, "arc: 15");
+        jPanelEnd.putClientProperty(FlatClientProperties.STYLE, "arc: 15");
+        jPanelObs.putClientProperty(FlatClientProperties.STYLE, "arc: 15");
     }
 
     @SuppressWarnings("unchecked")
@@ -26,10 +23,13 @@ public class MostrarAlunoFrame extends javax.swing.JPanel {
         jPanelCentral = new javax.swing.JPanel();
         jPanel = new javax.swing.JPanel();
         jLabelTitulo = new javax.swing.JLabel();
-        jButtonSalvar = new javax.swing.JButton();
+        jButtonVerAulas = new javax.swing.JButton();
+        jButtonEditar = new javax.swing.JButton();
         jButtonVoltar = new javax.swing.JButton();
-        jButtonVoltar1 = new javax.swing.JButton();
-        jButtonSalvar2 = new javax.swing.JButton();
+        jButtonNovaAula = new javax.swing.JButton();
+        jPanelMain = new javax.swing.JPanel();
+        jPanelObs = new javax.swing.JPanel();
+        jPanelEnd = new javax.swing.JPanel();
 
         jButtonSalvar1.setBackground(new java.awt.Color(212, 81, 93));
         jButtonSalvar1.setFont(new java.awt.Font("Rosario", 1, 26)); // NOI18N
@@ -54,77 +54,129 @@ public class MostrarAlunoFrame extends javax.swing.JPanel {
         jLabelTitulo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabelTitulo.setText("Aluno");
 
-        jButtonSalvar.setBackground(new java.awt.Color(212, 81, 93));
-        jButtonSalvar.setFont(new java.awt.Font("Rosario", 1, 26)); // NOI18N
-        jButtonSalvar.setForeground(new java.awt.Color(239, 239, 239));
-        jButtonSalvar.setText("SALVAR");
-        jButtonSalvar.addActionListener(new java.awt.event.ActionListener() {
+        jButtonVerAulas.setBackground(new java.awt.Color(212, 81, 93));
+        jButtonVerAulas.setFont(new java.awt.Font("Rosario", 1, 24)); // NOI18N
+        jButtonVerAulas.setForeground(new java.awt.Color(239, 239, 239));
+        jButtonVerAulas.setText("Ver Aulas");
+        jButtonVerAulas.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonSalvarActionPerformed(evt);
+                jButtonVerAulasActionPerformed(evt);
+            }
+        });
+
+        jButtonEditar.setBackground(new java.awt.Color(212, 81, 93));
+        jButtonEditar.setFont(new java.awt.Font("Rosario", 1, 24)); // NOI18N
+        jButtonEditar.setForeground(new java.awt.Color(239, 239, 239));
+        jButtonEditar.setText("Editar");
+        jButtonEditar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonEditarActionPerformed(evt);
             }
         });
 
         jButtonVoltar.setBackground(new java.awt.Color(212, 81, 93));
-        jButtonVoltar.setFont(new java.awt.Font("Rosario", 1, 26)); // NOI18N
+        jButtonVoltar.setFont(new java.awt.Font("Rosario", 1, 24)); // NOI18N
         jButtonVoltar.setForeground(new java.awt.Color(239, 239, 239));
-        jButtonVoltar.setText("EDITAR");
+        jButtonVoltar.setText("Voltar");
         jButtonVoltar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonVoltarActionPerformed(evt);
             }
         });
 
-        jButtonVoltar1.setBackground(new java.awt.Color(212, 81, 93));
-        jButtonVoltar1.setFont(new java.awt.Font("Rosario", 1, 26)); // NOI18N
-        jButtonVoltar1.setForeground(new java.awt.Color(239, 239, 239));
-        jButtonVoltar1.setText("VOLTAR");
-        jButtonVoltar1.addActionListener(new java.awt.event.ActionListener() {
+        jButtonNovaAula.setBackground(new java.awt.Color(212, 81, 93));
+        jButtonNovaAula.setFont(new java.awt.Font("Rosario", 1, 24)); // NOI18N
+        jButtonNovaAula.setForeground(new java.awt.Color(239, 239, 239));
+        jButtonNovaAula.setText("Nova Aula");
+        jButtonNovaAula.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonVoltar1ActionPerformed(evt);
+                jButtonNovaAulaActionPerformed(evt);
             }
         });
 
-        jButtonSalvar2.setBackground(new java.awt.Color(212, 81, 93));
-        jButtonSalvar2.setFont(new java.awt.Font("Rosario", 1, 26)); // NOI18N
-        jButtonSalvar2.setForeground(new java.awt.Color(239, 239, 239));
-        jButtonSalvar2.setText("SALVAR");
-        jButtonSalvar2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonSalvar2ActionPerformed(evt);
-            }
-        });
+        jPanelMain.setBackground(new java.awt.Color(239, 239, 239));
+
+        javax.swing.GroupLayout jPanelMainLayout = new javax.swing.GroupLayout(jPanelMain);
+        jPanelMain.setLayout(jPanelMainLayout);
+        jPanelMainLayout.setHorizontalGroup(
+            jPanelMainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+        jPanelMainLayout.setVerticalGroup(
+            jPanelMainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 124, Short.MAX_VALUE)
+        );
+
+        jPanelObs.setBackground(new java.awt.Color(239, 239, 239));
+
+        javax.swing.GroupLayout jPanelObsLayout = new javax.swing.GroupLayout(jPanelObs);
+        jPanelObs.setLayout(jPanelObsLayout);
+        jPanelObsLayout.setHorizontalGroup(
+            jPanelObsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+        jPanelObsLayout.setVerticalGroup(
+            jPanelObsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 121, Short.MAX_VALUE)
+        );
+
+        jPanelEnd.setBackground(new java.awt.Color(239, 239, 239));
+
+        javax.swing.GroupLayout jPanelEndLayout = new javax.swing.GroupLayout(jPanelEnd);
+        jPanelEnd.setLayout(jPanelEndLayout);
+        jPanelEndLayout.setHorizontalGroup(
+            jPanelEndLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 737, Short.MAX_VALUE)
+        );
+        jPanelEndLayout.setVerticalGroup(
+            jPanelEndLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 75, Short.MAX_VALUE)
+        );
 
         javax.swing.GroupLayout jPanelLayout = new javax.swing.GroupLayout(jPanel);
         jPanel.setLayout(jPanelLayout);
         jPanelLayout.setHorizontalGroup(
             jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelLayout.createSequentialGroup()
-                .addGap(193, 193, 193)
-                .addComponent(jLabelTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, 384, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(196, Short.MAX_VALUE))
+                .addGap(55, 55, 55)
+                .addComponent(jButtonNovaAula)
+                .addGap(18, 18, 18)
+                .addComponent(jButtonVerAulas, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jButtonEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jButtonVoltar, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(74, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButtonSalvar2, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jButtonSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jButtonVoltar, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jButtonVoltar1, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addComponent(jLabelTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, 384, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(190, 190, 190))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelLayout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addGroup(jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jPanelMain, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanelObs, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanelEnd, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(21, 21, 21))
         );
         jPanelLayout.setVerticalGroup(
             jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelLayout.createSequentialGroup()
-                .addGap(16, 16, 16)
+                .addGap(10, 10, 10)
                 .addComponent(jLabelTitulo)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 417, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jPanelMain, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(38, 38, 38)
+                .addComponent(jPanelEnd, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 37, Short.MAX_VALUE)
+                .addComponent(jPanelObs, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addGroup(jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButtonSalvar)
+                    .addComponent(jButtonVerAulas)
+                    .addComponent(jButtonEditar)
                     .addComponent(jButtonVoltar)
-                    .addComponent(jButtonVoltar1)
-                    .addComponent(jButtonSalvar2))
-                .addGap(28, 28, 28))
+                    .addComponent(jButtonNovaAula))
+                .addGap(29, 29, 29))
         );
 
         javax.swing.GroupLayout jPanelCentralLayout = new javax.swing.GroupLayout(jPanelCentral);
@@ -156,7 +208,7 @@ public class MostrarAlunoFrame extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButtonSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSalvarActionPerformed
+    private void jButtonVerAulasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonVerAulasActionPerformed
         /*MainFrame main = new MainFrame();
         main.setSize(1000, 570);
         main.setLocation(0, 0);
@@ -164,11 +216,15 @@ public class MostrarAlunoFrame extends javax.swing.JPanel {
         jPanelContent.add(main, BorderLayout.CENTER);
         jPanelContent.revalidate();
         jPanelContent.repaint();*/
-    }//GEN-LAST:event_jButtonSalvarActionPerformed
+    }//GEN-LAST:event_jButtonVerAulasActionPerformed
 
     private void jButtonSalvar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSalvar1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jButtonSalvar1ActionPerformed
+
+    private void jButtonEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEditarActionPerformed
+
+    }//GEN-LAST:event_jButtonEditarActionPerformed
 
     private void jButtonVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonVoltarActionPerformed
         AlunosCentralFrame central = new AlunosCentralFrame();
@@ -180,23 +236,22 @@ public class MostrarAlunoFrame extends javax.swing.JPanel {
         repaint();
     }//GEN-LAST:event_jButtonVoltarActionPerformed
 
-    private void jButtonVoltar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonVoltar1ActionPerformed
+    private void jButtonNovaAulaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonNovaAulaActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButtonVoltar1ActionPerformed
-
-    private void jButtonSalvar2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSalvar2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButtonSalvar2ActionPerformed
+    }//GEN-LAST:event_jButtonNovaAulaActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButtonSalvar;
+    private javax.swing.JButton jButtonEditar;
+    private javax.swing.JButton jButtonNovaAula;
     private javax.swing.JButton jButtonSalvar1;
-    private javax.swing.JButton jButtonSalvar2;
+    private javax.swing.JButton jButtonVerAulas;
     private javax.swing.JButton jButtonVoltar;
-    private javax.swing.JButton jButtonVoltar1;
     private javax.swing.JLabel jLabelTitulo;
     private javax.swing.JPanel jPanel;
     private javax.swing.JPanel jPanelCentral;
+    private javax.swing.JPanel jPanelEnd;
+    private javax.swing.JPanel jPanelMain;
+    private javax.swing.JPanel jPanelObs;
     // End of variables declaration//GEN-END:variables
 }

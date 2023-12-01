@@ -31,6 +31,16 @@ public class NovaModFrame extends javax.swing.JPanel {
         
     }
     
+    private void voltar() {
+        AlunosCentralFrame central = new AlunosCentralFrame();
+        central.setSize(820, 570);
+        central.setLocation(0, 0);
+        removeAll();
+        add(central, BorderLayout.CENTER);
+        revalidate();
+        repaint();
+    }
+    
     private void initComboBoxResp() {
         try {
             ColaboradorController respCtrl = new ColaboradorController();
@@ -130,7 +140,7 @@ public class NovaModFrame extends javax.swing.JPanel {
         jTextFieldPreco.setBackground(new java.awt.Color(239, 239, 239));
         jTextFieldPreco.setFont(new java.awt.Font("TT Hoves Pro Trial", 0, 12)); // NOI18N
         jTextFieldPreco.setForeground(new java.awt.Color(139, 137, 137));
-        jTextFieldPreco.setText("160.00");
+        jTextFieldPreco.setText("160,00");
         jTextFieldPreco.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 jTextFieldPrecoFocusGained(evt);
@@ -209,7 +219,7 @@ public class NovaModFrame extends javax.swing.JPanel {
                 .addGroup(jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jTextFieldPreco, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jComboBoxResp, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 148, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 144, Short.MAX_VALUE)
                 .addGroup(jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButtonSalvar)
                     .addComponent(jButtonVoltar))
@@ -258,7 +268,10 @@ public class NovaModFrame extends javax.swing.JPanel {
     }//GEN-LAST:event_jTextFieldNomeFocusGained
 
     private void jTextFieldPrecoFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextFieldPrecoFocusGained
-        // TODO add your handling code here:
+        if(jTextFieldPreco.getForeground().equals(new Color(139,137,137))) {
+            jTextFieldPreco.setForeground(new Color(41,41,41));
+            jTextFieldPreco.setText("");
+        }
     }//GEN-LAST:event_jTextFieldPrecoFocusGained
 
     private void jTextFieldPrecoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldPrecoActionPerformed
@@ -268,21 +281,15 @@ public class NovaModFrame extends javax.swing.JPanel {
     private void jButtonSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSalvarActionPerformed
         try {
             String nome = jTextFieldNome.getText();
-            int vezes_semana = (int) jComboBoxVSem.getSelectedItem();
-            double preco = Double.parseDouble(jTextFieldPreco.getText());
+            int vezes_semana = Integer.parseInt(jComboBoxVSem.getSelectedItem().toString().substring(0, 1));
+            double preco = Double.parseDouble(jTextFieldPreco.getText().replace(',', '.'));
             int resp = (int) jComboBoxResp.getSelectedIndex() + 1;
-            
-            /*if (!jTextFieldObj.getForeground().equals(new Color(139, 137, 137))) {
-                obj = jTextFieldObj.getText();
-            }
-            if (!jTextFieldObs.getForeground().equals(new Color(139, 137, 137))) {
-                obj = jTextFieldObs.getText();
-            }*/
             if (!nome.equals("") && !jTextFieldNome.getForeground().equals(new Color(139, 137, 137))) {
                 ModalidadeController modCtrl = new ModalidadeController();
                 modCtrl.insert(resp, nome, vezes_semana, preco);
+                voltar();
             } else {
-                JOptionPane.showMessageDialog(null, "Todos os campos obrigatórios devem ser preenchidos!", "Erro", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Todos os campos devem ser preenchidos!", "Erro", JOptionPane.ERROR_MESSAGE);
             }
         } catch (NumberFormatException ex) {
             JOptionPane.showMessageDialog(null, "Preencha os campos corretamente!", "Erro", JOptionPane.ERROR_MESSAGE);
@@ -293,13 +300,7 @@ public class NovaModFrame extends javax.swing.JPanel {
     }//GEN-LAST:event_jButtonSalvarActionPerformed
 
     private void jButtonVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonVoltarActionPerformed
-        AlunosCentralFrame central = new AlunosCentralFrame();
-        central.setSize(820, 570);
-        central.setLocation(0, 0);
-        removeAll();
-        add(central, BorderLayout.CENTER);
-        revalidate();
-        repaint();
+        voltar();
     }//GEN-LAST:event_jButtonVoltarActionPerformed
 
     private void jComboBoxRespActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxRespActionPerformed
