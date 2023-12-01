@@ -1,18 +1,22 @@
 package corp.healthware.view;
 
 import com.formdev.flatlaf.FlatClientProperties;
+import corp.healthware.model.entity.Aluno;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import javax.swing.UIManager;
 
 public class MostrarAlunoFrame extends javax.swing.JPanel {
 
-    public MostrarAlunoFrame() {
+    public MostrarAlunoFrame(Aluno a) {
         initComponents();
         jPanel.putClientProperty(FlatClientProperties.STYLE, "arc: 15");
         jPanelMain.putClientProperty(FlatClientProperties.STYLE, "arc: 15");
         jPanelEnd.putClientProperty(FlatClientProperties.STYLE, "arc: 15");
         jPanelObs.putClientProperty(FlatClientProperties.STYLE, "arc: 15");
+        
+        jLabelTitulo.setText(a.getNome_a());
+        
     }
 
     @SuppressWarnings("unchecked")
@@ -28,8 +32,10 @@ public class MostrarAlunoFrame extends javax.swing.JPanel {
         jButtonVoltar = new javax.swing.JButton();
         jButtonNovaAula = new javax.swing.JButton();
         jPanelMain = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
         jPanelObs = new javax.swing.JPanel();
         jPanelEnd = new javax.swing.JPanel();
+        jLabel2 = new javax.swing.JLabel();
 
         jButtonSalvar1.setBackground(new java.awt.Color(212, 81, 93));
         jButtonSalvar1.setFont(new java.awt.Font("Rosario", 1, 26)); // NOI18N
@@ -96,15 +102,25 @@ public class MostrarAlunoFrame extends javax.swing.JPanel {
 
         jPanelMain.setBackground(new java.awt.Color(239, 239, 239));
 
+        jLabel1.setBackground(new java.awt.Color(41, 41, 41));
+        jLabel1.setForeground(new java.awt.Color(41, 41, 41));
+        jLabel1.setText("jLabel1");
+
         javax.swing.GroupLayout jPanelMainLayout = new javax.swing.GroupLayout(jPanelMain);
         jPanelMain.setLayout(jPanelMainLayout);
         jPanelMainLayout.setHorizontalGroup(
             jPanelMainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGroup(jPanelMainLayout.createSequentialGroup()
+                .addGap(16, 16, 16)
+                .addComponent(jLabel1)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanelMainLayout.setVerticalGroup(
             jPanelMainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 124, Short.MAX_VALUE)
+            .addGroup(jPanelMainLayout.createSequentialGroup()
+                .addGap(17, 17, 17)
+                .addComponent(jLabel1)
+                .addContainerGap(91, Short.MAX_VALUE))
         );
 
         jPanelObs.setBackground(new java.awt.Color(239, 239, 239));
@@ -122,15 +138,26 @@ public class MostrarAlunoFrame extends javax.swing.JPanel {
 
         jPanelEnd.setBackground(new java.awt.Color(239, 239, 239));
 
+        jLabel2.setBackground(new java.awt.Color(41, 41, 41));
+        jLabel2.setFont(new java.awt.Font("TT Hoves Pro Trial", 0, 20)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(41, 41, 41));
+        jLabel2.setText("jLabel1");
+
         javax.swing.GroupLayout jPanelEndLayout = new javax.swing.GroupLayout(jPanelEnd);
         jPanelEnd.setLayout(jPanelEndLayout);
         jPanelEndLayout.setHorizontalGroup(
             jPanelEndLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 737, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelEndLayout.createSequentialGroup()
+                .addContainerGap(18, Short.MAX_VALUE)
+                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 713, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
         jPanelEndLayout.setVerticalGroup(
             jPanelEndLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 75, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelEndLayout.createSequentialGroup()
+                .addContainerGap(32, Short.MAX_VALUE)
+                .addComponent(jLabel2)
+                .addGap(27, 27, 27))
         );
 
         javax.swing.GroupLayout jPanelLayout = new javax.swing.GroupLayout(jPanel);
@@ -146,7 +173,7 @@ public class MostrarAlunoFrame extends javax.swing.JPanel {
                 .addComponent(jButtonEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jButtonVoltar, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(74, Short.MAX_VALUE))
+                .addContainerGap(79, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabelTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, 384, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -168,7 +195,7 @@ public class MostrarAlunoFrame extends javax.swing.JPanel {
                 .addComponent(jPanelMain, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(38, 38, 38)
                 .addComponent(jPanelEnd, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 37, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 32, Short.MAX_VALUE)
                 .addComponent(jPanelObs, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -247,6 +274,8 @@ public class MostrarAlunoFrame extends javax.swing.JPanel {
     private javax.swing.JButton jButtonSalvar1;
     private javax.swing.JButton jButtonVerAulas;
     private javax.swing.JButton jButtonVoltar;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabelTitulo;
     private javax.swing.JPanel jPanel;
     private javax.swing.JPanel jPanelCentral;

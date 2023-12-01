@@ -1,18 +1,28 @@
-
 package corp.healthware.view;
 
 import com.formdev.flatlaf.FlatClientProperties;
+import corp.healthware.controller.AlunoController;
+import corp.healthware.controller.ModalidadeController;
+import corp.healthware.model.dao.DAOexception;
 import corp.healthware.model.entity.Aluno;
+import corp.healthware.model.entity.Modalidade;
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 
 public class EditarAlunoFrame extends javax.swing.JPanel {
 
+    private int cod_a;
+
     public EditarAlunoFrame(Aluno a) {
-        UIManager.put( "Component.arrowType", "triangle" );
-        UIManager.put( "ComboBox.selectionBackground", new Color(212,81,93));
-        UIManager.put( "ComboBox.buttonBackground", new Color(212,81,93));
+        UIManager.put("Component.arrowType", "triangle");
+        UIManager.put("ComboBox.selectionBackground", new Color(212, 81, 93));
+        UIManager.put("ComboBox.buttonBackground", new Color(212, 81, 93));
         initComponents();
         jPanel.putClientProperty(FlatClientProperties.STYLE, "arc: 15");
         jTextFieldData.putClientProperty(FlatClientProperties.STYLE, "arc: 9");
@@ -20,15 +30,51 @@ public class EditarAlunoFrame extends javax.swing.JPanel {
         jTextFieldObs.putClientProperty(FlatClientProperties.STYLE, "arc: 9");
         jTextFieldTel.putClientProperty(FlatClientProperties.STYLE, "arc: 9");
         jTextFieldEndereco.putClientProperty(FlatClientProperties.STYLE, "arc: 9");
+        initComboBoxMod();
+        cod_a = a.getCod_a();
+        jComboBoxStatus.setSelectedIndex(a.getStatus() - 1);
         jLabelTitulo.setText(a.getNome_a());
-        jTextFieldData.setText(a.getData_nasc_a());
+        jTextFieldData.setText(formatarDataShow(a.getData_nasc_a()));
+        jTextFieldTel.setText(a.getTel_a());
+        jComboBoxHorario.setSelectedItem(a.getHorario().substring(0, 5));
         jTextFieldEndereco.setText(a.getEndereco());
+        jComboBoxPagamento.setSelectedItem("" + a.getDia_pag());
         jTextFieldObj.setText(a.getObj());
         jTextFieldObs.setText(a.getObs());
-        
+
     }
 
-    @SuppressWarnings("unchecked")
+    private void initComboBoxMod() {
+        try {
+            ModalidadeController modController = new ModalidadeController();
+            ArrayList<Modalidade> mods = modController.findAll();
+            mods.forEach((Modalidade mod) -> {
+                jComboBoxModalidade.addItem(mod.getNome_m() + " " + mod.getVezes_semana() + " Vezes na semana");
+            });
+        } catch (SQLException | DAOexception ex) {
+            Logger.getLogger(NovoAlunoFrame.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    private void voltar() {
+        AlunosCentralFrame central = new AlunosCentralFrame();
+        central.setSize(820, 570);
+        central.setLocation(0, 0);
+        removeAll();
+        add(central, BorderLayout.CENTER);
+        revalidate();
+        repaint();
+    }
+
+    private String formatarData() {
+        String str = jTextFieldData.getText();
+        return str.substring(6) + "-" + str.substring(3, 5) + "-" + str.substring(0, 2);
+    }
+
+    private String formatarDataShow(String data) {
+        return data.substring(8) + "/" + data.substring(5, 7) + "/" + data.substring(0, 4);
+    }
+
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
@@ -49,12 +95,12 @@ public class EditarAlunoFrame extends javax.swing.JPanel {
         jTextFieldTel = new javax.swing.JTextField();
         jTextFieldEndereco = new javax.swing.JTextField();
         jButtonSalvar = new javax.swing.JButton();
-        jComboBoxPilates = new javax.swing.JComboBox<>();
+        jComboBoxModalidade = new javax.swing.JComboBox<>();
         jComboBoxPagamento = new javax.swing.JComboBox<>();
         jLabelHorario = new javax.swing.JLabel();
         jComboBoxHorario = new javax.swing.JComboBox<>();
         jComboBoxStatus = new javax.swing.JComboBox<>();
-        jButtonSalvar1 = new javax.swing.JButton();
+        jButtonVoltar = new javax.swing.JButton();
 
         setPreferredSize(new java.awt.Dimension(820, 570));
 
@@ -65,6 +111,7 @@ public class EditarAlunoFrame extends javax.swing.JPanel {
         jLabelTitulo.setBackground(new java.awt.Color(41, 41, 41));
         jLabelTitulo.setFont(new java.awt.Font("Rosario", 1, 36)); // NOI18N
         jLabelTitulo.setForeground(new java.awt.Color(41, 41, 41));
+        jLabelTitulo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabelTitulo.setText("Editar");
 
         jLabelData.setFont(new java.awt.Font("Rosario", 1, 14)); // NOI18N
@@ -185,11 +232,11 @@ public class EditarAlunoFrame extends javax.swing.JPanel {
             }
         });
 
-        jComboBoxPilates.setBackground(new java.awt.Color(239, 239, 239));
-        jComboBoxPilates.setFont(new java.awt.Font("TT Hoves Pro Trial", 0, 12)); // NOI18N
-        jComboBoxPilates.setForeground(new java.awt.Color(41, 41, 41));
-        jComboBoxPilates.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Pilates", "Circuito", "Yoga" }));
-        jComboBoxPilates.setPreferredSize(new java.awt.Dimension(68, 26));
+        jComboBoxModalidade.setBackground(new java.awt.Color(239, 239, 239));
+        jComboBoxModalidade.setFont(new java.awt.Font("TT Hoves Pro Trial", 0, 12)); // NOI18N
+        jComboBoxModalidade.setForeground(new java.awt.Color(41, 41, 41));
+        jComboBoxModalidade.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Pilates", "Circuito", "Yoga" }));
+        jComboBoxModalidade.setPreferredSize(new java.awt.Dimension(68, 26));
 
         jComboBoxPagamento.setBackground(new java.awt.Color(239, 239, 239));
         jComboBoxPagamento.setFont(new java.awt.Font("TT Hoves Pro Trial", 0, 12)); // NOI18N
@@ -213,13 +260,13 @@ public class EditarAlunoFrame extends javax.swing.JPanel {
         jComboBoxStatus.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Ativo", "Inativo", "Devedor" }));
         jComboBoxStatus.setPreferredSize(new java.awt.Dimension(68, 26));
 
-        jButtonSalvar1.setBackground(new java.awt.Color(212, 81, 93));
-        jButtonSalvar1.setFont(new java.awt.Font("Rosario", 1, 26)); // NOI18N
-        jButtonSalvar1.setForeground(new java.awt.Color(239, 239, 239));
-        jButtonSalvar1.setText("VOLTAR");
-        jButtonSalvar1.addActionListener(new java.awt.event.ActionListener() {
+        jButtonVoltar.setBackground(new java.awt.Color(212, 81, 93));
+        jButtonVoltar.setFont(new java.awt.Font("Rosario", 1, 26)); // NOI18N
+        jButtonVoltar.setForeground(new java.awt.Color(239, 239, 239));
+        jButtonVoltar.setText("VOLTAR");
+        jButtonVoltar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonSalvar1ActionPerformed(evt);
+                jButtonVoltarActionPerformed(evt);
             }
         });
 
@@ -228,24 +275,13 @@ public class EditarAlunoFrame extends javax.swing.JPanel {
         jPanelLayout.setHorizontalGroup(
             jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelLayout.createSequentialGroup()
+                .addGap(60, 60, 60)
                 .addGroup(jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabelEndereco)
+                    .addComponent(jTextFieldEndereco, javax.swing.GroupLayout.PREFERRED_SIZE, 670, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTextFieldObs, javax.swing.GroupLayout.PREFERRED_SIZE, 670, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabelObs, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanelLayout.createSequentialGroup()
-                        .addGap(245, 245, 245)
-                        .addComponent(jLabelTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, 282, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanelLayout.createSequentialGroup()
-                        .addGap(60, 60, 60)
-                        .addComponent(jLabelEndereco))
-                    .addGroup(jPanelLayout.createSequentialGroup()
-                        .addGap(60, 60, 60)
-                        .addComponent(jTextFieldEndereco, javax.swing.GroupLayout.PREFERRED_SIZE, 670, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanelLayout.createSequentialGroup()
-                        .addGap(60, 60, 60)
-                        .addComponent(jTextFieldObs, javax.swing.GroupLayout.PREFERRED_SIZE, 670, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanelLayout.createSequentialGroup()
-                        .addGap(60, 60, 60)
-                        .addComponent(jLabelObs, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanelLayout.createSequentialGroup()
-                        .addGap(60, 60, 60)
                         .addGroup(jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabelObj, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jTextFieldObj, javax.swing.GroupLayout.PREFERRED_SIZE, 320, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -253,9 +289,14 @@ public class EditarAlunoFrame extends javax.swing.JPanel {
                         .addGroup(jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabelPagamento, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jComboBoxPagamento, javax.swing.GroupLayout.PREFERRED_SIZE, 323, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(jComboBoxStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 323, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanelLayout.createSequentialGroup()
-                        .addGap(60, 60, 60)
-                        .addGroup(jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(jLabelStatus)
+                        .addGap(313, 313, 313)
+                        .addComponent(jLabelData))
+                    .addGroup(jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addComponent(jLabelTitulo, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(jPanelLayout.createSequentialGroup()
                                 .addGroup(jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabelTel, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -263,26 +304,18 @@ public class EditarAlunoFrame extends javax.swing.JPanel {
                                 .addGap(30, 30, 30)
                                 .addGroup(jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabelModalidade, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jComboBoxPilates, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(jComboBoxModalidade, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGap(20, 20, 20)
                                 .addGroup(jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabelHorario, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jComboBoxHorario, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addComponent(jTextFieldData, javax.swing.GroupLayout.PREFERRED_SIZE, 320, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(jPanelLayout.createSequentialGroup()
-                        .addGap(60, 60, 60)
-                        .addGroup(jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jComboBoxStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 323, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(jPanelLayout.createSequentialGroup()
-                                .addComponent(jLabelStatus)
-                                .addGap(313, 313, 313)
-                                .addComponent(jLabelData)))))
+                            .addComponent(jTextFieldData, javax.swing.GroupLayout.PREFERRED_SIZE, 320, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(40, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelLayout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
                 .addComponent(jButtonSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(90, 90, 90)
-                .addComponent(jButtonSalvar1, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jButtonVoltar, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(185, 185, 185))
         );
         jPanelLayout.setVerticalGroup(
@@ -307,7 +340,7 @@ public class EditarAlunoFrame extends javax.swing.JPanel {
                         .addGap(2, 2, 2)
                         .addGroup(jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jTextFieldTel, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jComboBoxPilates, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(jComboBoxModalidade, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanelLayout.createSequentialGroup()
                         .addComponent(jLabelHorario)
                         .addGap(2, 2, 2)
@@ -331,7 +364,7 @@ public class EditarAlunoFrame extends javax.swing.JPanel {
                 .addGap(28, 28, 28)
                 .addGroup(jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButtonSalvar)
-                    .addComponent(jButtonSalvar1))
+                    .addComponent(jButtonVoltar))
                 .addContainerGap(30, Short.MAX_VALUE))
         );
 
@@ -366,10 +399,6 @@ public class EditarAlunoFrame extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jTextFieldDataActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldDataActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextFieldDataActionPerformed
-
     private void jTextFieldObjActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldObjActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextFieldObjActionPerformed
@@ -378,76 +407,85 @@ public class EditarAlunoFrame extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextFieldObsActionPerformed
 
-    private void jTextFieldTelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldTelActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextFieldTelActionPerformed
-
     private void jTextFieldEnderecoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldEnderecoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextFieldEnderecoActionPerformed
 
     private void jButtonSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSalvarActionPerformed
-        /*MainFrame main = new MainFrame();
-        main.setSize(1000, 570);
-        main.setLocation(0, 0);
-        jPanelContent.removeAll();
-        jPanelContent.add(main, BorderLayout.CENTER);
-        jPanelContent.revalidate();
-        jPanelContent.repaint();*/
+        try {
+            int status = (int) jComboBoxStatus.getSelectedIndex() + 1;
+            String dataNascimento = formatarData();
+            String telefone = jTextFieldTel.getText();
+            int modalidade = (int) jComboBoxModalidade.getSelectedIndex() + 1;
+            String horario = (String) jComboBoxHorario.getSelectedItem();
+            String endereco = jTextFieldEndereco.getText();
+            int diaPag = Integer.parseInt((String) jComboBoxPagamento.getSelectedItem());
+            String obs = jTextFieldObj.getText();
+            String obj = jTextFieldObs.getText();
+
+            if (!dataNascimento.equals("    -  -  ")
+                    && !telefone.equals("(  )      -    ")
+                    && !endereco.equals("")) {
+                AlunoController alunoCtrl = new AlunoController();
+                if (alunoCtrl.update(cod_a, dataNascimento, diaPag, obs, status, telefone, obj, modalidade, endereco, horario) != 0) {
+                    voltar();
+                }
+            } else {
+                JOptionPane.showMessageDialog(null, "Todos os campos obrigatórios devem ser preenchidos!", "Erro", JOptionPane.ERROR_MESSAGE);
+            }
+        } catch (NumberFormatException ex) {
+            JOptionPane.showMessageDialog(null, "Preencha os campos corretamente!", "Erro", JOptionPane.ERROR_MESSAGE);
+        } catch (DAOexception | SQLException ex) {
+            System.out.println("Erro criacao statement: " + ex);
+            System.exit(0);
+        }
     }//GEN-LAST:event_jButtonSalvarActionPerformed
 
+    private void jTextFieldEnderecoFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextFieldEnderecoFocusGained
+
+    }//GEN-LAST:event_jTextFieldEnderecoFocusGained
+
+    private void jTextFieldObjFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextFieldObjFocusGained
+
+    }//GEN-LAST:event_jTextFieldObjFocusGained
+
+    private void jTextFieldObsFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextFieldObsFocusGained
+
+    }//GEN-LAST:event_jTextFieldObsFocusGained
+
+    private void jButtonVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonVoltarActionPerformed
+        voltar();
+    }//GEN-LAST:event_jButtonVoltarActionPerformed
+
     private void jTextFieldDataFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextFieldDataFocusGained
-        if(jTextFieldData.getForeground().equals(new Color(139,137,137))) {
-            jTextFieldData.setForeground(new Color(41,41,41));
+        if (jTextFieldData.getForeground().equals(new Color(139, 137, 137))) {
+            jTextFieldData.setForeground(new Color(41, 41, 41));
             jTextFieldData.setText("");
         }
     }//GEN-LAST:event_jTextFieldDataFocusGained
 
+    private void jTextFieldDataActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldDataActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextFieldDataActionPerformed
+
     private void jTextFieldTelFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextFieldTelFocusGained
-        if(jTextFieldTel.getForeground().equals(new Color(139,137,137))) {
-            jTextFieldTel.setForeground(new Color(41,41,41));
+        if (jTextFieldTel.getForeground().equals(new Color(139, 137, 137))) {
+            jTextFieldTel.setForeground(new Color(41, 41, 41));
             jTextFieldTel.setText("");
         }
     }//GEN-LAST:event_jTextFieldTelFocusGained
 
-    private void jTextFieldEnderecoFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextFieldEnderecoFocusGained
-       if(jTextFieldEndereco.getForeground().equals(new Color(139,137,137))) {
-            jTextFieldEndereco.setForeground(new Color(41,41,41));
-            jTextFieldEndereco.setText("");
-        }
-    }//GEN-LAST:event_jTextFieldEnderecoFocusGained
-
-    private void jTextFieldObjFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextFieldObjFocusGained
-        if(jTextFieldObj.getForeground().equals(new Color(139,137,137))) {
-            jTextFieldObj.setForeground(new Color(41,41,41));
-            jTextFieldObj.setText("");
-        }
-    }//GEN-LAST:event_jTextFieldObjFocusGained
-
-    private void jTextFieldObsFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextFieldObsFocusGained
-        if(jTextFieldObs.getForeground().equals(new Color(139,137,137))) {
-            jTextFieldObs.setForeground(new Color(41,41,41));
-            jTextFieldObs.setText("");
-        }
-    }//GEN-LAST:event_jTextFieldObsFocusGained
-
-    private void jButtonSalvar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSalvar1ActionPerformed
-        AlunosCentralFrame central = new AlunosCentralFrame();
-        central.setSize(820, 570);
-        central.setLocation(0, 0);
-        removeAll();
-        add(central, BorderLayout.CENTER);
-        revalidate();
-        repaint();
-    }//GEN-LAST:event_jButtonSalvar1ActionPerformed
+    private void jTextFieldTelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldTelActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextFieldTelActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonSalvar;
-    private javax.swing.JButton jButtonSalvar1;
+    private javax.swing.JButton jButtonVoltar;
     private javax.swing.JComboBox<String> jComboBoxHorario;
+    private javax.swing.JComboBox<String> jComboBoxModalidade;
     private javax.swing.JComboBox<String> jComboBoxPagamento;
-    private javax.swing.JComboBox<String> jComboBoxPilates;
     private javax.swing.JComboBox<String> jComboBoxStatus;
     private javax.swing.JLabel jLabelData;
     private javax.swing.JLabel jLabelEndereco;

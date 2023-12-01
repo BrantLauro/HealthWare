@@ -47,13 +47,21 @@ public class AlunosCentralFrame extends javax.swing.JPanel {
 
             @Override
             public void onView(int row) {
-                MostrarAlunoFrame aluno = new MostrarAlunoFrame();
-                aluno.setSize(820, 570);
-                aluno.setLocation(0, 0);
-                removeAll();
-                add(aluno, BorderLayout.CENTER);
-                revalidate();
-                repaint();
+                AlunoController alunoCtrl = new AlunoController();
+                EditarAlunoFrame edAluno;
+                try {
+                    MostrarAlunoFrame aluno = new MostrarAlunoFrame(alunoCtrl.findOne((int) jTableAlunos.getValueAt(row, 0)));
+                    aluno.setSize(820, 570);
+                    aluno.setLocation(0, 0);
+                    removeAll();
+                    add(aluno, BorderLayout.CENTER);
+                    revalidate();
+                    repaint();
+                } catch (DAOexception ex) {
+                    Logger.getLogger(AlunosCentralFrame.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (SQLException ex) {
+                    Logger.getLogger(AlunosCentralFrame.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
 
             @Override

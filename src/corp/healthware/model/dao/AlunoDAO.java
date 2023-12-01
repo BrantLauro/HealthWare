@@ -4,8 +4,6 @@ import java.sql.*;
 import com.mysql.jdbc.Connection;
 import corp.healthware.model.entity.Aluno;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 public class AlunoDAO implements DAO<Aluno> {
@@ -34,7 +32,7 @@ public class AlunoDAO implements DAO<Aluno> {
             st.setString(10, a.getHorario());
 
             linhasGravadas = st.executeUpdate();
-            JOptionPane.showMessageDialog(null, "Aluno Cadastrado com Sucesso");
+            JOptionPane.showMessageDialog(null, "Aluno Cadastrado com Sucesso!");
         } catch (SQLException e) {
 //        if (e.getSQLState().equals("23505") || e.getSQLState().equals("23000")) {
 //                int resultado = JOptionPane.showConfirmDialog(null, "Aluno já cadastrado, deseja atualizar?", "Erro", JOptionPane.ERROR_MESSAGE);
@@ -71,12 +69,25 @@ public class AlunoDAO implements DAO<Aluno> {
             st.setString(7, a.getObj());
             st.setInt(8, a.getDia_pag());
             st.setString(9, a.getObs());
+            st.setInt(10, a.getCod_a());
             linhasAfetadas = st.executeUpdate();
 
-        } catch (SQLException ex) {
-            throw new DAOexception("Erro ao tentar atualizar entidade Aluno. SQLSTATE: " + ex.getMessage());
+            JOptionPane.showMessageDialog(null, "Aluno Editado com Sucesso!");
+        } catch (SQLException e) {
+//        if (e.getSQLState().equals("23505") || e.getSQLState().equals("23000")) {
+//                int resultado = JOptionPane.showConfirmDialog(null, "Aluno já cadastrado, deseja atualizar?", "Erro", JOptionPane.ERROR_MESSAGE);
+//
+//                if(resultado == JOptionPane.YES_OPTION) {
+//                    JOptionPane.showMessageDialog(null, "Atualizado");
+//                    return update(a);
+//                }
+//                else return 0;
+//           }
+            if (e.getSQLState().equals("22001")) {
+                JOptionPane.showMessageDialog(null, "Digite uma data válida!", "Erro", JOptionPane.ERROR_MESSAGE);
+            }
+//            System.out.println("sim" + e.getMessage());
         }
-
         return linhasAfetadas;
     }
 
