@@ -1,16 +1,17 @@
-
 package corp.healthware.model.dao;
 
 import java.sql.*;
 import com.mysql.jdbc.Connection;
 import corp.healthware.model.entity.Aluno;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
-public class AlunoDAO implements DAO<Aluno>{
-    
+public class AlunoDAO implements DAO<Aluno> {
+
     private Connection conn;
-    
+
     public AlunoDAO() throws SQLException {
         conn = (Connection) Singleton.getInstancia().getConexao();
     }
@@ -25,13 +26,13 @@ public class AlunoDAO implements DAO<Aluno>{
             st.setString(2, a.getData_nasc_a());
             st.setInt(3, a.getDia_pag());
             st.setString(4, a.getObs());
-            st.setInt(5,a.getStatus());
+            st.setInt(5, a.getStatus());
             st.setString(6, a.getTel_a());
             st.setString(7, a.getObj());
             st.setInt(8, a.getModalidade());
             st.setString(9, a.getEndereco());
             st.setString(10, a.getHorario());
-            
+
             linhasGravadas = st.executeUpdate();
             JOptionPane.showMessageDialog(null, "Aluno Cadastrado com Sucesso");
         } catch (SQLException e) {
@@ -44,8 +45,8 @@ public class AlunoDAO implements DAO<Aluno>{
 //                }
 //                else return 0;
 //           }
-            if(e.getSQLState().equals("22001")) {
-                 JOptionPane.showMessageDialog(null, "Digite uma data válida!", "Erro", JOptionPane.ERROR_MESSAGE);
+            if (e.getSQLState().equals("22001")) {
+                JOptionPane.showMessageDialog(null, "Digite uma data válida!", "Erro", JOptionPane.ERROR_MESSAGE);
             }
 //            System.out.println("sim" + e.getMessage());
         }
@@ -97,7 +98,7 @@ public class AlunoDAO implements DAO<Aluno>{
             JOptionPane.showMessageDialog(null, "Aluno Removido!");
 
         } catch (SQLException ex) {
-            if(ex.getSQLState().equals("23000")) {
+            if (ex.getSQLState().equals("23000")) {
                 JOptionPane.showMessageDialog(null, "Erro ao tentar deletar entidade Aluno", "Erro", JOptionPane.ERROR_MESSAGE);
                 return linhasAfetadas;
             }
@@ -109,7 +110,7 @@ public class AlunoDAO implements DAO<Aluno>{
 
     @Override
     public ArrayList<Aluno> findAll() throws DAOexception {
-       ArrayList<Aluno> funcs = null;
+        ArrayList<Aluno> funcs = null;
         PreparedStatement st = null;
 
         try {
@@ -147,7 +148,29 @@ public class AlunoDAO implements DAO<Aluno>{
     }
 
     @Override
-    public Aluno findOne(Aluno entidade) throws DAOexception {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public Aluno findOne(Aluno a) throws DAOexception {
+        try {
+            String query = "SELECT * FROM aluno WHERE cod_a = ?";
+            PreparedStatement st = conn.prepareStatement(query);
+            st.setInt(1, a.getCod_a());
+            ResultSet res = st.executeQuery();
+            res.next();
+            Aluno func = new Aluno();
+            func.setCod_a(Integer.parseInt(res.getString("cod_a")));
+            func.setNome_a(res.getString("nome_a"));
+            func.setData_nasc_a(res.getString("data_nasc_a"));
+            func.setDia_pag(res.getInt("dia_pag"));
+            func.setObs(res.getString("obs"));
+            func.setStatus(res.getInt("status"));
+            func.setTel_a(res.getString("tel_a"));
+            func.setObj(res.getString("obj"));
+            func.setModalidade(res.getInt("modalidade"));
+            func.setEndereco(res.getString("endereco"));
+            func.setHorario(res.getString("horario"));
+            return func;
+        } catch (SQLException ex) {
+            System.out.println("sim" + ex.getMessage());
+        }
+        return null;
     }
 }

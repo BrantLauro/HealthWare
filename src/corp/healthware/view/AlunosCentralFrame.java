@@ -10,6 +10,8 @@ import corp.healthware.view.cell.buttons.TableActionEvent;
 import java.awt.BorderLayout;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.table.DefaultTableModel;
 
 public class AlunosCentralFrame extends javax.swing.JPanel {
@@ -28,7 +30,7 @@ public class AlunosCentralFrame extends javax.swing.JPanel {
             AlunoController alunoCtrl = new AlunoController();
             ArrayList<Aluno> alunos = alunoCtrl.findAll();
             alunos.forEach((Aluno a) -> {
-                tableModel.addRow(new Object[]{a.getNome_a(), a.getNomeModalidade(), a.getStatusNome(), "Dia " + a.getDia_pag()});
+                tableModel.addRow(new Object[]{a.getCod_a(), a.getNome_a(), a.getNomeModalidade(), a.getStatusNome(), "Dia " + a.getDia_pag()});
             });
             jTableAlunos.setModel(tableModel);
         } catch (SQLException | DAOexception ex) {
@@ -56,7 +58,21 @@ public class AlunosCentralFrame extends javax.swing.JPanel {
 
             @Override
             public void onEdit(int row) {
-                System.out.println("Editar " + row);
+                AlunoController alunoCtrl = new AlunoController();
+                EditarAlunoFrame edAluno;
+                try {
+                    edAluno = new EditarAlunoFrame(alunoCtrl.findOne((int) jTableAlunos.getValueAt(row, 0)));
+                    edAluno.setSize(820, 570);
+                    edAluno.setLocation(0, 0);
+                    removeAll();
+                    add(edAluno, BorderLayout.CENTER);
+                    revalidate();
+                    repaint();
+                } catch (DAOexception ex) {
+                    Logger.getLogger(AlunosCentralFrame.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (SQLException ex) {
+                    Logger.getLogger(AlunosCentralFrame.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
 
             @Override
@@ -68,8 +84,8 @@ public class AlunosCentralFrame extends javax.swing.JPanel {
                 model.removeRow(row);
             }
         };
-        jTableAlunos.getColumnModel().getColumn(4).setCellRenderer(new TableActionCellRender());
-        jTableAlunos.getColumnModel().getColumn(4).setCellEditor(new TableActionCellEditor(event));
+        jTableAlunos.getColumnModel().getColumn(5).setCellRenderer(new TableActionCellRender());
+        jTableAlunos.getColumnModel().getColumn(5).setCellEditor(new TableActionCellEditor(event));
     }
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -98,9 +114,17 @@ public class AlunosCentralFrame extends javax.swing.JPanel {
 
             },
             new String [] {
-                "Nome", "Modalidade", "Status", "Dia do pagamento", "Ação"
+                "Cod.", "Nome", "Modalidade", "Status", "Vencimento", "Ação"
             }
-        ));
+        ) {
+            Class[] types = new Class [] {
+                java.lang.Integer.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+        });
         jTableAlunos.setFocusable(false);
         jTableAlunos.setGridColor(new java.awt.Color(239, 239, 239));
         jTableAlunos.setRowHeight(40);
@@ -111,6 +135,14 @@ public class AlunosCentralFrame extends javax.swing.JPanel {
         jTableAlunos.getTableHeader().setResizingAllowed(false);
         jTableAlunos.getTableHeader().setReorderingAllowed(false);
         jScrollPaneTabela.setViewportView(jTableAlunos);
+        if (jTableAlunos.getColumnModel().getColumnCount() > 0) {
+            jTableAlunos.getColumnModel().getColumn(0).setResizable(false);
+            jTableAlunos.getColumnModel().getColumn(0).setPreferredWidth(1);
+            jTableAlunos.getColumnModel().getColumn(3).setResizable(false);
+            jTableAlunos.getColumnModel().getColumn(3).setPreferredWidth(50);
+            jTableAlunos.getColumnModel().getColumn(4).setResizable(false);
+            jTableAlunos.getColumnModel().getColumn(4).setPreferredWidth(10);
+        }
 
         jTextFieldPesquisa.setBackground(new java.awt.Color(223, 223, 223));
         jTextFieldPesquisa.setFont(new java.awt.Font("Rosario", 1, 14)); // NOI18N

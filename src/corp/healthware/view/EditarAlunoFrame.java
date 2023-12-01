@@ -2,13 +2,14 @@
 package corp.healthware.view;
 
 import com.formdev.flatlaf.FlatClientProperties;
+import corp.healthware.model.entity.Aluno;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import javax.swing.UIManager;
 
 public class EditarAlunoFrame extends javax.swing.JPanel {
 
-    public EditarAlunoFrame() {
+    public EditarAlunoFrame(Aluno a) {
         UIManager.put( "Component.arrowType", "triangle" );
         UIManager.put( "ComboBox.selectionBackground", new Color(212,81,93));
         UIManager.put( "ComboBox.buttonBackground", new Color(212,81,93));
@@ -19,7 +20,11 @@ public class EditarAlunoFrame extends javax.swing.JPanel {
         jTextFieldObs.putClientProperty(FlatClientProperties.STYLE, "arc: 9");
         jTextFieldTel.putClientProperty(FlatClientProperties.STYLE, "arc: 9");
         jTextFieldEndereco.putClientProperty(FlatClientProperties.STYLE, "arc: 9");
-        
+        jLabelTitulo.setText(a.getNome_a());
+        jTextFieldData.setText(a.getData_nasc_a());
+        jTextFieldEndereco.setText(a.getEndereco());
+        jTextFieldObj.setText(a.getObj());
+        jTextFieldObs.setText(a.getObs());
         
     }
 

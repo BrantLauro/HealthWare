@@ -82,6 +82,10 @@ public class Aluno {
    public ArrayList<Aluno> findAllAluno() throws DAOexception, SQLException {
        return new AlunoDAO().findAll();
     }
+   
+    public Aluno findOneAluno(Aluno aluno) throws SQLException, DAOexception {
+       return new AlunoDAO().findOne(aluno);
+    }
     
     public int getCod_a() {
         return cod_a;
