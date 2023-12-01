@@ -6,10 +6,12 @@ package corp.healthware.model.entity;
 
 import corp.healthware.model.dao.DAOexception;
 import corp.healthware.model.dao.RegistroServicoDAO;
+import java.util.ArrayList;
+import java.sql.SQLException;
 
 /**
  *
- * @author dilce
+ * @author dilceu
  */
 public class RegistroServico {
     private int cod_s;
@@ -20,29 +22,29 @@ public class RegistroServico {
     public RegistroServico() {
     }
 
-    public RegistroServico(int cod_s) {
+    public RegistroServico(int cod_s, String data, String hora) {
         this.cod_s = cod_s;
-    }
-
-    public RegistroServico(String data, String hora, String nome_cliente) {
         this.data = data;
         this.hora = hora;
+    }
+
+    public RegistroServico(String nome_cliente) {
         this.nome_cliente = nome_cliente;
     }
 
-    public int cadastrarServico(RegistroServico registroservico) throws SQLException, DAOexception{
+    public int cadastrarRegistroServico(RegistroServico registroservico) throws SQLException, DAOexception{
         return new RegistroServicoDAO().insert(registroservico);
     }
     
-    public int updateServico(Servico servico) throws SQLException, DAOexception{
+    public int updateRegistroServico(RegistroServico registroservico) throws SQLException, DAOexception{
         return new RegistroServicoDAO().update(registroservico);
     }
     
-    public int excluirServico(Servico servico) throws SQLException, DAOexception{
+    public int excluirRegistroServico(RegistroServico registroservico) throws SQLException, DAOexception{
         return new RegistroServicoDAO().delete(registroservico);
     }
     
-    public ArrayList<Servico> findAllServico() throws SQLException, DAOexception{
+    public ArrayList<RegistroServico> findAllRegistroServico() throws SQLException, DAOexception{
         return new RegistroServicoDAO().findAll();
     }
     
