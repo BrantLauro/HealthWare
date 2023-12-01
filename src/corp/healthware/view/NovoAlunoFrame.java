@@ -234,6 +234,11 @@ public class NovoAlunoFrame extends javax.swing.JPanel {
                 jTextFieldDataFocusGained(evt);
             }
         });
+        jTextFieldData.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextFieldDataActionPerformed(evt);
+            }
+        });
 
         jTextFieldTel.setBackground(new java.awt.Color(239, 239, 239));
         jTextFieldTel.setForeground(new java.awt.Color(139, 137, 137));
@@ -247,6 +252,11 @@ public class NovoAlunoFrame extends javax.swing.JPanel {
         jTextFieldTel.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 jTextFieldTelFocusGained(evt);
+            }
+        });
+        jTextFieldTel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextFieldTelActionPerformed(evt);
             }
         });
 
@@ -501,6 +511,14 @@ public class NovoAlunoFrame extends javax.swing.JPanel {
             jTextFieldTel.setText("");
         }
     }//GEN-LAST:event_jTextFieldTelFocusGained
+
+    private void jTextFieldDataActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldDataActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextFieldDataActionPerformed
+
+    private void jTextFieldTelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldTelActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextFieldTelActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

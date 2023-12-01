@@ -2,8 +2,19 @@
 package corp.healthware.view;
 
 import com.formdev.flatlaf.FlatClientProperties;
+import corp.healthware.controller.AlunoController;
+import corp.healthware.controller.ColaboradorController;
+import corp.healthware.controller.ModalidadeController;
+import corp.healthware.model.dao.DAOexception;
+import corp.healthware.model.entity.Colaborador;
+import corp.healthware.model.entity.Modalidade;
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 
 public class NovaModFrame extends javax.swing.JPanel {
@@ -16,8 +27,21 @@ public class NovaModFrame extends javax.swing.JPanel {
         jPanel.putClientProperty(FlatClientProperties.STYLE, "arc: 15");
         jTextFieldNome.putClientProperty(FlatClientProperties.STYLE, "arc: 9");
         jTextFieldPreco.putClientProperty(FlatClientProperties.STYLE, "arc: 9");
+        initComboBoxResp();
         
-        
+    }
+    
+    private void initComboBoxResp() {
+        try {
+            ColaboradorController respCtrl = new ColaboradorController();
+            ArrayList<Colaborador> resp = respCtrl.findAll();
+            resp.forEach((Colaborador col) -> {
+
+                jComboBoxResp.addItem(col.getNome_c());
+            });
+        } catch (SQLException | DAOexception ex) {
+            Logger.getLogger(NovoAlunoFrame.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     @SuppressWarnings("unchecked")
@@ -92,8 +116,12 @@ public class NovaModFrame extends javax.swing.JPanel {
         jComboBoxResp.setBackground(new java.awt.Color(239, 239, 239));
         jComboBoxResp.setFont(new java.awt.Font("TT Hoves Pro Trial", 0, 12)); // NOI18N
         jComboBoxResp.setForeground(new java.awt.Color(41, 41, 41));
-        jComboBoxResp.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Cecília Brant", "Clever" }));
         jComboBoxResp.setPreferredSize(new java.awt.Dimension(68, 26));
+        jComboBoxResp.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBoxRespActionPerformed(evt);
+            }
+        });
 
         jLabelResp.setFont(new java.awt.Font("Rosario", 1, 14)); // NOI18N
         jLabelResp.setForeground(new java.awt.Color(41, 41, 41));
@@ -181,7 +209,7 @@ public class NovaModFrame extends javax.swing.JPanel {
                 .addGroup(jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jTextFieldPreco, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jComboBoxResp, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 144, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 148, Short.MAX_VALUE)
                 .addGroup(jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButtonSalvar)
                     .addComponent(jButtonVoltar))
@@ -238,13 +266,30 @@ public class NovaModFrame extends javax.swing.JPanel {
     }//GEN-LAST:event_jTextFieldPrecoActionPerformed
 
     private void jButtonSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSalvarActionPerformed
-        /*MainFrame main = new MainFrame();
-        main.setSize(1000, 570);
-        main.setLocation(0, 0);
-        jPanelContent.removeAll();
-        jPanelContent.add(main, BorderLayout.CENTER);
-        jPanelContent.revalidate();
-        jPanelContent.repaint();*/
+        try {
+            String nome = jTextFieldNome.getText();
+            int vezes_semana = (int) jComboBoxVSem.getSelectedItem();
+            double preco = Double.parseDouble(jTextFieldPreco.getText());
+            int resp = (int) jComboBoxResp.getSelectedIndex() + 1;
+            
+            /*if (!jTextFieldObj.getForeground().equals(new Color(139, 137, 137))) {
+                obj = jTextFieldObj.getText();
+            }
+            if (!jTextFieldObs.getForeground().equals(new Color(139, 137, 137))) {
+                obj = jTextFieldObs.getText();
+            }*/
+            if (!nome.equals("") && !jTextFieldNome.getForeground().equals(new Color(139, 137, 137))) {
+                ModalidadeController modCtrl = new ModalidadeController();
+                modCtrl.insert(resp, nome, vezes_semana, preco);
+            } else {
+                JOptionPane.showMessageDialog(null, "Todos os campos obrigatórios devem ser preenchidos!", "Erro", JOptionPane.ERROR_MESSAGE);
+            }
+        } catch (NumberFormatException ex) {
+            JOptionPane.showMessageDialog(null, "Preencha os campos corretamente!", "Erro", JOptionPane.ERROR_MESSAGE);
+        } catch (DAOexception | SQLException ex) {
+            System.out.println("Erro criacao statement: " + ex);
+            System.exit(0);
+        }
     }//GEN-LAST:event_jButtonSalvarActionPerformed
 
     private void jButtonVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonVoltarActionPerformed
@@ -257,12 +302,13 @@ public class NovaModFrame extends javax.swing.JPanel {
         repaint();
     }//GEN-LAST:event_jButtonVoltarActionPerformed
 
+    private void jComboBoxRespActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxRespActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jComboBoxRespActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonSalvar;
-    private javax.swing.JButton jButtonSalvar2;
-    private javax.swing.JButton jButtonSalvar3;
-    private javax.swing.JButton jButtonSalvar4;
     private javax.swing.JButton jButtonVoltar;
     private javax.swing.JComboBox<String> jComboBoxResp;
     private javax.swing.JComboBox<String> jComboBoxVSem;

@@ -21,10 +21,9 @@ public class ModalidadeDAO implements DAO<Modalidade>{
     public int insert(Modalidade a) throws DAOexception {
         int linhasGravadas = 0;
         try {
-            String iQuery = "INSERT INTO modalidade (cod_m,resp,nome_m,vezes_semana,preco) VALUES (?,?,?,?,?)";
+            String iQuery = "INSERT INTO modalidade (resp,nome_m,vezes_semana,preco) VALUES (?,?,?,?,?)";
 
             PreparedStatement st = conn.prepareStatement(iQuery);
-            st.setInt(1, a.getCod_m());
             st.setInt(2, a.getResp());
             st.setString(3, a.getNome_m());
             st.setInt(4, a.getVezes_semana());

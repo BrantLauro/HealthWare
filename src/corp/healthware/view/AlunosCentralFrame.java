@@ -25,8 +25,8 @@ public class AlunosCentralFrame extends javax.swing.JPanel {
             DefaultTableModel tableModel = (DefaultTableModel) jTableAlunos.getModel();
             tableModel.setRowCount(0);
             AlunoController alunoCtrl = new AlunoController();
-            ArrayList<Aluno> materiais = alunoCtrl.findAll();
-            materiais.forEach((Aluno a) -> {
+            ArrayList<Aluno> alunos = alunoCtrl.findAll();
+            alunos.forEach((Aluno a) -> {
                 tableModel.addRow(new Object[]{a.getNome_a(), a.getModalidade(), a.getStatus(), a.getDia_pag()});
             });
             jTableAlunos.setModel(tableModel);
@@ -88,9 +88,7 @@ public class AlunosCentralFrame extends javax.swing.JPanel {
         jTableAlunos.setForeground(new java.awt.Color(41, 41, 41));
         jTableAlunos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
+
             },
             new String [] {
                 "Nome", "Modalidade", "Status", "Dia do pagamento", "Ação"
@@ -99,7 +97,6 @@ public class AlunosCentralFrame extends javax.swing.JPanel {
         jTableAlunos.setFocusable(false);
         jTableAlunos.setGridColor(new java.awt.Color(239, 239, 239));
         jTableAlunos.setRowHeight(40);
-        jTableAlunos.setRowSelectionAllowed(true);
         jTableAlunos.setSelectionBackground(new java.awt.Color(239, 239, 239));
         jTableAlunos.setSelectionForeground(new java.awt.Color(41, 41, 41));
         jTableAlunos.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);

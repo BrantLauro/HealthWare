@@ -35,7 +35,7 @@ public class AlunoDAO implements DAO<Aluno>{
             linhasGravadas = st.executeUpdate();
             JOptionPane.showMessageDialog(null, "Aluno Cadastrado com Sucesso");
         } catch (SQLException e) {
-//            if (e.getSQLState().equals("23505") || e.getSQLState().equals("23000")) {
+//        if (e.getSQLState().equals("23505") || e.getSQLState().equals("23000")) {
 //                int resultado = JOptionPane.showConfirmDialog(null, "Aluno já cadastrado, deseja atualizar?", "Erro", JOptionPane.ERROR_MESSAGE);
 //
 //                if(resultado == JOptionPane.YES_OPTION) {
@@ -47,7 +47,7 @@ public class AlunoDAO implements DAO<Aluno>{
             if(e.getSQLState().equals("22001")) {
                  JOptionPane.showMessageDialog(null, "Digite uma data válida!", "Erro", JOptionPane.ERROR_MESSAGE);
             }
-            //System.out.println("sim" + e.getSQLState());
+//            System.out.println("sim" + e.getMessage());
         }
         return linhasGravadas;
     }
