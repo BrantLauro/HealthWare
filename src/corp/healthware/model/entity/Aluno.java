@@ -87,6 +87,10 @@ public class Aluno {
        return new AlunoDAO().findOne(aluno);
     }
     
+    public ArrayList<Aluno> searchAluno(String nome) throws SQLException, DAOexception {
+        return new AlunoDAO().search(nome);
+    }
+    
     public int getCod_a() {
         return cod_a;
     }

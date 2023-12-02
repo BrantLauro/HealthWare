@@ -43,4 +43,8 @@ public class AlunoController {
         Aluno aluno = new Aluno(cod_a);
         return aluno.findOneAluno(aluno);
     }
+    
+    public ArrayList<Aluno> search(String nome) throws DAOexception, SQLException {
+        return new Aluno().searchAluno(nome);
+    }
 }

@@ -185,4 +185,38 @@ public class AlunoDAO implements DAO<Aluno> {
         }
         return null;
     }
+
+    public ArrayList<Aluno> search(String nome) throws DAOexception {
+        ArrayList<Aluno> alunos = null;
+        PreparedStatement st = null;
+        try {
+            String query = "SELECT cod_a, nome_a, data_nasc_a, dia_pag, obs, status, tel_a, obj, modalidade, endereco, horario, nome_m FROM aluno JOIN modalidade ON modalidade = cod_m WHERE nome_a LIKE '%" + nome + "%' order by nome_a";
+
+            st = conn.prepareStatement(query);
+            ResultSet res = st.executeQuery();
+            if (res != null) {
+                alunos = new ArrayList<>();
+                while (res.next()) {
+                    Aluno func = new Aluno();
+                    func.setCod_a(Integer.parseInt(res.getString("cod_a")));
+                    func.setNome_a(res.getString("nome_a"));
+                    func.setData_nasc_a(res.getString("data_nasc_a"));
+                    func.setDia_pag(res.getInt("dia_pag"));
+                    func.setObs(res.getString("obs"));
+                    func.setStatus(res.getInt("status"));
+                    func.setTel_a(res.getString("tel_a"));
+                    func.setObj(res.getString("obj"));
+                    func.setModalidade(res.getInt("modalidade"));
+                    func.setEndereco(res.getString("endereco"));
+                    func.setHorario(res.getString("horario"));
+                    func.setNomeModalidade(res.getString("nome_m"));
+                    alunos.add(func);
+
+                }
+            }
+        } catch (SQLException e) {
+            throw new DAOexception("Erro ao tentar achar curso : SQLState : " + e.getMessage());
+        }
+        return alunos;
+    }
 }

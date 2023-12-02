@@ -12,6 +12,8 @@ public class Modalidade {
     private String nome_m;
     private int vezes_semana;
     private double preco;
+    private String nomeResp;
+    
 
     public Modalidade() {
     }
@@ -57,6 +59,14 @@ public class Modalidade {
 
     public void setResp(int resp) {
         this.resp = resp;
+    }
+    
+    public String getNomeResp() {
+        return nomeResp;
+    }
+
+    public void setNomeResp(String nomeResp) {
+        this.nomeResp = nomeResp;
     }
 
     public String getNome_m() {
