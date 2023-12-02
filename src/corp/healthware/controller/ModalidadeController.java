@@ -1,6 +1,7 @@
 package corp.healthware.controller;
 
 import corp.healthware.model.dao.DAOexception;
+import corp.healthware.model.entity.Aluno;
 import corp.healthware.model.entity.Modalidade;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -33,5 +34,9 @@ public class ModalidadeController {
 
     public ArrayList<Modalidade> findAll() throws DAOexception, SQLException {
         return new Modalidade().findAllModalidade();
+    }
+    
+    public ArrayList<Modalidade> search(String nome) throws DAOexception, SQLException {
+        return new Modalidade().searchModalidade(nome);
     }
 }

@@ -2,6 +2,7 @@
 package corp.healthware.model.dao;
 
 import com.mysql.jdbc.Connection;
+import corp.healthware.model.entity.Aluno;
 import corp.healthware.model.entity.Modalidade;
 import java.sql.*;
 import java.sql.PreparedStatement;
@@ -126,6 +127,34 @@ public class ModalidadeDAO implements DAO<Modalidade>{
         }
 
         return funcs;
+    }
+    
+        public ArrayList<Modalidade> search(String nome) throws DAOexception {
+        ArrayList<Modalidade> mods = null;
+        PreparedStatement st = null;
+        try {
+            String query = "SELECT cod_m, resp, nome_m, vezes_semana, preco, nome_c FROM modalidade JOIN colaborador ON resp = cod_c WHERE nome_m LIKE '%" + nome + "%' order by nome_m";
+
+            st = conn.prepareStatement(query);
+            ResultSet res = st.executeQuery();
+            if (res != null) {
+                mods = new ArrayList<>();
+                while (res.next()) {
+                    Modalidade func = new Modalidade();
+                    func.setCod_m(Integer.parseInt(res.getString("cod_m")));
+                    func.setResp(Integer.parseInt(res.getString("resp")));
+                    func.setNome_m(res.getString("nome_m"));
+                    func.setVezes_semana(Integer.parseInt(res.getString("vezes_semana")));
+                    func.setPreco(Double.parseDouble(res.getString("preco")));
+                    func.setNomeResp(res.getString("nome_c"));
+                    mods.add(func);
+
+                }
+            }
+        } catch (SQLException e) {
+            throw new DAOexception("Erro ao tentar achar modalidade : SQLState : " + e.getMessage());
+        }
+        return mods;
     }
 
     @Override

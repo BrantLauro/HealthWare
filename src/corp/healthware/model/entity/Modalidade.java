@@ -93,9 +93,7 @@ public class Modalidade {
         this.preco = preco;
     }
 
-    /*public ArrayList<Modalidade> findAllModalidade() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }*/
-    
-    
+    public ArrayList<Modalidade> searchModalidade(String nome) throws SQLException, DAOexception {
+        return new ModalidadeDAO().search(nome);
+    }   
 }

@@ -123,7 +123,7 @@ public class AlunosCentralFrame extends javax.swing.JPanel {
         jTableAlunos.getColumnModel().getColumn(5).setCellEditor(new TableActionCellEditor(event));
     }
     
-    private void initTableModalidade() {
+    private void initTableModalidade(String pesquisa) {
         try {
             DefaultTableModel tableModel = (DefaultTableModel) jTableAlunos.getModel();
             tableModel.setRowCount(0);
@@ -133,8 +133,10 @@ public class AlunosCentralFrame extends javax.swing.JPanel {
             jTableAlunos.getColumnModel().getColumn(2).setPreferredWidth(50);
             jTableAlunos.getColumnModel().getColumn(3).setPreferredWidth(1);
             ModalidadeController modalidadeCtrl = new ModalidadeController();
-            ArrayList<Modalidade> alunos = modalidadeCtrl.findAll();
-            alunos.forEach((Modalidade m) -> {
+            ArrayList<Modalidade> mods;
+            if(pesquisa.equals("")) mods = modalidadeCtrl.findAll();
+            else mods = modalidadeCtrl.search(pesquisa);
+            mods.forEach((Modalidade m) -> {
                 tableModel.addRow(new Object[]{m.getCod_m(), m.getNome_m(), m.getVezes_semana() + " Vezes", NumberFormat.getCurrencyInstance().format(m.getPreco()), m.getNomeResp()});
             });
             jTableAlunos.setModel(tableModel);
@@ -371,7 +373,7 @@ public class AlunosCentralFrame extends javax.swing.JPanel {
 
     private void jButtonChangeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonChangeActionPerformed
         if(tAluno) {
-            initTableModalidade();
+            initTableModalidade("");
             tAluno = false;
         } else {
             initTableAlunos("");
@@ -381,7 +383,11 @@ public class AlunosCentralFrame extends javax.swing.JPanel {
 
     private void jLabelPesquisaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelPesquisaMouseClicked
         String pesquisa = jTextFieldPesquisa.getText();
-        initTableAlunos(pesquisa);
+        if (tAluno) {
+            initTableAlunos(pesquisa);
+        } else {
+            initTableModalidade(pesquisa);
+        }
     }//GEN-LAST:event_jLabelPesquisaMouseClicked
 
 
