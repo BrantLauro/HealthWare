@@ -77,19 +77,25 @@ public class ModalidadeDAO implements DAO<Modalidade>{
 
         try {
             String delQuery = "DELETE from modalidade WHERE cod_m = ?";
+            String upQuery = "UPDATE aluno set modalidade = null WHERE modalidade = ?";
 
+            PreparedStatement st2 = conn.prepareStatement(upQuery);
             PreparedStatement st = conn.prepareStatement(delQuery);
-            st.setInt(1, entidade.getCod_m());
             
-            linhasAfetadas = st.executeUpdate();
+            st2.setInt(1, entidade.getCod_m());
+            st.setInt(1, entidade.getCod_m());
+           
+            
+            linhasAfetadas += st2.executeUpdate();
+            linhasAfetadas += st.executeUpdate();
             JOptionPane.showMessageDialog(null, "Modalidade Removida!");
 
         } catch (SQLException ex) {
             if(ex.getSQLState().equals("23000")) {
-                JOptionPane.showMessageDialog(null, "A Modalidade tem requisições pendentes!", "Erro", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(null, "A Modalidade tem alunos!", "Erro", JOptionPane.ERROR_MESSAGE);
                 return linhasAfetadas;
             }
-            throw new DAOexception("Erro ao tentar deletar entidade Modalidade SQLSTATE: " + ex.getSQLState());
+            throw new DAOexception("Erro ao tentar deletar entidade Modalidade SQLSTATE: " + ex.getMessage());
         }
 
         return linhasAfetadas;

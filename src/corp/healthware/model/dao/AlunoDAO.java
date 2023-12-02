@@ -125,7 +125,7 @@ public class AlunoDAO implements DAO<Aluno> {
         PreparedStatement st = null;
 
         try {
-            String query = "SELECT cod_a, nome_a, data_nasc_a, dia_pag, obs, status, tel_a, obj, nome_m, endereco, horario FROM aluno JOIN modalidade ON modalidade = cod_m";
+            String query = "SELECT cod_a, nome_a, data_nasc_a, dia_pag, obs, status, tel_a, obj, modalidade, nome_m, endereco, horario FROM aluno, modalidade WHERE modalidade = cod_m OR modalidade IS NULL GROUP BY cod_a";
             st = conn.prepareStatement(query);
             ResultSet res = st.executeQuery();
             if (res != null) {
@@ -143,9 +143,15 @@ public class AlunoDAO implements DAO<Aluno> {
                     func.setStatus(res.getInt("status"));
                     func.setTel_a(res.getString("tel_a"));
                     func.setObj(res.getString("obj"));
-                    func.setNomeModalidade(res.getString("nome_m"));
                     func.setEndereco(res.getString("endereco"));
                     func.setHorario(res.getString("horario"));
+                    if (res.getInt("modalidade") != 0) {
+                        func.setModalidade(res.getInt("modalidade"));
+                        func.setNomeModalidade(res.getString("nome_m"));
+                    } else {
+                        func.setNomeModalidade("Sem Modalidade");
+                        func.setModalidade(-1);
+                    }
 
                     funcs.add(func);
 
@@ -175,10 +181,15 @@ public class AlunoDAO implements DAO<Aluno> {
             func.setStatus(res.getInt("status"));
             func.setTel_a(res.getString("tel_a"));
             func.setObj(res.getString("obj"));
-            func.setModalidade(res.getInt("modalidade"));
             func.setEndereco(res.getString("endereco"));
             func.setHorario(res.getString("horario"));
-            func.setNomeModalidade(res.getString("nome_m"));
+            if (res.getString("modalidade") != null) {
+                func.setModalidade(res.getInt("modalidade"));
+                func.setNomeModalidade(res.getString("nome_m"));
+            } else {
+                func.setNomeModalidade("Sem Modalidade");
+                func.setModalidade(-1);
+            }
             return func;
         } catch (SQLException ex) {
             System.out.println("sim" + ex.getMessage());
@@ -206,16 +217,21 @@ public class AlunoDAO implements DAO<Aluno> {
                     func.setStatus(res.getInt("status"));
                     func.setTel_a(res.getString("tel_a"));
                     func.setObj(res.getString("obj"));
-                    func.setModalidade(res.getInt("modalidade"));
                     func.setEndereco(res.getString("endereco"));
                     func.setHorario(res.getString("horario"));
-                    func.setNomeModalidade(res.getString("nome_m"));
+                    if (res.getString("modalidade") != null) {
+                        func.setModalidade(res.getInt("modalidade"));
+                        func.setNomeModalidade(res.getString("nome_m"));
+                    } else {
+                        func.setNomeModalidade("Sem Modalidade");
+                        func.setModalidade(-1);
+                    }
                     alunos.add(func);
 
                 }
             }
         } catch (SQLException e) {
-            throw new DAOexception("Erro ao tentar achar curso : SQLState : " + e.getMessage());
+            throw new DAOexception("Erro ao tentar achar Aluno : SQLState : " + e.getMessage());
         }
         return alunos;
     }

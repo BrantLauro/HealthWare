@@ -99,6 +99,7 @@ public class AlunosCentralFrame extends javax.swing.JPanel {
 
             @Override
             public void onDelete(int row) {
+                System.out.println("Apagando ALuno");
                 int resultado = JOptionPane.showConfirmDialog(null, "Tem certeza que deseja excluir esse aluno?\nIsso apagará todos os seus dados e suas aulas!", "Excluir Aluno", 0);
                 if (resultado == JOptionPane.YES_OPTION) {
                     try {
@@ -192,16 +193,16 @@ public class AlunosCentralFrame extends javax.swing.JPanel {
 
             @Override
             public void onDelete(int row) {
-                int resultado = JOptionPane.showConfirmDialog(null, "Tem certeza que deseja excluir esse aluno?\nIsso apagará todos os seus dados e suas aulas!", "Excluir Aluno", 0);
+                int resultado = JOptionPane.showConfirmDialog(null, "Tem certeza que deseja excluir essa Modalidade?", "Excluir Modalidade", 0);
                 if (resultado == JOptionPane.YES_OPTION) {
                     try {
                         if (jTableAlunos.isEditing()) {
                             jTableAlunos.getCellEditor().stopCellEditing();
                         }
                         DefaultTableModel model = (DefaultTableModel) jTableAlunos.getModel();
-                        AlunoController alunoCtrl = new AlunoController();
-                        int cod_a = (int) model.getValueAt(row, 0);
-                        alunoCtrl.delete(cod_a);
+                        ModalidadeController modCtrl = new ModalidadeController();
+                        int cod_m = (int) model.getValueAt(row, 0);
+                        modCtrl.delete(cod_m);
                         model.removeRow(row);
                     } catch (NumberFormatException ex) {
                         System.out.println("ERROR: " + ex);
