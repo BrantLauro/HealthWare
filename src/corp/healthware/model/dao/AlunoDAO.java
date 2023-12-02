@@ -97,7 +97,7 @@ public class AlunoDAO implements DAO<Aluno> {
 
         try {
             String delQuery = "DELETE from aluno WHERE cod_a = ? ";
-            String delQueryAulas = "DELETE from aulas WHERE cod_a = ? ";
+            String delQueryAulas = "DELETE from aula WHERE cod_a = ? ";
 
             PreparedStatement st = conn.prepareStatement(delQuery);
             PreparedStatement stAulas = conn.prepareStatement(delQueryAulas);
@@ -113,7 +113,7 @@ public class AlunoDAO implements DAO<Aluno> {
                 JOptionPane.showMessageDialog(null, "Erro ao tentar deletar entidade Aluno", "Erro", JOptionPane.ERROR_MESSAGE);
                 return linhasAfetadas;
             }
-            throw new DAOexception("Erro ao tentar deletar entidade Aluno SQLSTATE: " + ex.getSQLState());
+            throw new DAOexception("Erro ao tentar deletar entidade Aluno SQLSTATE: " + ex.getMessage());
         }
 
         return linhasAfetadas;
@@ -161,7 +161,7 @@ public class AlunoDAO implements DAO<Aluno> {
     @Override
     public Aluno findOne(Aluno a) throws DAOexception {
         try {
-            String query = "SELECT * FROM aluno WHERE cod_a = ?";
+            String query = "SELECT cod_a, nome_a, data_nasc_a, dia_pag, obs, status, tel_a, obj, modalidade, endereco, horario, nome_m FROM aluno JOIN modalidade ON modalidade = cod_m WHERE cod_a = ?";
             PreparedStatement st = conn.prepareStatement(query);
             st.setInt(1, a.getCod_a());
             ResultSet res = st.executeQuery();
@@ -178,6 +178,7 @@ public class AlunoDAO implements DAO<Aluno> {
             func.setModalidade(res.getInt("modalidade"));
             func.setEndereco(res.getString("endereco"));
             func.setHorario(res.getString("horario"));
+            func.setNomeModalidade(res.getString("nome_m"));
             return func;
         } catch (SQLException ex) {
             System.out.println("sim" + ex.getMessage());

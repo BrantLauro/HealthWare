@@ -12,6 +12,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 public class AlunosCentralFrame extends javax.swing.JPanel {
@@ -19,6 +20,7 @@ public class AlunosCentralFrame extends javax.swing.JPanel {
     public AlunosCentralFrame() {
         initComponents();
         jTextFieldPesquisa.putClientProperty(FlatClientProperties.STYLE, "arc: 9");
+        jButtonChange.putClientProperty(FlatClientProperties.STYLE, "arc: 999");
         initTableAlunos();
 
     }
@@ -85,11 +87,24 @@ public class AlunosCentralFrame extends javax.swing.JPanel {
 
             @Override
             public void onDelete(int row) {
-                if (jTableAlunos.isEditing()) {
-                    jTableAlunos.getCellEditor().stopCellEditing();
+                int resultado = JOptionPane.showConfirmDialog(null, "Tem certeza que deseja excluir esse aluno?\nIsso apagará todos os seus dados e suas aulas!", "Excluir Aluno", 0);
+                if (resultado == JOptionPane.YES_OPTION) {
+                    try {
+                        if (jTableAlunos.isEditing()) {
+                            jTableAlunos.getCellEditor().stopCellEditing();
+                        }
+                        DefaultTableModel model = (DefaultTableModel) jTableAlunos.getModel();
+                        AlunoController alunoCtrl = new AlunoController();
+                        int cod_a = (int) model.getValueAt(row, 0);
+                        alunoCtrl.delete(cod_a);
+                        model.removeRow(row);
+                    } catch (NumberFormatException ex) {
+                        System.out.println("ERROR: " + ex);
+                    } catch (DAOexception | SQLException ex) {
+                        System.out.println("ERROR: " + ex);
+                    }
                 }
-                DefaultTableModel model = (DefaultTableModel) jTableAlunos.getModel();
-                model.removeRow(row);
+
             }
         };
         jTableAlunos.getColumnModel().getColumn(5).setCellRenderer(new TableActionCellRender());
@@ -99,16 +114,26 @@ public class AlunosCentralFrame extends javax.swing.JPanel {
     private void initComponents() {
 
         jPanelCentral = new javax.swing.JPanel();
+        jButtonChange = new javax.swing.JButton();
         jScrollPaneTabela = new javax.swing.JScrollPane();
         jTableAlunos = new javax.swing.JTable();
         jTextFieldPesquisa = new javax.swing.JTextField();
-        jPanelIcone = new javax.swing.JPanel();
         jLabelPesquisa = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(239, 239, 239));
         setPreferredSize(new java.awt.Dimension(797, 570));
 
         jPanelCentral.setBackground(new java.awt.Color(239, 239, 239));
+
+        jButtonChange.setBackground(new java.awt.Color(223, 223, 223));
+        jButtonChange.setFont(new java.awt.Font("Rosario", 1, 20)); // NOI18N
+        jButtonChange.setForeground(new java.awt.Color(239, 239, 239));
+        jButtonChange.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/change.png"))); // NOI18N
+        jButtonChange.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonChangeActionPerformed(evt);
+            }
+        });
 
         jScrollPaneTabela.setBackground(new java.awt.Color(223, 223, 223));
         jScrollPaneTabela.setToolTipText("");
@@ -168,69 +193,55 @@ public class AlunosCentralFrame extends javax.swing.JPanel {
             }
         });
 
-        jPanelIcone.setBackground(new java.awt.Color(239, 239, 239));
-
         jLabelPesquisa.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/pesquisar.png"))); // NOI18N
-
-        javax.swing.GroupLayout jPanelIconeLayout = new javax.swing.GroupLayout(jPanelIcone);
-        jPanelIcone.setLayout(jPanelIconeLayout);
-        jPanelIconeLayout.setHorizontalGroup(
-            jPanelIconeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 42, Short.MAX_VALUE)
-            .addGroup(jPanelIconeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelIconeLayout.createSequentialGroup()
-                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabelPesquisa)
-                    .addContainerGap()))
-        );
-        jPanelIconeLayout.setVerticalGroup(
-            jPanelIconeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 42, Short.MAX_VALUE)
-            .addGroup(jPanelIconeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelIconeLayout.createSequentialGroup()
-                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabelPesquisa)
-                    .addContainerGap()))
-        );
 
         javax.swing.GroupLayout jPanelCentralLayout = new javax.swing.GroupLayout(jPanelCentral);
         jPanelCentral.setLayout(jPanelCentralLayout);
         jPanelCentralLayout.setHorizontalGroup(
             jPanelCentralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelCentralLayout.createSequentialGroup()
-                .addGap(46, 46, 46)
-                .addComponent(jTextFieldPesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, 656, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(6, 6, 6)
-                .addComponent(jPanelIcone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addGroup(jPanelCentralLayout.createSequentialGroup()
-                .addGap(10, 10, 10)
-                .addComponent(jScrollPaneTabela, javax.swing.GroupLayout.PREFERRED_SIZE, 764, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanelCentralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelCentralLayout.createSequentialGroup()
+                        .addGap(46, 46, 46)
+                        .addComponent(jTextFieldPesquisa)
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabelPesquisa)
+                        .addGap(18, 18, 18)
+                        .addComponent(jButtonChange, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(34, 34, 34))
+                    .addGroup(jPanelCentralLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jScrollPaneTabela, javax.swing.GroupLayout.PREFERRED_SIZE, 764, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(16, Short.MAX_VALUE))
         );
         jPanelCentralLayout.setVerticalGroup(
             jPanelCentralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelCentralLayout.createSequentialGroup()
-                .addGap(20, 20, 20)
+                .addGap(24, 24, 24)
                 .addGroup(jPanelCentralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jTextFieldPesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jPanelIcone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(28, 28, 28)
-                .addComponent(jScrollPaneTabela, javax.swing.GroupLayout.PREFERRED_SIZE, 433, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanelCentralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(jTextFieldPesquisa)
+                        .addComponent(jLabelPesquisa, javax.swing.GroupLayout.DEFAULT_SIZE, 38, Short.MAX_VALUE))
+                    .addComponent(jButtonChange, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPaneTabela, javax.swing.GroupLayout.PREFERRED_SIZE, 433, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(53, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 882, Short.MAX_VALUE)
+            .addGap(0, 811, Short.MAX_VALUE)
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addGap(1, 1, 1)
                     .addComponent(jPanelCentral, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addContainerGap(24, Short.MAX_VALUE)))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 572, Short.MAX_VALUE)
+            .addGap(0, 570, Short.MAX_VALUE)
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addGap(1, 1, 1)
@@ -247,11 +258,15 @@ public class AlunosCentralFrame extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextFieldPesquisaActionPerformed
 
+    private void jButtonChangeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonChangeActionPerformed
+
+    }//GEN-LAST:event_jButtonChangeActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButtonChange;
     private javax.swing.JLabel jLabelPesquisa;
     private javax.swing.JPanel jPanelCentral;
-    private javax.swing.JPanel jPanelIcone;
     private javax.swing.JScrollPane jScrollPaneTabela;
     private javax.swing.JTable jTableAlunos;
     private javax.swing.JTextField jTextFieldPesquisa;
