@@ -41,8 +41,7 @@ public class AlunosCentralFrame extends javax.swing.JPanel {
             jTableAlunos.getColumnModel().getColumn(4).setPreferredWidth(1);
             ArrayList<Aluno> alunos;
             AlunoController alunoCtrl = new AlunoController();
-            if(pesquisa.equals(""))
-            alunos = alunoCtrl.findAll();
+            if(pesquisa.equals("")) alunos = alunoCtrl.findAll();
             else alunos = alunoCtrl.search(pesquisa);
             alunos.forEach((Aluno a) -> {
                 tableModel.addRow(new Object[]{a.getCod_a(), a.getNome_a(), a.getNomeModalidade(), a.getStatusNome(), "Dia " + a.getDia_pag()});
