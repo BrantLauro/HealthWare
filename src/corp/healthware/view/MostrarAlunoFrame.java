@@ -21,7 +21,7 @@ public class MostrarAlunoFrame extends javax.swing.JPanel {
         jPanelMain.putClientProperty(FlatClientProperties.STYLE, "arc: 15");
         jPanelEnd.putClientProperty(FlatClientProperties.STYLE, "arc: 15");
         jPanelObs.putClientProperty(FlatClientProperties.STYLE, "arc: 15");
-
+        
         cod_a = a.getCod_a();
         jLabelTitulo.setText(a.getNome_a());
         jLabelStatus.setText("Status: " + a.getStatusNome());
@@ -262,7 +262,7 @@ public class MostrarAlunoFrame extends javax.swing.JPanel {
                 .addComponent(jLabelTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, 384, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(190, 190, 190))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelLayout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
+                .addGap(0, 14, Short.MAX_VALUE)
                 .addGroup(jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jPanelMain, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanelObs, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -278,14 +278,14 @@ public class MostrarAlunoFrame extends javax.swing.JPanel {
                 .addComponent(jPanelMain, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(38, 38, 38)
                 .addComponent(jPanelEnd, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 27, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 31, Short.MAX_VALUE)
                 .addComponent(jPanelObs, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButtonVerAulas)
                     .addComponent(jButtonEditar)
-                    .addComponent(jButtonVoltar)
-                    .addComponent(jButtonNovaAula))
+                    .addComponent(jButtonNovaAula)
+                    .addComponent(jButtonVoltar, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(29, 29, 29))
         );
 
@@ -319,13 +319,13 @@ public class MostrarAlunoFrame extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonVerAulasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonVerAulasActionPerformed
-        /*MainFrame main = new MainFrame();
+        MostrarAulasFrame main = new MostrarAulasFrame();
         main.setSize(1000, 570);
         main.setLocation(0, 0);
-        jPanelContent.removeAll();
-        jPanelContent.add(main, BorderLayout.CENTER);
-        jPanelContent.revalidate();
-        jPanelContent.repaint();*/
+        removeAll();
+        add(main, BorderLayout.CENTER);
+        revalidate();
+        repaint();
     }//GEN-LAST:event_jButtonVerAulasActionPerformed
 
     private void jButtonSalvar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSalvar1ActionPerformed
@@ -362,6 +362,13 @@ public class MostrarAlunoFrame extends javax.swing.JPanel {
 
     private void jButtonNovaAulaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonNovaAulaActionPerformed
         // TODO add your handling code here:
+        NovaAulaFrame novaAula = new NovaAulaFrame(cod_a);
+        novaAula.setSize(820, 570);
+        novaAula.setLocation(0, 0);
+        removeAll();
+        add(novaAula, BorderLayout.CENTER);
+        revalidate();
+        repaint();        
     }//GEN-LAST:event_jButtonNovaAulaActionPerformed
 
 

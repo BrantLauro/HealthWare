@@ -453,7 +453,7 @@ public class NovoAlunoFrame extends javax.swing.JPanel {
                 obj = jTextFieldObs.getText();
             }
             if (!nome.equals("") && !jTextFieldNome.getForeground().equals(new Color(139, 137, 137))
-                    && !dataNascimento.equals("    -  -  ") && !jTextFieldTel.getForeground().equals(new Color(139, 137, 137))
+                    && !dataNascimento.equals("    -  -  ") && !jTextFieldData.getForeground().equals(new Color(139, 137, 137))
                     && !telefone.equals("(  )      -    ") && !jTextFieldTel.getForeground().equals(new Color(139, 137, 137))
                     && !endereco.equals("") && !jTextFieldEndereco.getForeground().equals(new Color(139, 137, 137))) {
                 AlunoController alunoCtrl = new AlunoController();

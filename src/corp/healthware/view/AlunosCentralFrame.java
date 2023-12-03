@@ -260,9 +260,16 @@ public class AlunosCentralFrame extends javax.swing.JPanel {
             Class[] types = new Class [] {
                 java.lang.Integer.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class
             };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, true
+            };
 
             public Class getColumnClass(int columnIndex) {
                 return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
             }
         });
         jTableAlunos.setFocusable(false);
@@ -280,10 +287,13 @@ public class AlunosCentralFrame extends javax.swing.JPanel {
         if (jTableAlunos.getColumnModel().getColumnCount() > 0) {
             jTableAlunos.getColumnModel().getColumn(0).setResizable(false);
             jTableAlunos.getColumnModel().getColumn(0).setPreferredWidth(1);
+            jTableAlunos.getColumnModel().getColumn(1).setResizable(false);
+            jTableAlunos.getColumnModel().getColumn(2).setResizable(false);
             jTableAlunos.getColumnModel().getColumn(3).setResizable(false);
             jTableAlunos.getColumnModel().getColumn(3).setPreferredWidth(50);
             jTableAlunos.getColumnModel().getColumn(4).setResizable(false);
             jTableAlunos.getColumnModel().getColumn(4).setPreferredWidth(10);
+            jTableAlunos.getColumnModel().getColumn(5).setResizable(false);
         }
 
         jTextFieldPesquisa.setBackground(new java.awt.Color(223, 223, 223));

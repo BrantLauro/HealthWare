@@ -1,37 +1,55 @@
 
 package corp.healthware.model.entity;
 
+import corp.healthware.model.dao.AulaDAO;
+import corp.healthware.model.dao.DAOexception;
+import java.sql.SQLException;
+import java.util.ArrayList;
+
 public class Aula {
-    private int cod_m;
     private int cod_a;
-    private String data_a;
-    private String hora_a;
+    private String data_au;
+    private String hora_au;
     private String descricao;
 
     public Aula() {
     }
 
-    public Aula(int cod_m) {
-        this.cod_m = cod_m;
+    public Aula(int cod_a) {
         this.cod_a = cod_a;
     }
 
-    public Aula(int cod_m, int cod_a, String data_a, String hora_a, String descricao) {
-        this.cod_m = cod_m;
+    public Aula(int cod_a, String data_au, String hora_au, String descricao) {
         this.cod_a = cod_a;
-        this.data_a = data_a;
-        this.hora_a = hora_a;
+        this.data_au = data_au;
+        this.hora_au = hora_au;
         this.descricao = descricao;
     }
     
-    public int getCod_m() {
-        return cod_m;
+    public int cadastrarAula(Aula aula) throws SQLException, DAOexception {
+        return new AulaDAO().insert(aula);
     }
-
-    public void setCod_m(int cod_m) {
-        this.cod_m = cod_m;
+    
+     public int updateAula(Aula aula) throws DAOexception, SQLException {
+        return new AulaDAO().update(aula);
     }
-
+    
+    public int excluirAula(Aula aula)throws SQLException, DAOexception{
+        return new AulaDAO().delete(aula);
+    }
+    
+   public ArrayList<Aula> findAllAula() throws DAOexception, SQLException {
+       return new AulaDAO().findAll();
+    }
+   
+    public Aula findOneAula(Aula aula) throws SQLException, DAOexception {
+       return new AulaDAO().findOne(aula);
+    }
+    
+    /*public ArrayList<Aula> searchAluno(String nome) throws SQLException, DAOexception {
+        return new AulaDAO().search(nome);
+    }*/
+    
     public int getCod_a() {
         return cod_a;
     }
@@ -40,20 +58,20 @@ public class Aula {
         this.cod_a = cod_a;
     }
 
-    public String getData_a() {
-        return data_a;
+    public String getData_au() {
+        return data_au;
     }
 
-    public void setData_a(String data_a) {
-        this.data_a = data_a;
+    public void setData_au(String data_au) {
+        this.data_au = data_au;
     }
 
-    public String getHora_a() {
-        return hora_a;
+    public String getHora_au() {
+        return hora_au;
     }
 
-    public void setHora_a(String hora_a) {
-        this.hora_a = hora_a;
+    public void setHora_au(String hora_au) {
+        this.hora_au = hora_au;
     }
 
     public String getDescricao() {

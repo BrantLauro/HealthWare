@@ -21,28 +21,31 @@ public class AulaDAO implements DAO<Aula>{
     public int insert(Aula a) throws DAOexception {
         int linhasGravadas = 0;
         try {
-            String iQuery = "INSERT INTO aluno (cod_m,cod_a,data_a,hora_a,descricao) VALUES (?,?,?,?,?)";
+            String iQuery = "INSERT INTO aula (cod_a,data_au,hora_au,descricao) VALUES (?,?,?,?)";
 
             PreparedStatement st = conn.prepareStatement(iQuery);
-            st.setInt(1, a.getCod_m());
-            st.setInt(2, a.getCod_a());
-            st.setString(3, a.getData_a());
-            st.setString(4, a.getHora_a());
-            st.setString(5, a.getDescricao());
+            st.setInt(1, a.getCod_a());
+            st.setString(2, a.getData_au());
+            st.setString(3, a.getHora_au());
+            st.setString(4, a.getDescricao());
             
             linhasGravadas = st.executeUpdate();
-            JOptionPane.showMessageDialog(null, "Cadastrado");
+            JOptionPane.showMessageDialog(null, "Cadastrada");
         } catch (SQLException e) {
-            if (e.getSQLState().equals("23505") || e.getSQLState().equals("23000")) {
-                int resultado = JOptionPane.showConfirmDialog(null, "Aula já cadastrado, deseja atualizar?", "Erro", JOptionPane.ERROR_MESSAGE);
-
-                if(resultado == JOptionPane.YES_OPTION) {
-                    JOptionPane.showMessageDialog(null, "Atualizado");
-                    return update(a);
-                }
-                else return 0;
+            if (e.getSQLState().equals("22001")) {
+                JOptionPane.showMessageDialog(null, "Digite uma data válida!", "Erro", JOptionPane.ERROR_MESSAGE);
             }
             System.out.println("sim" + e.getMessage());
+//            if (e.getSQLState().equals("23505") || e.getSQLState().equals("23000")) {
+//                int resultado = JOptionPane.showConfirmDialog(null, "Aula já cadastrada, deseja atualizar?", "Erro", JOptionPane.ERROR_MESSAGE);
+//
+//                if(resultado == JOptionPane.YES_OPTION) {
+//                    JOptionPane.showMessageDialog(null, "Atualizado");
+//                    return update(a);
+//                }
+//                else return 0;
+//            }
+            
         }
         return linhasGravadas;
     }
@@ -52,15 +55,14 @@ public class AulaDAO implements DAO<Aula>{
         int linhasAfetadas = 0;
 
         try {
-            String uQuery = "UPDATE aula SET hora_a = ?, descricao = ?"
-                    + "where cod_m = ? and cod_a = ? and data_a = ?";
+            String uQuery = "UPDATE aula SET hora_au = ?, descricao = ?"
+                    + "where cod_a = ? and cod_a = ? and data_au = ?";
 
             PreparedStatement st = conn.prepareStatement(uQuery);
-            st.setString(1, entidade.getHora_a());
+            st.setString(1, entidade.getHora_au());
             st.setString(2, entidade.getDescricao());
-            st.setInt(3, entidade.getCod_m());
-            st.setInt(4, entidade.getCod_a());
-            st.setString(5, entidade.getData_a());
+            st.setInt(3, entidade.getCod_a());
+            st.setString(5, entidade.getData_au());
 
             linhasAfetadas = st.executeUpdate();
 
@@ -76,11 +78,10 @@ public class AulaDAO implements DAO<Aula>{
         int linhasAfetadas = 0;
 
         try {
-            String delQuery = "DELETE from aula WHERE cod_m = ? and cod_a = ?";
+            String delQuery = "DELETE from aula WHERE cod_a";
 
             PreparedStatement st = conn.prepareStatement(delQuery);
-            st.setInt(1, entidade.getCod_m());
-            st.setInt(2, entidade.getCod_a());
+            st.setInt(1, entidade.getCod_a());
             
             linhasAfetadas = st.executeUpdate();
             JOptionPane.showMessageDialog(null, "Aula Removida!");
@@ -112,10 +113,9 @@ public class AulaDAO implements DAO<Aula>{
 
                     Aula func = new Aula();
 
-                    func.setCod_a(Integer.parseInt(res.getString("id")));
-                    func.setCod_m(res.getInt("cod_m"));
                     func.setCod_a(res.getInt("cod_a"));
-                    func.setData_a(res.getString("data_a"));
+                    func.setData_au(res.getString("data_au"));
+                    func.setHora_au(res.getString("hora_au"));
                     func.setDescricao(res.getString("descricao"));
                     
                     funcs.add(func);
