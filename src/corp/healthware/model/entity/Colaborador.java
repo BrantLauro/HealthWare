@@ -1,18 +1,11 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 package corp.healthware.model.entity;
 
 import corp.healthware.model.dao.DAOexception;
 import corp.healthware.model.dao.ColaboradorDAO;
-import java.util.ArrayList;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
-/**
- *
- * @author dilceu
- */
 public class Colaborador {
     private int cod_c;
     private String nome_c;
@@ -120,6 +113,6 @@ public class Colaborador {
     public void setAdm(boolean adm) {
         this.adm = adm;
     }
-
+    
     
 }
