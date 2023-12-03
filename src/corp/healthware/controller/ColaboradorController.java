@@ -1,7 +1,4 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 package corp.healthware.controller;
 
 import corp.healthware.model.dao.DAOexception;
@@ -9,11 +6,8 @@ import corp.healthware.model.entity.Colaborador;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-/**
- *
- * @author dilce
- */
 public class ColaboradorController {
+    
     public int insert(String nome_c, String tel_c, String data_nasc_c, String esp, String email, String senha, boolean adm) throws DAOexception, SQLException {
         if (nome_c != null && tel_c != null && data_nasc_c != null && esp != null && email != null && senha != null && adm != false) {
             Colaborador colaborador = new Colaborador(nome_c, tel_c, data_nasc_c, esp, email, senha, adm);

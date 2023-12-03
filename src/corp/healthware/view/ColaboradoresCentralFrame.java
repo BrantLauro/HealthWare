@@ -14,9 +14,9 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.table.DefaultTableModel;
 
-public class ServicosCentralFrame extends javax.swing.JPanel {
+public class ColaboradoresCentralFrame extends javax.swing.JPanel {
 
-    public ServicosCentralFrame() {
+    public ColaboradoresCentralFrame() {
         initComponents();
     }
 
@@ -25,7 +25,7 @@ public class ServicosCentralFrame extends javax.swing.JPanel {
     private void initComponents() {
 
         jPanelCentral = new javax.swing.JPanel();
-        jLabelServicos = new javax.swing.JLabel();
+        jLabelColaboradores = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTableServicos = new javax.swing.JTable();
 
@@ -34,24 +34,24 @@ public class ServicosCentralFrame extends javax.swing.JPanel {
 
         jPanelCentral.setBackground(new java.awt.Color(239, 239, 239));
 
-        jLabelServicos.setFont(new java.awt.Font("Rosario", 1, 36)); // NOI18N
-        jLabelServicos.setForeground(new java.awt.Color(41, 41, 41));
-        jLabelServicos.setText("Serviços");
+        jLabelColaboradores.setFont(new java.awt.Font("Rosario", 1, 36)); // NOI18N
+        jLabelColaboradores.setForeground(new java.awt.Color(41, 41, 41));
+        jLabelColaboradores.setText("Colaboradores");
 
         jTableServicos.setBackground(new java.awt.Color(239, 239, 239));
         jTableServicos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
             },
             new String [] {
-                "Serviço", "Responsável", "Data", "Horário", "Valor"
+                "Nome", "Especialidade", "Telefone", "Data Nasc."
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false
+                false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -64,7 +64,6 @@ public class ServicosCentralFrame extends javax.swing.JPanel {
             jTableServicos.getColumnModel().getColumn(1).setMinWidth(100);
             jTableServicos.getColumnModel().getColumn(2).setPreferredWidth(60);
             jTableServicos.getColumnModel().getColumn(3).setPreferredWidth(50);
-            jTableServicos.getColumnModel().getColumn(4).setPreferredWidth(50);
         }
 
         javax.swing.GroupLayout jPanelCentralLayout = new javax.swing.GroupLayout(jPanelCentral);
@@ -75,17 +74,17 @@ public class ServicosCentralFrame extends javax.swing.JPanel {
                 .addContainerGap(184, Short.MAX_VALUE)
                 .addGroup(jPanelCentralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelCentralLayout.createSequentialGroup()
-                        .addComponent(jLabelServicos)
-                        .addGap(305, 305, 305))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelCentralLayout.createSequentialGroup()
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 633, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(45, 45, 45))))
+                        .addGap(45, 45, 45))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelCentralLayout.createSequentialGroup()
+                        .addComponent(jLabelColaboradores)
+                        .addGap(247, 247, 247))))
         );
         jPanelCentralLayout.setVerticalGroup(
             jPanelCentralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelCentralLayout.createSequentialGroup()
                 .addGap(25, 25, 25)
-                .addComponent(jLabelServicos)
+                .addComponent(jLabelColaboradores)
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(53, Short.MAX_VALUE))
@@ -115,7 +114,7 @@ public class ServicosCentralFrame extends javax.swing.JPanel {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel jLabelServicos;
+    private javax.swing.JLabel jLabelColaboradores;
     private javax.swing.JPanel jPanelCentral;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTableServicos;

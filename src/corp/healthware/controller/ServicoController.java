@@ -15,7 +15,7 @@ import java.util.ArrayList;
  */
 public class ServicoController {
     public int insert(String nome_s, double preco, int resp) throws DAOexception, SQLException {
-        if (nome_s != null && preco != null && resp != null) {
+        if(nome_s != null && preco != null && resp != null) {
             Servico servico = new Servico(nome_s, preco, resp);
             return servico.cadastrarServico(servico);
         }
@@ -23,7 +23,7 @@ public class ServicoController {
     }
 
     public int update(String nome_s, double preco, int resp) throws DAOexception, SQLException {
-        if (nome_s != null && preco != null && resp != null) {
+        if(nome_s != null && preco != null && resp != null) {
             Servico servico = new Servico(nome_s, preco, resp);
             return servico.updateServico(servico);
         }

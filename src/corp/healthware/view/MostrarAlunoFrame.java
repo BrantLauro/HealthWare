@@ -1,13 +1,20 @@
 package corp.healthware.view;
 
 import com.formdev.flatlaf.FlatClientProperties;
+import corp.healthware.controller.AlunoController;
+import corp.healthware.model.dao.DAOexception;
 import corp.healthware.model.entity.Aluno;
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.UIManager;
 
 public class MostrarAlunoFrame extends javax.swing.JPanel {
 
+    private int cod_a;
+    
     public MostrarAlunoFrame(Aluno a) {
         initComponents();
         jPanel.putClientProperty(FlatClientProperties.STYLE, "arc: 15");
@@ -15,11 +22,24 @@ public class MostrarAlunoFrame extends javax.swing.JPanel {
         jPanelEnd.putClientProperty(FlatClientProperties.STYLE, "arc: 15");
         jPanelObs.putClientProperty(FlatClientProperties.STYLE, "arc: 15");
         
+        cod_a = a.getCod_a();
         jLabelTitulo.setText(a.getNome_a());
-        
+        jLabelStatus.setText("Status: " + a.getStatusNome());
+        jLabelData.setText("Data de Nascimento: " + formatarDataShow(a.getData_nasc_a()));
+        jLabelMod.setText("Modalidade: " + a.getNomeModalidade());
+        jLabelHorario.setText("Horário: " + a.getHorario().substring(0, 5));
+        jLabelTel.setText("Telefone: " + a.getTel_a());
+        jLabelVencimento.setText("Vencimento: " + a.getDia_pag());
+        jLabelEndereco.setText("Endereco: " + a.getEndereco());
+        jLabelObj.setText("Objetivo: " + a.getObj());
+        jLabelObs.setText("Observações: " + a.getObs());
+
     }
 
-    @SuppressWarnings("unchecked")
+    private String formatarDataShow(String data) {
+        return data.substring(8) + "/" + data.substring(5, 7) + "/" + data.substring(0, 4);
+    }
+
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
@@ -32,10 +52,17 @@ public class MostrarAlunoFrame extends javax.swing.JPanel {
         jButtonVoltar = new javax.swing.JButton();
         jButtonNovaAula = new javax.swing.JButton();
         jPanelMain = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
+        jLabelData = new javax.swing.JLabel();
+        jLabelMod = new javax.swing.JLabel();
+        jLabelTel = new javax.swing.JLabel();
+        jLabelStatus = new javax.swing.JLabel();
+        jLabelVencimento = new javax.swing.JLabel();
+        jLabelHorario = new javax.swing.JLabel();
         jPanelObs = new javax.swing.JPanel();
+        jLabelObj = new javax.swing.JLabel();
+        jLabelObs = new javax.swing.JLabel();
         jPanelEnd = new javax.swing.JPanel();
-        jLabel2 = new javax.swing.JLabel();
+        jLabelEndereco = new javax.swing.JLabel();
 
         jButtonSalvar1.setBackground(new java.awt.Color(212, 81, 93));
         jButtonSalvar1.setFont(new java.awt.Font("Rosario", 1, 26)); // NOI18N
@@ -102,62 +129,118 @@ public class MostrarAlunoFrame extends javax.swing.JPanel {
 
         jPanelMain.setBackground(new java.awt.Color(239, 239, 239));
 
-        jLabel1.setBackground(new java.awt.Color(41, 41, 41));
-        jLabel1.setForeground(new java.awt.Color(41, 41, 41));
-        jLabel1.setText("jLabel1");
+        jLabelData.setFont(new java.awt.Font("TT Hoves Pro Trial", 0, 20)); // NOI18N
+        jLabelData.setForeground(new java.awt.Color(41, 41, 41));
+        jLabelData.setText("jLabel3");
+
+        jLabelMod.setFont(new java.awt.Font("TT Hoves Pro Trial", 0, 20)); // NOI18N
+        jLabelMod.setForeground(new java.awt.Color(41, 41, 41));
+        jLabelMod.setText("jLabel3");
+
+        jLabelTel.setFont(new java.awt.Font("TT Hoves Pro Trial", 0, 20)); // NOI18N
+        jLabelTel.setForeground(new java.awt.Color(41, 41, 41));
+        jLabelTel.setText("jLabel3");
+
+        jLabelStatus.setFont(new java.awt.Font("TT Hoves Pro Trial", 0, 20)); // NOI18N
+        jLabelStatus.setForeground(new java.awt.Color(41, 41, 41));
+        jLabelStatus.setText("jLabel3");
+
+        jLabelVencimento.setFont(new java.awt.Font("TT Hoves Pro Trial", 0, 20)); // NOI18N
+        jLabelVencimento.setForeground(new java.awt.Color(41, 41, 41));
+        jLabelVencimento.setText("jLabel3");
+
+        jLabelHorario.setFont(new java.awt.Font("TT Hoves Pro Trial", 0, 20)); // NOI18N
+        jLabelHorario.setForeground(new java.awt.Color(41, 41, 41));
+        jLabelHorario.setText("jLabel3");
 
         javax.swing.GroupLayout jPanelMainLayout = new javax.swing.GroupLayout(jPanelMain);
         jPanelMain.setLayout(jPanelMainLayout);
         jPanelMainLayout.setHorizontalGroup(
             jPanelMainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanelMainLayout.createSequentialGroup()
-                .addGap(16, 16, 16)
-                .addComponent(jLabel1)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelMainLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanelMainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(jLabelTel, javax.swing.GroupLayout.DEFAULT_SIZE, 336, Short.MAX_VALUE)
+                    .addComponent(jLabelMod, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabelStatus, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanelMainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabelData, javax.swing.GroupLayout.PREFERRED_SIZE, 342, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabelVencimento, javax.swing.GroupLayout.PREFERRED_SIZE, 342, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabelHorario, javax.swing.GroupLayout.PREFERRED_SIZE, 342, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(23, 23, 23))
         );
         jPanelMainLayout.setVerticalGroup(
             jPanelMainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelMainLayout.createSequentialGroup()
                 .addGap(17, 17, 17)
-                .addComponent(jLabel1)
-                .addContainerGap(91, Short.MAX_VALUE))
+                .addGroup(jPanelMainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabelData)
+                    .addComponent(jLabelStatus))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanelMainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabelMod)
+                    .addComponent(jLabelVencimento))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanelMainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabelTel)
+                    .addComponent(jLabelHorario))
+                .addContainerGap(17, Short.MAX_VALUE))
         );
 
         jPanelObs.setBackground(new java.awt.Color(239, 239, 239));
+
+        jLabelObj.setFont(new java.awt.Font("TT Hoves Pro Trial", 0, 20)); // NOI18N
+        jLabelObj.setForeground(new java.awt.Color(41, 41, 41));
+        jLabelObj.setText("jLabel3");
+
+        jLabelObs.setFont(new java.awt.Font("TT Hoves Pro Trial", 0, 20)); // NOI18N
+        jLabelObs.setForeground(new java.awt.Color(41, 41, 41));
+        jLabelObs.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jLabelObs.setText("jLabel3");
 
         javax.swing.GroupLayout jPanelObsLayout = new javax.swing.GroupLayout(jPanelObs);
         jPanelObs.setLayout(jPanelObsLayout);
         jPanelObsLayout.setHorizontalGroup(
             jPanelObsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGroup(jPanelObsLayout.createSequentialGroup()
+                .addGap(29, 29, 29)
+                .addGroup(jPanelObsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(jLabelObs, javax.swing.GroupLayout.DEFAULT_SIZE, 692, Short.MAX_VALUE)
+                    .addComponent(jLabelObj, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(17, Short.MAX_VALUE))
         );
         jPanelObsLayout.setVerticalGroup(
             jPanelObsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 121, Short.MAX_VALUE)
+            .addGroup(jPanelObsLayout.createSequentialGroup()
+                .addGap(14, 14, 14)
+                .addComponent(jLabelObj)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabelObs, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(14, Short.MAX_VALUE))
         );
 
         jPanelEnd.setBackground(new java.awt.Color(239, 239, 239));
 
-        jLabel2.setBackground(new java.awt.Color(41, 41, 41));
-        jLabel2.setFont(new java.awt.Font("TT Hoves Pro Trial", 0, 20)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(41, 41, 41));
-        jLabel2.setText("jLabel1");
+        jLabelEndereco.setFont(new java.awt.Font("TT Hoves Pro Trial", 0, 20)); // NOI18N
+        jLabelEndereco.setForeground(new java.awt.Color(41, 41, 41));
+        jLabelEndereco.setText("jLabel3");
 
         javax.swing.GroupLayout jPanelEndLayout = new javax.swing.GroupLayout(jPanelEnd);
         jPanelEnd.setLayout(jPanelEndLayout);
         jPanelEndLayout.setHorizontalGroup(
             jPanelEndLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelEndLayout.createSequentialGroup()
-                .addContainerGap(18, Short.MAX_VALUE)
-                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 713, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabelEndereco, javax.swing.GroupLayout.PREFERRED_SIZE, 691, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18))
         );
         jPanelEndLayout.setVerticalGroup(
             jPanelEndLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelEndLayout.createSequentialGroup()
-                .addContainerGap(32, Short.MAX_VALUE)
-                .addComponent(jLabel2)
-                .addGap(27, 27, 27))
+            .addGroup(jPanelEndLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabelEndereco, javax.swing.GroupLayout.DEFAULT_SIZE, 73, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout jPanelLayout = new javax.swing.GroupLayout(jPanel);
@@ -173,13 +256,13 @@ public class MostrarAlunoFrame extends javax.swing.JPanel {
                 .addComponent(jButtonEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jButtonVoltar, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(79, Short.MAX_VALUE))
+                .addContainerGap(74, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabelTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, 384, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(190, 190, 190))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelLayout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
+                .addGap(0, 14, Short.MAX_VALUE)
                 .addGroup(jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jPanelMain, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanelObs, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -195,14 +278,14 @@ public class MostrarAlunoFrame extends javax.swing.JPanel {
                 .addComponent(jPanelMain, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(38, 38, 38)
                 .addComponent(jPanelEnd, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 32, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 31, Short.MAX_VALUE)
                 .addComponent(jPanelObs, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButtonVerAulas)
                     .addComponent(jButtonEditar)
-                    .addComponent(jButtonVoltar)
-                    .addComponent(jButtonNovaAula))
+                    .addComponent(jButtonNovaAula)
+                    .addComponent(jButtonVoltar, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(29, 29, 29))
         );
 
@@ -236,13 +319,13 @@ public class MostrarAlunoFrame extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonVerAulasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonVerAulasActionPerformed
-        /*MainFrame main = new MainFrame();
+        MostrarAulasFrame main = new MostrarAulasFrame();
         main.setSize(1000, 570);
         main.setLocation(0, 0);
-        jPanelContent.removeAll();
-        jPanelContent.add(main, BorderLayout.CENTER);
-        jPanelContent.revalidate();
-        jPanelContent.repaint();*/
+        removeAll();
+        add(main, BorderLayout.CENTER);
+        revalidate();
+        repaint();
     }//GEN-LAST:event_jButtonVerAulasActionPerformed
 
     private void jButtonSalvar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSalvar1ActionPerformed
@@ -250,7 +333,21 @@ public class MostrarAlunoFrame extends javax.swing.JPanel {
     }//GEN-LAST:event_jButtonSalvar1ActionPerformed
 
     private void jButtonEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEditarActionPerformed
-
+        AlunoController alunoCtrl = new AlunoController();
+        EditarAlunoFrame edAluno;
+        try {
+            edAluno = new EditarAlunoFrame(alunoCtrl.findOne(cod_a));
+            edAluno.setSize(820, 570);
+            edAluno.setLocation(0, 0);
+            removeAll();
+            add(edAluno, BorderLayout.CENTER);
+            revalidate();
+            repaint();
+        } catch (DAOexception ex) {
+            Logger.getLogger(AlunosCentralFrame.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(AlunosCentralFrame.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_jButtonEditarActionPerformed
 
     private void jButtonVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonVoltarActionPerformed
@@ -265,6 +362,13 @@ public class MostrarAlunoFrame extends javax.swing.JPanel {
 
     private void jButtonNovaAulaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonNovaAulaActionPerformed
         // TODO add your handling code here:
+        NovaAulaFrame novaAula = new NovaAulaFrame(cod_a);
+        novaAula.setSize(820, 570);
+        novaAula.setLocation(0, 0);
+        removeAll();
+        add(novaAula, BorderLayout.CENTER);
+        revalidate();
+        repaint();        
     }//GEN-LAST:event_jButtonNovaAulaActionPerformed
 
 
@@ -274,9 +378,16 @@ public class MostrarAlunoFrame extends javax.swing.JPanel {
     private javax.swing.JButton jButtonSalvar1;
     private javax.swing.JButton jButtonVerAulas;
     private javax.swing.JButton jButtonVoltar;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabelData;
+    private javax.swing.JLabel jLabelEndereco;
+    private javax.swing.JLabel jLabelHorario;
+    private javax.swing.JLabel jLabelMod;
+    private javax.swing.JLabel jLabelObj;
+    private javax.swing.JLabel jLabelObs;
+    private javax.swing.JLabel jLabelStatus;
+    private javax.swing.JLabel jLabelTel;
     private javax.swing.JLabel jLabelTitulo;
+    private javax.swing.JLabel jLabelVencimento;
     private javax.swing.JPanel jPanel;
     private javax.swing.JPanel jPanelCentral;
     private javax.swing.JPanel jPanelEnd;

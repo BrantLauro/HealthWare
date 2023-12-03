@@ -5,6 +5,7 @@ import com.formdev.flatlaf.FlatClientProperties;
 import corp.healthware.controller.AlunoController;
 import corp.healthware.controller.ColaboradorController;
 import corp.healthware.controller.ModalidadeController;
+import corp.healthware.controller.ServicoController;
 import corp.healthware.model.dao.DAOexception;
 import corp.healthware.model.entity.Colaborador;
 import corp.healthware.model.entity.Modalidade;
@@ -25,7 +26,7 @@ public class NovoServicoFrame extends javax.swing.JPanel {
         UIManager.put( "ComboBox.buttonBackground", new Color(212,81,93));
         initComponents();
         jPanel.putClientProperty(FlatClientProperties.STYLE, "arc: 15");
-        jTextFieldNome.putClientProperty(FlatClientProperties.STYLE, "arc: 9");
+        jTextFieldServico.putClientProperty(FlatClientProperties.STYLE, "arc: 9");
         jTextFieldPreco.putClientProperty(FlatClientProperties.STYLE, "arc: 9");
         initComboBoxResp();
         
@@ -62,7 +63,7 @@ public class NovoServicoFrame extends javax.swing.JPanel {
         jPanel = new javax.swing.JPanel();
         jLabelTitulo = new javax.swing.JLabel();
         jLabelNome = new javax.swing.JLabel();
-        jTextFieldNome = new javax.swing.JTextField();
+        jTextFieldServico = new javax.swing.JTextField();
         jButtonSalvar = new javax.swing.JButton();
         jComboBoxResp = new javax.swing.JComboBox<>();
         jLabelResp = new javax.swing.JLabel();
@@ -84,20 +85,20 @@ public class NovoServicoFrame extends javax.swing.JPanel {
 
         jLabelNome.setFont(new java.awt.Font("Rosario", 1, 14)); // NOI18N
         jLabelNome.setForeground(new java.awt.Color(41, 41, 41));
-        jLabelNome.setText("Nome");
+        jLabelNome.setText("Nome do Serviço");
 
-        jTextFieldNome.setBackground(new java.awt.Color(239, 239, 239));
-        jTextFieldNome.setFont(new java.awt.Font("TT Hoves Pro Trial", 0, 12)); // NOI18N
-        jTextFieldNome.setForeground(new java.awt.Color(139, 137, 137));
-        jTextFieldNome.setText("Massagem");
-        jTextFieldNome.addFocusListener(new java.awt.event.FocusAdapter() {
+        jTextFieldServico.setBackground(new java.awt.Color(239, 239, 239));
+        jTextFieldServico.setFont(new java.awt.Font("TT Hoves Pro Trial", 0, 12)); // NOI18N
+        jTextFieldServico.setForeground(new java.awt.Color(139, 137, 137));
+        jTextFieldServico.setText("Pilates");
+        jTextFieldServico.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
-                jTextFieldNomeFocusGained(evt);
+                jTextFieldServicoFocusGained(evt);
             }
         });
-        jTextFieldNome.addActionListener(new java.awt.event.ActionListener() {
+        jTextFieldServico.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextFieldNomeActionPerformed(evt);
+                jTextFieldServicoActionPerformed(evt);
             }
         });
 
@@ -159,15 +160,13 @@ public class NovoServicoFrame extends javax.swing.JPanel {
         jPanelLayout.setHorizontalGroup(
             jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelLayout.createSequentialGroup()
-                .addGap(181, 181, 181)
-                .addComponent(jButtonSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(101, 101, 101)
-                .addComponent(jButtonVoltar, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addGap(225, 225, 225)
+                .addComponent(jLabelTitulo)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelLayout.createSequentialGroup()
                 .addContainerGap(52, Short.MAX_VALUE)
                 .addGroup(jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(jTextFieldNome)
+                    .addComponent(jTextFieldServico)
                     .addGroup(jPanelLayout.createSequentialGroup()
                         .addGroup(jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabelNome)
@@ -179,19 +178,21 @@ public class NovoServicoFrame extends javax.swing.JPanel {
                             .addComponent(jLabelResp))))
                 .addGap(48, 48, 48))
             .addGroup(jPanelLayout.createSequentialGroup()
-                .addGap(232, 232, 232)
-                .addComponent(jLabelTitulo)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(181, 181, 181)
+                .addComponent(jButtonSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(101, 101, 101)
+                .addComponent(jButtonVoltar, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         jPanelLayout.setVerticalGroup(
             jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelLayout.createSequentialGroup()
-                .addGap(22, 22, 22)
+                .addGap(19, 19, 19)
                 .addComponent(jLabelTitulo)
-                .addGap(155, 155, 155)
+                .addGap(158, 158, 158)
                 .addComponent(jLabelNome)
                 .addGap(2, 2, 2)
-                .addComponent(jTextFieldNome, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jTextFieldServico, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabelPreco)
@@ -221,7 +222,7 @@ public class NovoServicoFrame extends javax.swing.JPanel {
             .addGroup(jPanelCentralLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(14, Short.MAX_VALUE))
+                .addContainerGap(38, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -236,17 +237,17 @@ public class NovoServicoFrame extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jTextFieldNomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldNomeActionPerformed
+    private void jTextFieldServicoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldServicoActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextFieldNomeActionPerformed
+    }//GEN-LAST:event_jTextFieldServicoActionPerformed
 
-    private void jTextFieldNomeFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextFieldNomeFocusGained
+    private void jTextFieldServicoFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextFieldServicoFocusGained
         
-        if(jTextFieldNome.getForeground().equals(new Color(139,137,137))) {
-            jTextFieldNome.setForeground(new Color(41,41,41));
-            jTextFieldNome.setText("");
+        if(jTextFieldServico.getForeground().equals(new Color(139,137,137))) {
+            jTextFieldServico.setForeground(new Color(41,41,41));
+            jTextFieldServico.setText("");
         }
-    }//GEN-LAST:event_jTextFieldNomeFocusGained
+    }//GEN-LAST:event_jTextFieldServicoFocusGained
 
     private void jTextFieldPrecoFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextFieldPrecoFocusGained
         if(jTextFieldPreco.getForeground().equals(new Color(139,137,137))) {
@@ -261,13 +262,12 @@ public class NovoServicoFrame extends javax.swing.JPanel {
 
     private void jButtonSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSalvarActionPerformed
         try {
-            String nome = jTextFieldNome.getText();
-            int vezes_semana = Integer.parseInt(jComboBoxVSem.getSelectedItem().toString().substring(0, 1));
+            String nome = jTextFieldServico.getText();
             double preco = Double.parseDouble(jTextFieldPreco.getText().replace(',', '.'));
             int resp = (int) jComboBoxResp.getSelectedIndex() + 1;
-            if (!nome.equals("") && !jTextFieldNome.getForeground().equals(new Color(139, 137, 137))) {
-                ModalidadeController modCtrl = new ModalidadeController();
-                modCtrl.insert(resp, nome, vezes_semana, preco);
+            if (!nome.equals("") && !jTextFieldServico.getForeground().equals(new Color(139, 137, 137))) {
+                ServicoController servicoCtrl = new ServicoController();
+                servicoCtrl.insert(nome, preco, resp);
                 voltar();
             } else {
                 JOptionPane.showMessageDialog(null, "Todos os campos devem ser preenchidos!", "Erro", JOptionPane.ERROR_MESSAGE);
@@ -299,7 +299,7 @@ public class NovoServicoFrame extends javax.swing.JPanel {
     private javax.swing.JLabel jLabelTitulo;
     private javax.swing.JPanel jPanel;
     private javax.swing.JPanel jPanelCentral;
-    private javax.swing.JTextField jTextFieldNome;
     private javax.swing.JTextField jTextFieldPreco;
+    private javax.swing.JTextField jTextFieldServico;
     // End of variables declaration//GEN-END:variables
 }

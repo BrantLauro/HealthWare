@@ -12,7 +12,7 @@ public class Singleton {
     private static Singleton instancia = null;
     
    private Singleton()throws SQLException{
-        conexao = DriverManager.getConnection("jdbc:mysql://localhost:3306/healthware","root","");//mudar porta sempre
+        conexao = DriverManager.getConnection("jdbc:mysql://localhost:3306/healthware?user=root&password=");//mudar porta sempre
     }
     
     public static Singleton getInstancia()throws SQLException{
