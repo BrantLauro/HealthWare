@@ -11,7 +11,9 @@ public class HealthWare {
         } catch( Exception ex ) {
             System.err.println( "Failed to initialize LaF" );
         }
-        new MainFrame().setVisible(true);
+        UIManager.put( "Component.focusWidth", 0);
+
+        new LoginFrame().setVisible(true);
     }
     
 }
