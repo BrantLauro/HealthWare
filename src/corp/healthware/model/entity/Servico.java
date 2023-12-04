@@ -18,6 +18,7 @@ public class Servico {
     private String nome_s;
     private double preco;
     private int resp;
+    private String nomeResp;
 
     public Servico(int cod_s) {
         this.cod_s = cod_s;
@@ -45,6 +46,14 @@ public class Servico {
         return new ServicoDAO().findAll();
     }
     
+    public Servico findOneServico(Servico servico) throws SQLException, DAOexception {
+       return new ServicoDAO().findOne(servico);
+    }
+    
+    public ArrayList<Servico> searchServico(String servico) throws SQLException, DAOexception {
+        return new ServicoDAO().search(servico);
+    }
+    
     public Servico() {
     }
 
@@ -64,6 +73,10 @@ public class Servico {
         return resp;
     }
 
+    public String getNomeResp() {
+        return nomeResp;
+    }
+    
     public void setCod_s(int cod_s) {
         this.cod_s = cod_s;
     }
@@ -79,5 +92,10 @@ public class Servico {
     public void setResp(int resp) {
         this.resp = resp;
     }
+
+    public void setNomeResp(String nomeResp) {
+        this.nomeResp = nomeResp;
+    }
+    
     
 }

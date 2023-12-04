@@ -41,4 +41,13 @@ public class ServicoController {
     public ArrayList<Servico> findAll() throws DAOexception, SQLException {
         return new Servico().findAllServico();
     }
+    
+    public Servico findOne(int cod_s) throws DAOexception, SQLException {
+        Servico servico = new Servico(cod_s);
+        return servico.findOneServico(servico);
+    }
+    
+    public ArrayList<Servico> search(String servico) throws DAOexception, SQLException{
+        return new Servico().searchServico(servico);
+    }
 }

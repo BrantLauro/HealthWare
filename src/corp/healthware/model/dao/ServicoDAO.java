@@ -126,8 +126,61 @@ public class ServicoDAO implements DAO<Servico>{
     }
 
     @Override
-    public Servico findOne(Servico entidade) throws DAOexception {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public Servico findOne(Servico s) throws DAOexception {
+        try {
+            String query = "SELECT cod_s, nome_s, preco, resp FROM servico JOIN colaborador ON colaborador = cod_c WHERE cod_s = ?";
+            PreparedStatement st = conn.prepareStatement(query);
+            st.setInt(1, s.getCod_s());
+            ResultSet res = st.executeQuery();
+            res.next();
+            Servico func = new Servico();
+            func.setCod_s(Integer.parseInt(res.getString("cod_s")));
+            func.setNome_s(res.getString("nome_s"));
+            func.setPreco(res.getDouble("preco"));
+            func.setResp(Integer.parseInt(res.getString("resp")));
+            if (res.getString("colaborador") != null) {
+                func.setResp(res.getInt("modalidade"));
+                
+            } else {
+                
+                func.setResp(-1);
+            }
+            return func;
+        } catch (SQLException ex) {
+            System.out.println("sim" + ex.getMessage());
+        }
+        return null;
+    }
+
+    public ArrayList<Servico> search(String nome) throws DAOexception {
+        ArrayList<Servico> servicos = null;
+        PreparedStatement st = null;
+        try {
+            String query = "SELECT cod_s, nome_s, preco, resp FROM servico JOIN colaborador ON colaborador = cod_c WHERE nome_s LIKE '%" + nome + "%' order by nome_s";
+
+            st = conn.prepareStatement(query);
+            ResultSet res = st.executeQuery();
+            if (res != null) {
+                servicos = new ArrayList<>();
+                while (res.next()) {
+                    Servico func = new Servico();
+                    func.setCod_s(Integer.parseInt(res.getString("cod_s")));
+                    func.setNome_s(res.getString("nome_s"));
+                    func.setPreco(res.getDouble("preco"));
+                    func.setResp(Integer.parseInt(res.getString("resp")));
+                    if (res.getString("modalidade") != null) {
+                        func.setResp(res.getInt("modalidade"));
+                    } else {
+                        func.setResp(-1);
+                    }
+                    servicos.add(func);
+
+                }
+            }
+        } catch (SQLException e) {
+            throw new DAOexception("Erro ao tentar achar Aluno : SQLState : " + e.getMessage());
+        }
+        return servicos;
     }
 
     private static class DBSingleton {
