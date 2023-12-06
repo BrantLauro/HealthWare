@@ -49,7 +49,8 @@ public class EditarAlunoFrame extends javax.swing.JPanel {
             ModalidadeController modController = new ModalidadeController();
             ArrayList<Modalidade> mods = modController.findAll();
             mods.forEach((Modalidade mod) -> {
-                jComboBoxModalidade.addItem(mod.getNome_m() + " " + mod.getVezes_semana() + " Vezes na semana");
+
+                jComboBoxModalidade.addItem("Cod. " + mod.getCod_m() + ": " + mod.getNome_m() + " " + mod.getVezes_semana() + " Vezes na semana");
             });
         } catch (SQLException | DAOexception ex) {
             Logger.getLogger(NovoAlunoFrame.class.getName()).log(Level.SEVERE, null, ex);
@@ -420,7 +421,7 @@ public class EditarAlunoFrame extends javax.swing.JPanel {
             int status = (int) jComboBoxStatus.getSelectedIndex() + 1;
             String dataNascimento = formatarData();
             String telefone = jTextFieldTel.getText();
-            int modalidade = (int) jComboBoxModalidade.getSelectedIndex() + 1;
+            int modalidade = Integer.parseInt(jComboBoxModalidade.getSelectedItem().toString().substring(5, 7));
             String horario = (String) jComboBoxHorario.getSelectedItem();
             String endereco = jTextFieldEndereco.getText();
             int diaPag = Integer.parseInt((String) jComboBoxPagamento.getSelectedItem());

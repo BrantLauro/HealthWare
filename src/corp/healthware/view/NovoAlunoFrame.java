@@ -440,7 +440,7 @@ public class NovoAlunoFrame extends javax.swing.JPanel {
             String nome = jTextFieldNome.getText();
             String dataNascimento = formatarData();
             String telefone = jTextFieldTel.getText();
-            int modalidade = Integer.parseInt(jComboBoxModalidade.getSelectedItem().toString().substring(5, 6));
+            int modalidade = Integer.parseInt(jComboBoxModalidade.getSelectedItem().toString().substring(5, 7));
             String horario = (String) jComboBoxHorario.getSelectedItem();
             String endereco = jTextFieldEndereco.getText();
             int diaPag = Integer.parseInt((String) jComboBoxPagamento.getSelectedItem());
@@ -450,7 +450,7 @@ public class NovoAlunoFrame extends javax.swing.JPanel {
                 obj = jTextFieldObj.getText();
             }
             if (!jTextFieldObs.getForeground().equals(new Color(139, 137, 137))) {
-                obj = jTextFieldObs.getText();
+                obs = jTextFieldObs.getText();
             }
             if (!nome.equals("") && !jTextFieldNome.getForeground().equals(new Color(139, 137, 137))
                     && !dataNascimento.equals("    -  -  ") && !jTextFieldData.getForeground().equals(new Color(139, 137, 137))

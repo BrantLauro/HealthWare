@@ -53,7 +53,7 @@
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="jPanel" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace pref="38" max="32767" attributes="0"/>
+                  <EmptySpace pref="14" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -102,7 +102,7 @@
                                       <Component id="jLabelResp" alignment="0" min="-2" max="-2" attributes="0"/>
                                       <Component id="jLabelVSem" min="-2" max="-2" attributes="0"/>
                                       <Component id="jTextFieldEmail" pref="320" max="32767" attributes="0"/>
-                                      <Component id="jPasswordField" alignment="0" max="32767" attributes="0"/>
+                                      <Component id="jPasswordField" alignment="0" pref="30" max="32767" attributes="0"/>
                                   </Group>
                                   <Component id="jLabelResp2" min="-2" max="-2" attributes="0"/>
                               </Group>
@@ -142,12 +142,12 @@
                           <Component id="jLabelResp1" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="jLabelResp" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace min="-2" pref="2" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="jTextFieldEsp" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
-                          <Component id="jPasswordField" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                          <Component id="jTextFieldEsp" pref="30" max="32767" attributes="0"/>
+                          <Component id="jPasswordField" max="32767" attributes="0"/>
                       </Group>
-                      <EmptySpace pref="156" max="32767" attributes="0"/>
+                      <EmptySpace pref="153" max="32767" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="jButtonSalvar" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="jButtonVoltar" alignment="3" min="-2" max="-2" attributes="0"/>

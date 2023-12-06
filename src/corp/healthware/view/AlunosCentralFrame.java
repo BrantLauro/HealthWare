@@ -7,8 +7,11 @@ import corp.healthware.model.dao.DAOexception;
 import corp.healthware.model.entity.Aluno;
 import corp.healthware.model.entity.Modalidade;
 import corp.healthware.view.cell.buttons.TableActionCellEditor;
+import corp.healthware.view.cell.buttons.TableActionCellEditorNoView;
 import corp.healthware.view.cell.buttons.TableActionCellRender;
+import corp.healthware.view.cell.buttons.TableActionCellRenderNoView;
 import corp.healthware.view.cell.buttons.TableActionEvent;
+import corp.healthware.view.cell.buttons.TableActionEventNoView;
 import java.awt.BorderLayout;
 import java.sql.SQLException;
 import java.text.NumberFormat;
@@ -19,7 +22,7 @@ import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 public class AlunosCentralFrame extends javax.swing.JPanel {
-    
+
     private boolean tAluno = true;
 
     public AlunosCentralFrame() {
@@ -41,8 +44,11 @@ public class AlunosCentralFrame extends javax.swing.JPanel {
             jTableAlunos.getColumnModel().getColumn(4).setPreferredWidth(1);
             ArrayList<Aluno> alunos;
             AlunoController alunoCtrl = new AlunoController();
-            if(pesquisa.equals("")) alunos = alunoCtrl.findAll();
-            else alunos = alunoCtrl.search(pesquisa);
+            if (pesquisa.equals("")) {
+                alunos = alunoCtrl.findAll();
+            } else {
+                alunos = alunoCtrl.search(pesquisa);
+            }
             alunos.forEach((Aluno a) -> {
                 tableModel.addRow(new Object[]{a.getCod_a(), a.getNome_a(), a.getNomeModalidade(), a.getStatusNome(), "Dia " + a.getDia_pag()});
             });
@@ -54,16 +60,23 @@ public class AlunosCentralFrame extends javax.swing.JPanel {
             System.out.println("ERROR: " + ex);
         }
         TableActionEvent event = new TableActionEvent() {
+            AlunoController alunoCtrl = new AlunoController();
+
             @Override
             public void onMais(int row) {
-                System.out.println("Nova aula para " + row);
+                NovaAulaFrame aula = new NovaAulaFrame((int) jTableAlunos.getValueAt(row, 0));
+                aula.setSize(820, 570);
+                aula.setLocation(0, 0);
+                removeAll();
+                add(aula, BorderLayout.CENTER);
+                revalidate();
+                repaint();
             }
 
             @Override
             public void onView(int row) {
-                AlunoController alunoCtrl = new AlunoController();
-                EditarAlunoFrame edAluno;
                 try {
+                    System.out.println("" + jTableAlunos.getValueAt(row, 0));
                     MostrarAlunoFrame aluno = new MostrarAlunoFrame(alunoCtrl.findOne((int) jTableAlunos.getValueAt(row, 0)));
                     aluno.setSize(820, 570);
                     aluno.setLocation(0, 0);
@@ -80,7 +93,6 @@ public class AlunosCentralFrame extends javax.swing.JPanel {
 
             @Override
             public void onEdit(int row) {
-                AlunoController alunoCtrl = new AlunoController();
                 EditarAlunoFrame edAluno;
                 try {
                     edAluno = new EditarAlunoFrame(alunoCtrl.findOne((int) jTableAlunos.getValueAt(row, 0)));
@@ -106,7 +118,6 @@ public class AlunosCentralFrame extends javax.swing.JPanel {
                             jTableAlunos.getCellEditor().stopCellEditing();
                         }
                         DefaultTableModel model = (DefaultTableModel) jTableAlunos.getModel();
-                        AlunoController alunoCtrl = new AlunoController();
                         int cod_a = (int) model.getValueAt(row, 0);
                         alunoCtrl.delete(cod_a);
                         model.removeRow(row);
@@ -122,7 +133,7 @@ public class AlunosCentralFrame extends javax.swing.JPanel {
         jTableAlunos.getColumnModel().getColumn(5).setCellRenderer(new TableActionCellRender());
         jTableAlunos.getColumnModel().getColumn(5).setCellEditor(new TableActionCellEditor(event));
     }
-    
+
     private void initTableModalidade(String pesquisa) {
         try {
             DefaultTableModel tableModel = (DefaultTableModel) jTableAlunos.getModel();
@@ -134,8 +145,11 @@ public class AlunosCentralFrame extends javax.swing.JPanel {
             jTableAlunos.getColumnModel().getColumn(3).setPreferredWidth(1);
             ModalidadeController modalidadeCtrl = new ModalidadeController();
             ArrayList<Modalidade> mods;
-            if(pesquisa.equals("")) mods = modalidadeCtrl.findAll();
-            else mods = modalidadeCtrl.search(pesquisa);
+            if (pesquisa.equals("")) {
+                mods = modalidadeCtrl.findAll();
+            } else {
+                mods = modalidadeCtrl.search(pesquisa);
+            }
             mods.forEach((Modalidade m) -> {
                 tableModel.addRow(new Object[]{m.getCod_m(), m.getNome_m(), m.getVezes_semana() + " Vezes", NumberFormat.getCurrencyInstance().format(m.getPreco()), m.getNomeResp()});
             });
@@ -146,29 +160,10 @@ public class AlunosCentralFrame extends javax.swing.JPanel {
         } catch (NumberFormatException ex) {
             System.out.println("ERROR: " + ex);
         }
-        TableActionEvent event = new TableActionEvent() {
+        TableActionEventNoView event = new TableActionEventNoView() {
             @Override
             public void onMais(int row) {
                 System.out.println("Nova aula para " + row);
-            }
-
-            @Override
-            public void onView(int row) {
-                AlunoController alunoCtrl = new AlunoController();
-                EditarAlunoFrame edAluno;
-                try {
-                    MostrarAlunoFrame aluno = new MostrarAlunoFrame(alunoCtrl.findOne((int) jTableAlunos.getValueAt(row, 0)));
-                    aluno.setSize(820, 570);
-                    aluno.setLocation(0, 0);
-                    removeAll();
-                    add(aluno, BorderLayout.CENTER);
-                    revalidate();
-                    repaint();
-                } catch (DAOexception ex) {
-                    Logger.getLogger(AlunosCentralFrame.class.getName()).log(Level.SEVERE, null, ex);
-                } catch (SQLException ex) {
-                    Logger.getLogger(AlunosCentralFrame.class.getName()).log(Level.SEVERE, null, ex);
-                }
             }
 
             @Override
@@ -212,10 +207,10 @@ public class AlunosCentralFrame extends javax.swing.JPanel {
 
             }
         };
-        jTableAlunos.getColumnModel().getColumn(5).setCellRenderer(new TableActionCellRender());
-        jTableAlunos.getColumnModel().getColumn(5).setCellEditor(new TableActionCellEditor(event));
+        jTableAlunos.getColumnModel().getColumn(5).setCellRenderer(new TableActionCellRenderNoView());
+        jTableAlunos.getColumnModel().getColumn(5).setCellEditor(new TableActionCellEditorNoView(event));
     }
-    
+
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
@@ -382,7 +377,7 @@ public class AlunosCentralFrame extends javax.swing.JPanel {
     }//GEN-LAST:event_jTextFieldPesquisaActionPerformed
 
     private void jButtonChangeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonChangeActionPerformed
-        if(tAluno) {
+        if (tAluno) {
             initTableModalidade("");
             tAluno = false;
         } else {

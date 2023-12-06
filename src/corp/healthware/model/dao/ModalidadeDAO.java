@@ -33,15 +33,15 @@ public class ModalidadeDAO implements DAO<Modalidade>{
             linhasGravadas = st.executeUpdate();
             JOptionPane.showMessageDialog(null, "Cadastrado");
         } catch (SQLException e) {
-            if (e.getSQLState().equals("23505") || e.getSQLState().equals("23000")) {
-                int resultado = JOptionPane.showConfirmDialog(null, "Modalidade já cadastrada, deseja atualizar?", "Erro", JOptionPane.ERROR_MESSAGE);
-
-                if(resultado == JOptionPane.YES_OPTION) {
-                    JOptionPane.showMessageDialog(null, "Atualizado");
-                    return update(a);
-                }
-                else return 0;
-            }
+//            if (e.getSQLState().equals("23505") || e.getSQLState().equals("23000")) {
+//                int resultado = JOptionPane.showConfirmDialog(null, "Modalidade já cadastrada, deseja atualizar?", "Erro", JOptionPane.ERROR_MESSAGE);
+//
+//                if(resultado == JOptionPane.YES_OPTION) {
+//                    JOptionPane.showMessageDialog(null, "Atualizado");
+//                    return update(a);
+//                }
+//                else return 0;
+//            }
             System.out.println("sim" + e.getMessage());
         }
         return linhasGravadas;

@@ -9,8 +9,11 @@ import corp.healthware.model.entity.Aluno;
 import corp.healthware.model.entity.Colaborador;
 import corp.healthware.model.entity.Modalidade;
 import corp.healthware.view.cell.buttons.TableActionCellEditor;
+import corp.healthware.view.cell.buttons.TableActionCellEditorNoView;
 import corp.healthware.view.cell.buttons.TableActionCellRender;
+import corp.healthware.view.cell.buttons.TableActionCellRenderNoView;
 import corp.healthware.view.cell.buttons.TableActionEvent;
+import corp.healthware.view.cell.buttons.TableActionEventNoView;
 import java.awt.BorderLayout;
 import java.sql.SQLException;
 import java.text.NumberFormat;
@@ -47,29 +50,10 @@ public class ColabCentralFrame extends javax.swing.JPanel {
         } catch (NumberFormatException ex) {
             System.out.println("ERROR: " + ex);
         }
-        TableActionEvent event = new TableActionEvent() {
+        TableActionEventNoView event = new TableActionEventNoView() {
             @Override
             public void onMais(int row) {
                 System.out.println("Nova aula para " + row);
-            }
-
-            @Override
-            public void onView(int row) {
-                AlunoController alunoCtrl = new AlunoController();
-                EditarAlunoFrame edAluno;
-                try {
-                    MostrarAlunoFrame aluno = new MostrarAlunoFrame(alunoCtrl.findOne((int) jTableColab.getValueAt(row, 0)));
-                    aluno.setSize(820, 570);
-                    aluno.setLocation(0, 0);
-                    removeAll();
-                    add(aluno, BorderLayout.CENTER);
-                    revalidate();
-                    repaint();
-                } catch (DAOexception ex) {
-                    Logger.getLogger(ColabCentralFrame.class.getName()).log(Level.SEVERE, null, ex);
-                } catch (SQLException ex) {
-                    Logger.getLogger(ColabCentralFrame.class.getName()).log(Level.SEVERE, null, ex);
-                }
             }
 
             @Override
@@ -114,8 +98,8 @@ public class ColabCentralFrame extends javax.swing.JPanel {
 
             }
         };
-        jTableColab.getColumnModel().getColumn(5).setCellRenderer(new TableActionCellRender());
-        jTableColab.getColumnModel().getColumn(5).setCellEditor(new TableActionCellEditor(event));
+        jTableColab.getColumnModel().getColumn(5).setCellRenderer(new TableActionCellRenderNoView());
+        jTableColab.getColumnModel().getColumn(5).setCellEditor(new TableActionCellEditorNoView(event));
     }
     
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
