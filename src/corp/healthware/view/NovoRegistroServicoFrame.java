@@ -1,40 +1,41 @@
-
 package corp.healthware.view;
 
 import com.formdev.flatlaf.FlatClientProperties;
-import corp.healthware.controller.AlunoController;
-import corp.healthware.controller.ColaboradorController;
+import corp.healthware.controller.AulaController;
 import corp.healthware.controller.ModalidadeController;
-import corp.healthware.controller.ServicoController;
+import corp.healthware.controller.RegistroServicoController;
 import corp.healthware.model.dao.DAOexception;
-import corp.healthware.model.entity.Colaborador;
 import corp.healthware.model.entity.Modalidade;
 import corp.healthware.model.entity.Servico;
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Component;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 
 public class NovoRegistroServicoFrame extends javax.swing.JPanel {
-
-    public NovoRegistroServicoFrame() {
-        UIManager.put( "Component.arrowType", "triangle" );
-        UIManager.put( "ComboBox.selectionBackground", new Color(212,81,93));
-        UIManager.put( "ComboBox.buttonBackground", new Color(212,81,93));
+    
+    private int cod_s;
+    
+    public NovoRegistroServicoFrame(int cod_s) {
+        this.cod_s = cod_s;
+        UIManager.put("Component.arrowType", "triangle");
+        UIManager.put("ComboBox.selectionBackground", new Color(212, 81, 93));
+        UIManager.put("ComboBox.buttonBackground", new Color(212, 81, 93));
         initComponents();
         jPanel.putClientProperty(FlatClientProperties.STYLE, "arc: 15");
-        jTextFieldServico.putClientProperty(FlatClientProperties.STYLE, "arc: 9");
-        jTextFieldPreco.putClientProperty(FlatClientProperties.STYLE, "arc: 9");
-        initComboBoxServico();
-        
+        jTextFieldData.putClientProperty(FlatClientProperties.STYLE, "arc: 9");
+        jTextFieldData.putClientProperty(FlatClientProperties.STYLE, "arc: 9");
+        jTextFieldNomeC.putClientProperty(FlatClientProperties.STYLE, "arc: 9");
     }
     
     private void voltar() {
-        AlunosCentralFrame central = new AlunosCentralFrame();
+        ServicoCentralFrame central = new ServicoCentralFrame();
         central.setSize(820, 570);
         central.setLocation(0, 0);
         removeAll();
@@ -42,23 +43,19 @@ public class NovoRegistroServicoFrame extends javax.swing.JPanel {
         revalidate();
         repaint();
     }
-    
-    private void initComboBoxServico() {
-        try {
-            ServicoController servicoCtrl = new ServicoController();
-            ArrayList<Servico> resp = servicoCtrl.findAll();
-            resp.forEach((Servico servico) -> {
 
-                jComboBoxServico.addItem(servico.getNome_s());
+/*    private void initComboBoxMod() {
+        try {
+            ModalidadeController modController = new ModalidadeController();
+            ArrayList<Modalidade> mods = modController.findAll();
+            mods.forEach((Modalidade mod) -> {
+
+                jComboBoxModalidade.addItem("Cod. " + mod.getCod_m() + ": " + mod.getNome_m() + " " + mod.getVezes_semana() + " Vezes na semana");
             });
         } catch (SQLException | DAOexception ex) {
-            Logger.getLogger(NovoAlunoFrame.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(NovaAulaFrame.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }
-    
-    private void initComboBoxHorario(){
-        
-    }
+    }*/
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -67,45 +64,47 @@ public class NovoRegistroServicoFrame extends javax.swing.JPanel {
         jPanelCentral = new javax.swing.JPanel();
         jPanel = new javax.swing.JPanel();
         jLabelTitulo = new javax.swing.JLabel();
+        jLabelObs = new javax.swing.JLabel();
         jLabelNome = new javax.swing.JLabel();
-        jTextFieldServico = new javax.swing.JTextField();
+        jTextFieldNomeC = new javax.swing.JTextField();
         jButtonSalvar = new javax.swing.JButton();
-        jComboBoxServico = new javax.swing.JComboBox<>();
-        jLabelResp = new javax.swing.JLabel();
-        jTextFieldPreco = new javax.swing.JTextField();
-        jButtonVoltar = new javax.swing.JButton();
-        jLabelPreco1 = new javax.swing.JLabel();
-        jComboBoxHorario = new javax.swing.JComboBox<>();
         jLabelHorario = new javax.swing.JLabel();
+        jComboBoxHorario = new javax.swing.JComboBox<>();
+        jButtonVoltar = new javax.swing.JButton();
+        jTextFieldData = new javax.swing.JFormattedTextField();
 
         setPreferredSize(new java.awt.Dimension(820, 570));
 
         jPanelCentral.setBackground(new java.awt.Color(239, 239, 239));
 
         jPanel.setBackground(new java.awt.Color(223, 223, 223));
-        jPanel.setPreferredSize(new java.awt.Dimension(773, 550));
 
         jLabelTitulo.setBackground(new java.awt.Color(41, 41, 41));
         jLabelTitulo.setFont(new java.awt.Font("Rosario", 1, 36)); // NOI18N
         jLabelTitulo.setForeground(new java.awt.Color(41, 41, 41));
         jLabelTitulo.setText("Registrar Serviço");
 
+        jLabelObs.setFont(new java.awt.Font("Rosario", 1, 14)); // NOI18N
+        jLabelObs.setForeground(new java.awt.Color(41, 41, 41));
+        jLabelObs.setText("Nome do Cliente");
+
         jLabelNome.setFont(new java.awt.Font("Rosario", 1, 14)); // NOI18N
         jLabelNome.setForeground(new java.awt.Color(41, 41, 41));
-        jLabelNome.setText("Nome do Cliente");
+        jLabelNome.setText("Data");
 
-        jTextFieldServico.setBackground(new java.awt.Color(239, 239, 239));
-        jTextFieldServico.setFont(new java.awt.Font("TT Hoves Pro Trial", 0, 12)); // NOI18N
-        jTextFieldServico.setForeground(new java.awt.Color(139, 137, 137));
-        jTextFieldServico.setText("Clineusa");
-        jTextFieldServico.addFocusListener(new java.awt.event.FocusAdapter() {
+        jTextFieldNomeC.setBackground(new java.awt.Color(239, 239, 239));
+        jTextFieldNomeC.setFont(new java.awt.Font("TT Hoves Pro Trial", 0, 12)); // NOI18N
+        jTextFieldNomeC.setForeground(new java.awt.Color(139, 137, 137));
+        jTextFieldNomeC.setHorizontalAlignment(javax.swing.JTextField.LEFT);
+        jTextFieldNomeC.setText("Clonilda");
+        jTextFieldNomeC.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
-                jTextFieldServicoFocusGained(evt);
+                jTextFieldNomeCFocusGained(evt);
             }
         });
-        jTextFieldServico.addActionListener(new java.awt.event.ActionListener() {
+        jTextFieldNomeC.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextFieldServicoActionPerformed(evt);
+                jTextFieldNomeCActionPerformed(evt);
             }
         });
 
@@ -119,32 +118,18 @@ public class NovoRegistroServicoFrame extends javax.swing.JPanel {
             }
         });
 
-        jComboBoxServico.setBackground(new java.awt.Color(239, 239, 239));
-        jComboBoxServico.setFont(new java.awt.Font("TT Hoves Pro Trial", 0, 12)); // NOI18N
-        jComboBoxServico.setForeground(new java.awt.Color(41, 41, 41));
-        jComboBoxServico.setPreferredSize(new java.awt.Dimension(68, 26));
-        jComboBoxServico.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jComboBoxServicoActionPerformed(evt);
-            }
-        });
+        jLabelHorario.setFont(new java.awt.Font("Rosario", 1, 14)); // NOI18N
+        jLabelHorario.setForeground(new java.awt.Color(41, 41, 41));
+        jLabelHorario.setText("Horário");
 
-        jLabelResp.setFont(new java.awt.Font("Rosario", 1, 14)); // NOI18N
-        jLabelResp.setForeground(new java.awt.Color(41, 41, 41));
-        jLabelResp.setText("Serviço");
-
-        jTextFieldPreco.setBackground(new java.awt.Color(239, 239, 239));
-        jTextFieldPreco.setFont(new java.awt.Font("TT Hoves Pro Trial", 0, 12)); // NOI18N
-        jTextFieldPreco.setForeground(new java.awt.Color(139, 137, 137));
-        jTextFieldPreco.setText("01/01/2024");
-        jTextFieldPreco.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                jTextFieldPrecoFocusGained(evt);
-            }
-        });
-        jTextFieldPreco.addActionListener(new java.awt.event.ActionListener() {
+        jComboBoxHorario.setBackground(new java.awt.Color(239, 239, 239));
+        jComboBoxHorario.setFont(new java.awt.Font("TT Hoves Pro Trial", 0, 12)); // NOI18N
+        jComboBoxHorario.setForeground(new java.awt.Color(41, 41, 41));
+        jComboBoxHorario.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "07:00", "08:00", "09:00", "10:00", "16:00", "17:00", "18:00", "19:00", "20:00" }));
+        jComboBoxHorario.setPreferredSize(new java.awt.Dimension(68, 26));
+        jComboBoxHorario.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextFieldPrecoActionPerformed(evt);
+                jComboBoxHorarioActionPerformed(evt);
             }
         });
 
@@ -158,84 +143,81 @@ public class NovoRegistroServicoFrame extends javax.swing.JPanel {
             }
         });
 
-        jLabelPreco1.setFont(new java.awt.Font("Rosario", 1, 14)); // NOI18N
-        jLabelPreco1.setForeground(new java.awt.Color(41, 41, 41));
-        jLabelPreco1.setText("Data");
-
-        jComboBoxHorario.setBackground(new java.awt.Color(239, 239, 239));
-        jComboBoxHorario.setFont(new java.awt.Font("TT Hoves Pro Trial", 0, 12)); // NOI18N
-        jComboBoxHorario.setForeground(new java.awt.Color(41, 41, 41));
-        jComboBoxHorario.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "07:00", "08:00", "09:00", "10:00", "16:00", "17:00", "18:00", "19:00", "20:00" }));
-        jComboBoxHorario.setPreferredSize(new java.awt.Dimension(68, 26));
-        jComboBoxHorario.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jComboBoxHorarioActionPerformed(evt);
+        jTextFieldData.setBackground(new java.awt.Color(239, 239, 239));
+        jTextFieldData.setForeground(new java.awt.Color(139, 137, 137));
+        try {
+            jTextFieldData.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##/##/####")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+        jTextFieldData.setText("25/11/1986");
+        jTextFieldData.setFont(new java.awt.Font("TT Hoves Pro Trial", 0, 12)); // NOI18N
+        jTextFieldData.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                jTextFieldDataFocusGained(evt);
             }
         });
-
-        jLabelHorario.setFont(new java.awt.Font("Rosario", 1, 14)); // NOI18N
-        jLabelHorario.setForeground(new java.awt.Color(41, 41, 41));
-        jLabelHorario.setText("Horário");
+        jTextFieldData.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextFieldDataActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanelLayout = new javax.swing.GroupLayout(jPanel);
         jPanel.setLayout(jPanelLayout);
         jPanelLayout.setHorizontalGroup(
             jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanelLayout.createSequentialGroup()
-                .addGap(181, 181, 181)
-                .addComponent(jButtonSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(101, 101, 101)
-                .addComponent(jButtonVoltar, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 193, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(jButtonSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(108, 108, 108)
+                .addComponent(jButtonVoltar, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(186, 186, 186))
+            .addGroup(jPanelLayout.createSequentialGroup()
                 .addGroup(jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelLayout.createSequentialGroup()
-                        .addGroup(jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabelNome)
-                            .addGroup(jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(jLabelResp)
-                                .addComponent(jTextFieldServico, javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(jComboBoxServico, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addGroup(jPanelLayout.createSequentialGroup()
-                                    .addGroup(jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(jTextFieldPreco, javax.swing.GroupLayout.PREFERRED_SIZE, 308, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(jLabelPreco1))
-                                    .addGap(37, 37, 37)
-                                    .addGroup(jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(jLabelHorario)
-                                        .addComponent(jComboBoxHorario, 0, 301, Short.MAX_VALUE)))))
-                        .addGap(48, 48, 48))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelLayout.createSequentialGroup()
-                        .addComponent(jLabelTitulo)
-                        .addGap(253, 253, 253))))
+                    .addGroup(jPanelLayout.createSequentialGroup()
+                        .addGap(269, 269, 269)
+                        .addComponent(jLabelTitulo))
+                    .addGroup(jPanelLayout.createSequentialGroup()
+                        .addGap(60, 60, 60)
+                        .addGroup(jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(jPanelLayout.createSequentialGroup()
+                                .addGroup(jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jPanelLayout.createSequentialGroup()
+                                        .addComponent(jLabelNome)
+                                        .addGap(309, 309, 309))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelLayout.createSequentialGroup()
+                                        .addComponent(jTextFieldData, javax.swing.GroupLayout.PREFERRED_SIZE, 320, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(18, 18, 18)))
+                                .addGroup(jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabelHorario, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jComboBoxHorario, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                            .addComponent(jTextFieldNomeC, javax.swing.GroupLayout.PREFERRED_SIZE, 670, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabelObs))))
+                .addContainerGap(43, Short.MAX_VALUE))
         );
         jPanelLayout.setVerticalGroup(
             jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelLayout.createSequentialGroup()
-                .addGap(14, 14, 14)
+                .addGap(25, 25, 25)
                 .addComponent(jLabelTitulo)
-                .addGap(159, 159, 159)
-                .addComponent(jLabelNome)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTextFieldServico, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(8, 8, 8)
-                .addGroup(jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabelPreco1)
-                    .addComponent(jLabelHorario))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jTextFieldPreco, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jComboBoxHorario, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(78, 78, 78)
+                .addGroup(jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabelHorario, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabelNome))
+                .addGap(2, 2, 2)
+                .addGroup(jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jComboBoxHorario, javax.swing.GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE)
+                    .addComponent(jTextFieldData))
                 .addGap(18, 18, 18)
-                .addComponent(jLabelResp)
+                .addComponent(jLabelObs)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jComboBoxServico, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 76, Short.MAX_VALUE)
+                .addComponent(jTextFieldNomeC, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(203, 203, 203)
                 .addGroup(jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButtonSalvar)
                     .addComponent(jButtonVoltar))
-                .addGap(28, 28, 28))
+                .addContainerGap(29, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanelCentralLayout = new javax.swing.GroupLayout(jPanelCentral);
@@ -245,21 +227,21 @@ public class NovoRegistroServicoFrame extends javax.swing.JPanel {
             .addGroup(jPanelCentralLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(41, Short.MAX_VALUE))
+                .addContainerGap(29, Short.MAX_VALUE))
         );
         jPanelCentralLayout.setVerticalGroup(
             jPanelCentralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelCentralLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(14, Short.MAX_VALUE))
+                .addContainerGap(18, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanelCentral, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanelCentral, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -267,40 +249,30 @@ public class NovoRegistroServicoFrame extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jTextFieldServicoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldServicoActionPerformed
+    private void jTextFieldNomeCActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldNomeCActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextFieldServicoActionPerformed
+    }//GEN-LAST:event_jTextFieldNomeCActionPerformed
 
-    private void jTextFieldServicoFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextFieldServicoFocusGained
-        
-        if(jTextFieldServico.getForeground().equals(new Color(139,137,137))) {
-            jTextFieldServico.setForeground(new Color(41,41,41));
-            jTextFieldServico.setText("");
-        }
-    }//GEN-LAST:event_jTextFieldServicoFocusGained
-
-    private void jTextFieldPrecoFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextFieldPrecoFocusGained
-        if(jTextFieldPreco.getForeground().equals(new Color(139,137,137))) {
-            jTextFieldPreco.setForeground(new Color(41,41,41));
-            jTextFieldPreco.setText("");
-        }
-    }//GEN-LAST:event_jTextFieldPrecoFocusGained
-
-    private void jTextFieldPrecoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldPrecoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextFieldPrecoActionPerformed
+    private String formatarData() {
+        String str = jTextFieldData.getText();
+        return str.substring(6) + "-" + str.substring(3, 5) + "-" + str.substring(0, 2);
+    }
 
     private void jButtonSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSalvarActionPerformed
         try {
-            String nome = jTextFieldServico.getText();
-            double preco = Double.parseDouble(jTextFieldPreco.getText().replace(',', '.'));
-            int resp = (int) jComboBoxServico.getSelectedIndex() + 1;
-            if (!nome.equals("") && !jTextFieldServico.getForeground().equals(new Color(139, 137, 137))) {
-                ServicoController servicoCtrl = new ServicoController();
-                servicoCtrl.insert(nome, preco, resp);
+            String data_au = formatarData();
+            String horario = (String) jComboBoxHorario.getSelectedItem();
+            String nome_c = "";
+            if (!jTextFieldNomeC.getForeground().equals(new Color(139, 137, 137))) {
+                nome_c = jTextFieldNomeC.getText();
+            }
+            if (!data_au.equals("    -  -  ") &&
+                !jTextFieldData.getForeground().equals(new Color(139, 137, 137))) {
+                RegistroServicoController regCtrl = new RegistroServicoController();
+                if(regCtrl.insert(nome_c) != 0)
                 voltar();
             } else {
-                JOptionPane.showMessageDialog(null, "Todos os campos devem ser preenchidos!", "Erro", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Todos os campos obrigatórios devem ser preenchidos!", "Erro", JOptionPane.ERROR_MESSAGE);
             }
         } catch (NumberFormatException ex) {
             JOptionPane.showMessageDialog(null, "Preencha os campos corretamente!", "Erro", JOptionPane.ERROR_MESSAGE);
@@ -310,32 +282,44 @@ public class NovoRegistroServicoFrame extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_jButtonSalvarActionPerformed
 
+    private void jTextFieldNomeCFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextFieldNomeCFocusGained
+        if (jTextFieldNomeC.getForeground().equals(new Color(139, 137, 137))) {
+            jTextFieldNomeC.setForeground(new Color(41, 41, 41));
+            jTextFieldNomeC.setText("");
+        }
+    }//GEN-LAST:event_jTextFieldNomeCFocusGained
+
     private void jButtonVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonVoltarActionPerformed
         voltar();
     }//GEN-LAST:event_jButtonVoltarActionPerformed
 
-    private void jComboBoxServicoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxServicoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jComboBoxServicoActionPerformed
-
     private void jComboBoxHorarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxHorarioActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jComboBoxHorarioActionPerformed
+
+    private void jTextFieldDataFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextFieldDataFocusGained
+        if (jTextFieldData.getForeground().equals(new Color(139, 137, 137))) {
+            jTextFieldData.setForeground(new Color(41, 41, 41));
+            jTextFieldData.setText("");
+        }
+    }//GEN-LAST:event_jTextFieldDataFocusGained
+
+    private void jTextFieldDataActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldDataActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextFieldDataActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonSalvar;
     private javax.swing.JButton jButtonVoltar;
     private javax.swing.JComboBox<String> jComboBoxHorario;
-    private javax.swing.JComboBox<String> jComboBoxServico;
     private javax.swing.JLabel jLabelHorario;
     private javax.swing.JLabel jLabelNome;
-    private javax.swing.JLabel jLabelPreco1;
-    private javax.swing.JLabel jLabelResp;
+    private javax.swing.JLabel jLabelObs;
     private javax.swing.JLabel jLabelTitulo;
     private javax.swing.JPanel jPanel;
     private javax.swing.JPanel jPanelCentral;
-    private javax.swing.JTextField jTextFieldPreco;
-    private javax.swing.JTextField jTextFieldServico;
+    private javax.swing.JFormattedTextField jTextFieldData;
+    private javax.swing.JTextField jTextFieldNomeC;
     // End of variables declaration//GEN-END:variables
 }

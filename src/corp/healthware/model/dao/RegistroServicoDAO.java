@@ -23,7 +23,7 @@ public class RegistroServicoDAO implements DAO<RegistroServico>{
     public int insert(RegistroServico a) throws DAOexception {
         int linhasGravadas = 0;
         try {
-            String iQuery = "INSERT INTO registroservico (cod_c,data,hora,nome_cliente) VALUES (?,?,?,?)";
+            String iQuery = "INSERT INTO registroservico (cod_s,data,hora,nome_cliente) VALUES (?,?,?,?)";
 
             PreparedStatement st = conn.prepareStatement(iQuery);
             st.setInt(1, a.getCod_s());

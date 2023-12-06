@@ -34,7 +34,6 @@ public class MainServicos extends javax.swing.JPanel {
         jButtonNovoColaborador = new javax.swing.JButton();
         jButtonNovoServico = new javax.swing.JButton();
         jLabelLogo = new javax.swing.JLabel();
-        jButtonNovoRegistro = new javax.swing.JButton();
         jPanelCentral = new javax.swing.JPanel();
 
         setPreferredSize(new java.awt.Dimension(100, 570));
@@ -76,16 +75,6 @@ public class MainServicos extends javax.swing.JPanel {
 
         jLabelLogo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/logo50px_branca.png"))); // NOI18N
 
-        jButtonNovoRegistro.setBackground(new java.awt.Color(239, 239, 239));
-        jButtonNovoRegistro.setFont(new java.awt.Font("Rosario", 1, 18)); // NOI18N
-        jButtonNovoRegistro.setForeground(new java.awt.Color(41, 41, 41));
-        jButtonNovoRegistro.setText("Novo Registro");
-        jButtonNovoRegistro.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonNovoRegistroActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout jPanelLateralLayout = new javax.swing.GroupLayout(jPanelLateral);
         jPanelLateral.setLayout(jPanelLateralLayout);
         jPanelLateralLayout.setHorizontalGroup(
@@ -93,21 +82,15 @@ public class MainServicos extends javax.swing.JPanel {
             .addGroup(jPanelLateralLayout.createSequentialGroup()
                 .addGroup(jPanelLateralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanelLateralLayout.createSequentialGroup()
-                        .addGroup(jPanelLateralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanelLateralLayout.createSequentialGroup()
-                                .addGap(68, 68, 68)
-                                .addComponent(jLabelLogo))
-                            .addGroup(jPanelLateralLayout.createSequentialGroup()
-                                .addContainerGap()
-                                .addGroup(jPanelLateralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                    .addComponent(jButtonNovoColaborador, javax.swing.GroupLayout.DEFAULT_SIZE, 175, Short.MAX_VALUE)
-                                    .addComponent(jButtonNovoServico, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 175, Short.MAX_VALUE)
-                                    .addComponent(jButtonVoltar, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-                        .addGap(0, 0, Short.MAX_VALUE))
+                        .addGap(68, 68, 68)
+                        .addComponent(jLabelLogo))
                     .addGroup(jPanelLateralLayout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(jButtonNovoRegistro, javax.swing.GroupLayout.DEFAULT_SIZE, 175, Short.MAX_VALUE)))
-                .addContainerGap())
+                        .addGroup(jPanelLateralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(jButtonNovoColaborador, javax.swing.GroupLayout.DEFAULT_SIZE, 175, Short.MAX_VALUE)
+                            .addComponent(jButtonNovoServico, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 175, Short.MAX_VALUE)
+                            .addComponent(jButtonVoltar, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanelLateralLayout.setVerticalGroup(
             jPanelLateralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -118,11 +101,9 @@ public class MainServicos extends javax.swing.JPanel {
                 .addComponent(jButtonNovoColaborador, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jButtonNovoServico, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(12, 12, 12)
-                .addComponent(jButtonNovoRegistro, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(18, 18, 18)
                 .addComponent(jButtonVoltar, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(168, 168, 168))
+                .addGap(212, 212, 212))
         );
 
         jPanelCentral.setBackground(new java.awt.Color(239, 239, 239));
@@ -157,7 +138,7 @@ public class MainServicos extends javax.swing.JPanel {
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanelContent, javax.swing.GroupLayout.DEFAULT_SIZE, 203, Short.MAX_VALUE)
+            .addComponent(jPanelContent, javax.swing.GroupLayout.DEFAULT_SIZE, 193, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -196,21 +177,9 @@ public class MainServicos extends javax.swing.JPanel {
         jPanelCentral.repaint();
     }//GEN-LAST:event_jButtonNovoServicoActionPerformed
 
-    private void jButtonNovoRegistroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonNovoRegistroActionPerformed
-        // TODO add your handling code here:
-        NovoRegistroServicoFrame tCRegistro = new NovoRegistroServicoFrame();
-        tCRegistro.setSize(820,570);
-        tCRegistro.setLocation(0,0);
-        jPanelCentral.removeAll();
-        jPanelCentral.add(tCRegistro, BorderLayout.CENTER);
-        jPanelCentral.revalidate();
-        jPanelCentral.repaint();
-    }//GEN-LAST:event_jButtonNovoRegistroActionPerformed
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonNovoColaborador;
-    private javax.swing.JButton jButtonNovoRegistro;
     private javax.swing.JButton jButtonNovoServico;
     private javax.swing.JButton jButtonVoltar;
     private javax.swing.JLabel jLabelLogo;
