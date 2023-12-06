@@ -30,21 +30,25 @@ public class ColaboradorDAO implements DAO<Colaborador>{
             st.setString(5, a.getEsp());
             st.setString(6, a.getEmail());
             st.setString(7, a.getSenha());
-            st.setBoolean(8, a.getAdm());
+            st.setBoolean(8, false);
             
             linhasGravadas = st.executeUpdate();
-            JOptionPane.showMessageDialog(null, "Cadastrado");
+            JOptionPane.showMessageDialog(null, "Colaborador Cadastrado");
         } catch (SQLException e) {
-            if (e.getSQLState().equals("23505") || e.getSQLState().equals("23000")) {
-                int resultado = JOptionPane.showConfirmDialog(null, "Colaborador já cadastrado, deseja atualizar?", "Erro", JOptionPane.ERROR_MESSAGE);
-
-                if(resultado == JOptionPane.YES_OPTION) {
-                    JOptionPane.showMessageDialog(null, "Atualizado");
-                    return update(a);
-                }
-                else return 0;
+            if (e.getSQLState().equals("22001")) {
+                JOptionPane.showMessageDialog(null, "Digite uma data válida!", "Erro", JOptionPane.ERROR_MESSAGE);
             }
             System.out.println("sim" + e.getMessage());
+//            if (e.getSQLState().equals("23505") || e.getSQLState().equals("23000")) {
+//                int resultado = JOptionPane.showConfirmDialog(null, "Colaborador já cadastrado, deseja atualizar?", "Erro", JOptionPane.ERROR_MESSAGE);
+//
+//                if(resultado == JOptionPane.YES_OPTION) {
+//                    JOptionPane.showMessageDialog(null, "Atualizado");
+//                    return update(a);
+//                }
+//                else return 0;
+//            }
+//            System.out.println("sim" + e.getMessage());
         }
         return linhasGravadas;
     }

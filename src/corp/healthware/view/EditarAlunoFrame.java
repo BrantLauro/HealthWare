@@ -92,7 +92,6 @@ public class EditarAlunoFrame extends javax.swing.JPanel {
         jTextFieldData = new javax.swing.JTextField();
         jTextFieldObj = new javax.swing.JTextField();
         jTextFieldObs = new javax.swing.JTextField();
-        jTextFieldTel = new javax.swing.JTextField();
         jTextFieldEndereco = new javax.swing.JTextField();
         jButtonSalvar = new javax.swing.JButton();
         jComboBoxModalidade = new javax.swing.JComboBox<>();
@@ -101,6 +100,7 @@ public class EditarAlunoFrame extends javax.swing.JPanel {
         jComboBoxHorario = new javax.swing.JComboBox<>();
         jComboBoxStatus = new javax.swing.JComboBox<>();
         jButtonVoltar = new javax.swing.JButton();
+        jTextFieldTel = new javax.swing.JFormattedTextField();
 
         setPreferredSize(new java.awt.Dimension(820, 570));
 
@@ -148,7 +148,7 @@ public class EditarAlunoFrame extends javax.swing.JPanel {
 
         jTextFieldData.setBackground(new java.awt.Color(239, 239, 239));
         jTextFieldData.setFont(new java.awt.Font("TT Hoves Pro Trial", 0, 12)); // NOI18N
-        jTextFieldData.setForeground(new java.awt.Color(139, 137, 137));
+        jTextFieldData.setForeground(new java.awt.Color(41, 41, 41));
         jTextFieldData.setText("08/03/1980");
         jTextFieldData.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
@@ -163,7 +163,7 @@ public class EditarAlunoFrame extends javax.swing.JPanel {
 
         jTextFieldObj.setBackground(new java.awt.Color(239, 239, 239));
         jTextFieldObj.setFont(new java.awt.Font("TT Hoves Pro Trial", 0, 12)); // NOI18N
-        jTextFieldObj.setForeground(new java.awt.Color(139, 137, 137));
+        jTextFieldObj.setForeground(new java.awt.Color(41, 41, 41));
         jTextFieldObj.setText("Emagrecer");
         jTextFieldObj.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
@@ -178,7 +178,7 @@ public class EditarAlunoFrame extends javax.swing.JPanel {
 
         jTextFieldObs.setBackground(new java.awt.Color(239, 239, 239));
         jTextFieldObs.setFont(new java.awt.Font("TT Hoves Pro Trial", 0, 12)); // NOI18N
-        jTextFieldObs.setForeground(new java.awt.Color(139, 137, 137));
+        jTextFieldObs.setForeground(new java.awt.Color(41, 41, 41));
         jTextFieldObs.setHorizontalAlignment(javax.swing.JTextField.LEFT);
         jTextFieldObs.setText("Problema na coluna");
         jTextFieldObs.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -192,24 +192,9 @@ public class EditarAlunoFrame extends javax.swing.JPanel {
             }
         });
 
-        jTextFieldTel.setBackground(new java.awt.Color(239, 239, 239));
-        jTextFieldTel.setFont(new java.awt.Font("TT Hoves Pro Trial", 0, 12)); // NOI18N
-        jTextFieldTel.setForeground(new java.awt.Color(139, 137, 137));
-        jTextFieldTel.setText("(38) 9958-2856");
-        jTextFieldTel.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                jTextFieldTelFocusGained(evt);
-            }
-        });
-        jTextFieldTel.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextFieldTelActionPerformed(evt);
-            }
-        });
-
         jTextFieldEndereco.setBackground(new java.awt.Color(239, 239, 239));
         jTextFieldEndereco.setFont(new java.awt.Font("TT Hoves Pro Trial", 0, 12)); // NOI18N
-        jTextFieldEndereco.setForeground(new java.awt.Color(139, 137, 137));
+        jTextFieldEndereco.setForeground(new java.awt.Color(41, 41, 41));
         jTextFieldEndereco.setText("Avenida Olímpio Teixeira, 514");
         jTextFieldEndereco.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
@@ -235,7 +220,6 @@ public class EditarAlunoFrame extends javax.swing.JPanel {
         jComboBoxModalidade.setBackground(new java.awt.Color(239, 239, 239));
         jComboBoxModalidade.setFont(new java.awt.Font("TT Hoves Pro Trial", 0, 12)); // NOI18N
         jComboBoxModalidade.setForeground(new java.awt.Color(41, 41, 41));
-        jComboBoxModalidade.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Pilates", "Circuito", "Yoga" }));
         jComboBoxModalidade.setPreferredSize(new java.awt.Dimension(68, 26));
 
         jComboBoxPagamento.setBackground(new java.awt.Color(239, 239, 239));
@@ -267,6 +251,26 @@ public class EditarAlunoFrame extends javax.swing.JPanel {
         jButtonVoltar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonVoltarActionPerformed(evt);
+            }
+        });
+
+        jTextFieldTel.setBackground(new java.awt.Color(239, 239, 239));
+        jTextFieldTel.setForeground(new java.awt.Color(41, 41, 41));
+        try {
+            jTextFieldTel.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("(##) #####-####")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+        jTextFieldTel.setText("(38) 99958-2856");
+        jTextFieldTel.setFont(new java.awt.Font("TT Hoves Pro Trial", 0, 12)); // NOI18N
+        jTextFieldTel.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                jTextFieldTelFocusGained(evt);
+            }
+        });
+        jTextFieldTel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextFieldTelActionPerformed(evt);
             }
         });
 
@@ -339,8 +343,8 @@ public class EditarAlunoFrame extends javax.swing.JPanel {
                             .addComponent(jLabelModalidade))
                         .addGap(2, 2, 2)
                         .addGroup(jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jTextFieldTel, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jComboBoxModalidade, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(jComboBoxModalidade, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jTextFieldTel, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanelLayout.createSequentialGroup()
                         .addComponent(jLabelHorario)
                         .addGap(2, 2, 2)
@@ -503,6 +507,6 @@ public class EditarAlunoFrame extends javax.swing.JPanel {
     private javax.swing.JTextField jTextFieldEndereco;
     private javax.swing.JTextField jTextFieldObj;
     private javax.swing.JTextField jTextFieldObs;
-    private javax.swing.JTextField jTextFieldTel;
+    private javax.swing.JFormattedTextField jTextFieldTel;
     // End of variables declaration//GEN-END:variables
 }

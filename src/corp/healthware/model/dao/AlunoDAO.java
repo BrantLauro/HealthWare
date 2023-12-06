@@ -86,7 +86,7 @@ public class AlunoDAO implements DAO<Aluno> {
             if (e.getSQLState().equals("22001")) {
                 JOptionPane.showMessageDialog(null, "Digite uma data válida!", "Erro", JOptionPane.ERROR_MESSAGE);
             }
-//            System.out.println("sim" + e.getMessage());
+            System.out.println("sim" + e.getMessage());
         }
         return linhasAfetadas;
     }
@@ -167,7 +167,7 @@ public class AlunoDAO implements DAO<Aluno> {
     @Override
     public Aluno findOne(Aluno a) throws DAOexception {
         try {
-            String query = "SELECT cod_a, nome_a, data_nasc_a, dia_pag, obs, status, tel_a, obj, modalidade, endereco, horario, nome_m FROM aluno JOIN modalidade ON modalidade = cod_m WHERE cod_a = ?";
+            String query = "SELECT cod_a, nome_a, data_nasc_a, dia_pag, obs, status, tel_a, obj, modalidade, endereco, horario, nome_m FROM aluno, modalidade WHERE modalidade = cod_m OR modalidade IS NULL AND cod_a = ? GROUP BY cod_a";
             PreparedStatement st = conn.prepareStatement(query);
             st.setInt(1, a.getCod_a());
             ResultSet res = st.executeQuery();
@@ -192,7 +192,7 @@ public class AlunoDAO implements DAO<Aluno> {
             }
             return func;
         } catch (SQLException ex) {
-            System.out.println("sim" + ex.getMessage());
+            System.out.println("aqui" + ex.getMessage());
         }
         return null;
     }

@@ -33,6 +33,15 @@ public class Colaborador {
         this.senha = senha;
         this.adm = adm;
     }
+
+    public Colaborador(String nome_c, String tel_c, String data_nasc_c, String esp, String email, String senha) {
+        this.nome_c = nome_c;
+        this.tel_c = tel_c;
+        this.data_nasc_c = data_nasc_c;
+        this.esp = esp;
+        this.email = email;
+        this.senha = senha;
+    }
     
     public int cadastrarColaborador(Colaborador colaborador) throws SQLException, DAOexception {
         return new ColaboradorDAO().insert(colaborador);

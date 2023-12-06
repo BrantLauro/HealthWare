@@ -1,4 +1,3 @@
-
 package corp.healthware.view;
 
 import java.awt.BorderLayout;
@@ -8,7 +7,7 @@ public class MainFrame extends javax.swing.JPanel {
 
     public MainFrame() {
         initComponents();
-        UIManager.put( "Button.arc", 10);
+        UIManager.put("Button.arc", 10);
     }
 
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -135,7 +134,13 @@ public class MainFrame extends javax.swing.JPanel {
     }//GEN-LAST:event_jButtonAlunosActionPerformed
 
     private void jButtonServicosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonServicosActionPerformed
-
+        MainColab tColab = new MainColab();
+        tColab.setSize(1000, 570);
+        tColab.setLocation(0, 0);
+        jPanelContent.removeAll();
+        jPanelContent.add(tColab, BorderLayout.CENTER);
+        jPanelContent.revalidate();
+        jPanelContent.repaint();
     }//GEN-LAST:event_jButtonServicosActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

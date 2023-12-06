@@ -8,9 +8,9 @@ import java.util.ArrayList;
 
 public class ColaboradorController {
     
-    public int insert(String nome_c, String tel_c, String data_nasc_c, String esp, String email, String senha, boolean adm) throws DAOexception, SQLException {
-        if (nome_c != null && tel_c != null && data_nasc_c != null && esp != null && email != null && senha != null && adm != false) {
-            Colaborador colaborador = new Colaborador(nome_c, tel_c, data_nasc_c, esp, email, senha, adm);
+    public int insert(String nome_c, String tel_c, String data_nasc_c, String esp, String email, String senha) throws DAOexception, SQLException {
+        if (nome_c != null && tel_c != null && data_nasc_c != null && esp != null && email != null && senha != null) {
+            Colaborador colaborador = new Colaborador(nome_c, tel_c, data_nasc_c, esp, email, senha);
             return colaborador.cadastrarColaborador(colaborador);
         }
         return 0;

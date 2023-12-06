@@ -99,7 +99,6 @@ public class AlunosCentralFrame extends javax.swing.JPanel {
 
             @Override
             public void onDelete(int row) {
-                System.out.println("Apagando ALuno");
                 int resultado = JOptionPane.showConfirmDialog(null, "Tem certeza que deseja excluir esse aluno?\nIsso apagará todos os seus dados e suas aulas!", "Excluir Aluno", 0);
                 if (resultado == JOptionPane.YES_OPTION) {
                     try {
