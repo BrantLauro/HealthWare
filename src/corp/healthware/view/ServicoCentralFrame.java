@@ -61,10 +61,10 @@ public class ServicoCentralFrame extends javax.swing.JPanel {
 
             @Override
             public void onView(int row) {
-                AlunoController alunoCtrl = new AlunoController();
-                EditarAlunoFrame edAluno;
+                ServicoController servicoCtrl = new ServicoController();
+                EditarServicoFrame edServico;
                 try {
-                    MostrarAlunoFrame aluno = new MostrarAlunoFrame(alunoCtrl.findOne((int) jTableServicos.getValueAt(row, 0)));
+                    MostrarServicoFrame aluno = new MostrarAlunoFrame(alunoCtrl.findOne((int) jTableServicos.getValueAt(row, 0)));
                     aluno.setSize(820, 570);
                     aluno.setLocation(0, 0);
                     removeAll();
