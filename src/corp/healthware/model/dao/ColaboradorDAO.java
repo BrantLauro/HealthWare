@@ -140,6 +140,36 @@ public class ColaboradorDAO implements DAO<Colaborador>{
     public Colaborador findOne(Colaborador entidade) throws DAOexception {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
+    
+    public ArrayList<Colaborador> search(String nome) throws DAOexception {
+        ArrayList<Colaborador> colaborador = null;
+        PreparedStatement st = null;
+        try {
+            String query = "SELECT cod_c, nome_c, tel_c, data_nasc_c, esp, email, senha, adm FROM colaborador WHERE nome_c LIKE '%" + nome + "%' order by nome_c";
+
+            st = conn.prepareStatement(query);
+            ResultSet res = st.executeQuery();
+            if (res != null) {
+                colaborador = new ArrayList<>();
+                while (res.next()) {
+                    Colaborador func = new Colaborador();
+                    func.setCod_c(Integer.parseInt(res.getString("cod_s")));
+                    func.setNome_c(res.getString("nome_c"));
+                    func.setTel_c(res.getString("tel_c"));
+                    func.setData_nasc_c(res.getString("data_nasc_c"));
+                    func.setEsp(res.getString("esp"));
+                    func.setEmail(res.getString("email"));
+                    func.setSenha(res.getString("senha"));
+                    func.setAdm(res.getBoolean("adm"));
+                    colaborador.add(func);
+
+                }
+            }
+        } catch (SQLException e) {
+            throw new DAOexception("Erro ao tentar achar Aluno : SQLState : " + e.getMessage());
+        }
+        return colaborador;
+    }
 
     private static class DBSingleton {
 

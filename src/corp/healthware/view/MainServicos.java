@@ -15,7 +15,7 @@ public class MainServicos extends javax.swing.JPanel {
         UIManager.put("ScrollBar.thumbArc", 10);
         UIManager.put("ScrollBar.thumbInsets", new Insets(2, 2, 2, 2));
         initComponents();
-        AlunosCentralFrame central = new AlunosCentralFrame();
+        ServicoCentralFrame central = new ServicoCentralFrame();
         central.setSize(820, 570);
         central.setLocation(0, 0);
         jPanelCentral.removeAll();

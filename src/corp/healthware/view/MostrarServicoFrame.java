@@ -3,6 +3,7 @@ package corp.healthware.view;
 import com.formdev.flatlaf.FlatClientProperties;
 import corp.healthware.controller.AlunoController;
 import corp.healthware.controller.RegistroServicoController;
+import corp.healthware.controller.ServicoController;
 import corp.healthware.model.dao.DAOexception;
 import corp.healthware.model.entity.Aluno;
 import corp.healthware.model.entity.Servico;
@@ -284,14 +285,14 @@ public class MostrarServicoFrame extends javax.swing.JPanel {
     }//GEN-LAST:event_jButtonSalvar1ActionPerformed
 
     private void jButtonEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEditarActionPerformed
-        RegistroServicoController regCtrl = new RegistroServicoController();
-        EditarRegistroServicoFrame edRegistro;
+        ServicoController servicoCtrl = new ServicoController();
+        EditarServicoFrame edServico;
         try {
-            edAluno = new EditarAlunoFrame(alunoCtrl.findOne(cod_a));
-            edAluno.setSize(820, 570);
-            edAluno.setLocation(0, 0);
+            edServico = new EditarServicoFrame(servicoCtrl.findOne(cod_s));
+            edServico.setSize(820, 570);
+            edServico.setLocation(0, 0);
             removeAll();
-            add(edAluno, BorderLayout.CENTER);
+            add(edServico, BorderLayout.CENTER);
             revalidate();
             repaint();
         } catch (DAOexception ex) {
@@ -317,7 +318,7 @@ public class MostrarServicoFrame extends javax.swing.JPanel {
         novoRegistro.setSize(820, 570);
         novoRegistro.setLocation(0, 0);
         removeAll();
-        add(novoServico, BorderLayout.CENTER);
+        add(novoRegistro, BorderLayout.CENTER);
         revalidate();
         repaint();        
     }//GEN-LAST:event_jButtonNovoRegistroActionPerformed

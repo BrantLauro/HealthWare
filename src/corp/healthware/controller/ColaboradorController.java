@@ -35,4 +35,11 @@ public class ColaboradorController {
     public ArrayList<Colaborador> findAll() throws DAOexception, SQLException {
         return new Colaborador().findAllColaborador();
     }
+    
+    public ArrayList<Colaborador> search(String colaborador) throws DAOexception, SQLException{
+        return new Colaborador().searchColaborador(colaborador);
+    }
+
+
+    
 }

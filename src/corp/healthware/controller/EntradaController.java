@@ -14,7 +14,7 @@ import java.util.ArrayList;
  */
 public class EntradaController {
     public int insert(String data_ent, double valor_ent, String motivo_ent, int resp_ent) throws DAOexception, SQLException {
-        if (data_ent != null && valor_ent != null && motivo_ent != null && resp_ent){
+        if (data_ent != null && valor_ent != -1 && motivo_ent != null && resp_ent != -1){
             Entrada entrada = new Entrada(data_ent, valor_ent, motivo_ent, resp_ent);
             return entrada.cadastrarEntrada(entrada);
         }
@@ -22,7 +22,7 @@ public class EntradaController {
     }
 
     public int update(String data_ent, double valor_ent, String motivo_ent, int resp_ent) throws DAOexception, SQLException {
-        if (data_ent != null && valor_ent != null && motivo_ent != null && resp_ent) {
+        if (data_ent != null && valor_ent != -1 && motivo_ent != null && resp_ent != -1) {
             Entrada entrada = new Entrada(data_ent, valor_ent, motivo_ent, resp_ent);
             return entrada.updateEntrada(entrada);
         }

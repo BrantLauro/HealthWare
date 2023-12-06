@@ -2,10 +2,12 @@ package corp.healthware.view;
 
 import com.formdev.flatlaf.FlatClientProperties;
 import corp.healthware.controller.AlunoController;
+import corp.healthware.controller.ColaboradorController;
 import corp.healthware.controller.ModalidadeController;
 import corp.healthware.controller.ServicoController;
 import corp.healthware.model.dao.DAOexception;
 import corp.healthware.model.entity.Aluno;
+import corp.healthware.model.entity.Colaborador;
 import corp.healthware.model.entity.Modalidade;
 import corp.healthware.model.entity.Servico;
 import corp.healthware.view.cell.buttons.TableActionCellEditor;
@@ -64,11 +66,11 @@ public class ServicoCentralFrame extends javax.swing.JPanel {
                 ServicoController servicoCtrl = new ServicoController();
                 EditarServicoFrame edServico;
                 try {
-                    MostrarServicoFrame aluno = new MostrarAlunoFrame(alunoCtrl.findOne((int) jTableServicos.getValueAt(row, 0)));
-                    aluno.setSize(820, 570);
-                    aluno.setLocation(0, 0);
+                    MostrarServicoFrame servico = new MostrarServicoFrame(servicoCtrl.findOne((int) jTableServicos.getValueAt(row, 0)));
+                    servico.setSize(820, 570);
+                    servico.setLocation(0, 0);
                     removeAll();
-                    add(aluno, BorderLayout.CENTER);
+                    add(servico, BorderLayout.CENTER);
                     revalidate();
                     repaint();
                 } catch (DAOexception ex) {
@@ -107,9 +109,9 @@ public class ServicoCentralFrame extends javax.swing.JPanel {
                             jTableServicos.getCellEditor().stopCellEditing();
                         }
                         DefaultTableModel model = (DefaultTableModel) jTableServicos.getModel();
-                        AlunoController alunoCtrl = new AlunoController();
-                        int cod_a = (int) model.getValueAt(row, 0);
-                        alunoCtrl.delete(cod_a);
+                        ServicoController servicoCtrl = new ServicoController();
+                        int cod_s = (int) model.getValueAt(row, 0);
+                        servicoCtrl.delete(cod_s);
                         model.removeRow(row);
                     } catch (NumberFormatException ex) {
                         System.out.println("ERROR: " + ex);
@@ -128,17 +130,17 @@ public class ServicoCentralFrame extends javax.swing.JPanel {
         try {
             DefaultTableModel tableModel = (DefaultTableModel) jTableServicos.getModel();
             tableModel.setRowCount(0);
-            String[] columns = {"Cod.", "Nome", "Vezes na Semana", "Preço", "Responsável", "Ação"};
+            String[] columns = {"Cod. C", "Nome", "Especialidade", "Telefone", "Email"};
             tableModel.setColumnIdentifiers(columns);
             jTableServicos.getColumnModel().getColumn(0).setPreferredWidth(1);
             jTableServicos.getColumnModel().getColumn(2).setPreferredWidth(50);
             jTableServicos.getColumnModel().getColumn(3).setPreferredWidth(1);
-            ModalidadeController modalidadeCtrl = new ModalidadeController();
-            ArrayList<Modalidade> mods;
-            if(pesquisa.equals("")) mods = modalidadeCtrl.findAll();
-            else mods = modalidadeCtrl.search(pesquisa);
-            mods.forEach((Modalidade m) -> {
-                tableModel.addRow(new Object[]{m.getCod_m(), m.getNome_m(), m.getVezes_semana() + " Vezes", NumberFormat.getCurrencyInstance().format(m.getPreco()), m.getNomeResp()});
+            ColaboradorController colabCtrl =  new ColaboradorController();
+            ArrayList<Colaborador> colab;
+            if(pesquisa.equals("")) colab = colabCtrl.findAll();
+            else colab = colabCtrl.search(pesquisa);
+            colab.forEach((Colaborador c) -> {
+                tableModel.addRow(new Object[]{c.getCod_c(), c.getNome_c(), c.getEsp(),c.getTel_c(), c.getEmail()});
             });
             jTableServicos.setModel(tableModel);
         } catch (SQLException | DAOexception ex) {
@@ -155,10 +157,10 @@ public class ServicoCentralFrame extends javax.swing.JPanel {
 
             @Override
             public void onView(int row) {
-                AlunoController alunoCtrl = new AlunoController();
-                EditarAlunoFrame edAluno;
+                ColaboradorController colabCtrl = new ColaboradorController();
+                EditarColaboradorFrame edColab;
                 try {
-                    MostrarAlunoFrame aluno = new MostrarAlunoFrame(alunoCtrl.findOne((int) jTableServicos.getValueAt(row, 0)));
+                    MostrarColaboradorFrame aluno = new MostrarAlunoFrame(colabCtrl.findOne((int) jTableServicos.getValueAt(row, 0)));
                     aluno.setSize(820, 570);
                     aluno.setLocation(0, 0);
                     removeAll();
@@ -220,30 +222,14 @@ public class ServicoCentralFrame extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jButtonServicos = new javax.swing.JButton();
-        jButtonColaboradores = new javax.swing.JButton();
         jTextFieldPesquisa = new javax.swing.JTextField();
         jLabelPesquisa = new javax.swing.JLabel();
         jScrollPaneTabela = new javax.swing.JScrollPane();
         jTableServicos = new javax.swing.JTable();
+        jButtonChange = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(239, 239, 239));
         setPreferredSize(new java.awt.Dimension(797, 570));
-
-        jButtonServicos.setBackground(new java.awt.Color(212, 81, 93));
-        jButtonServicos.setFont(new java.awt.Font("Rosario", 1, 24)); // NOI18N
-        jButtonServicos.setForeground(new java.awt.Color(239, 239, 239));
-        jButtonServicos.setText("Serviços");
-        jButtonServicos.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonServicosActionPerformed(evt);
-            }
-        });
-
-        jButtonColaboradores.setBackground(new java.awt.Color(212, 81, 93));
-        jButtonColaboradores.setFont(new java.awt.Font("Rosario", 1, 24)); // NOI18N
-        jButtonColaboradores.setForeground(new java.awt.Color(239, 239, 239));
-        jButtonColaboradores.setText("Colaboradores");
 
         jTextFieldPesquisa.setBackground(new java.awt.Color(223, 223, 223));
         jTextFieldPesquisa.setFont(new java.awt.Font("Rosario", 1, 14)); // NOI18N
@@ -322,44 +308,46 @@ public class ServicoCentralFrame extends javax.swing.JPanel {
             jTableServicos.getColumnModel().getColumn(4).setPreferredWidth(60);
         }
 
+        jButtonChange.setBackground(new java.awt.Color(223, 223, 223));
+        jButtonChange.setFont(new java.awt.Font("Rosario", 1, 20)); // NOI18N
+        jButtonChange.setForeground(new java.awt.Color(239, 239, 239));
+        jButtonChange.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/change.png"))); // NOI18N
+        jButtonChange.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonChangeActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jTextFieldPesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, 378, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabelPesquisa)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButtonServicos, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jButtonColaboradores))
-                    .addComponent(jScrollPaneTabela, javax.swing.GroupLayout.PREFERRED_SIZE, 764, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(50, Short.MAX_VALUE))
+                .addComponent(jTextFieldPesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, 644, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jLabelPesquisa)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jButtonChange, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(27, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jScrollPaneTabela, javax.swing.GroupLayout.PREFERRED_SIZE, 764, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(26, 26, 26)
+                .addGap(24, 24, 24)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                         .addComponent(jTextFieldPesquisa)
                         .addComponent(jLabelPesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jButtonServicos)
-                        .addComponent(jButtonColaboradores)))
+                    .addComponent(jButtonChange, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPaneTabela, javax.swing.GroupLayout.PREFERRED_SIZE, 433, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(56, Short.MAX_VALUE))
+                .addContainerGap(55, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
-
-    private void jButtonServicosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonServicosActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButtonServicosActionPerformed
 
     private void jTextFieldPesquisaFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextFieldPesquisaFocusGained
         jTextFieldPesquisa.setText("");
@@ -371,17 +359,27 @@ public class ServicoCentralFrame extends javax.swing.JPanel {
 
     private void jLabelPesquisaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelPesquisaMouseClicked
         String pesquisa = jTextFieldPesquisa.getText();
-        if (tAluno) {
-            initTableAlunos(pesquisa);
+        if (tServico) {
+            initTableServicos(pesquisa);
         } else {
-            initTableModalidade(pesquisa);
+            initTableColaboradores(pesquisa);
         }
     }//GEN-LAST:event_jLabelPesquisaMouseClicked
 
+    private void jButtonChangeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonChangeActionPerformed
+        // TODO add your handling code here:
+        if(tServico) {
+            initTableServicos("");
+            tServico = false;
+        } else {
+            initTableColaboradores("");
+            tServico = true;
+        }
+    }//GEN-LAST:event_jButtonChangeActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButtonColaboradores;
-    private javax.swing.JButton jButtonServicos;
+    private javax.swing.JButton jButtonChange;
     private javax.swing.JLabel jLabelPesquisa;
     private javax.swing.JScrollPane jScrollPaneTabela;
     private javax.swing.JTable jTableServicos;

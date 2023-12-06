@@ -41,4 +41,10 @@ public class RegistroServicoController {
     public ArrayList<RegistroServico> findAll() throws DAOexception, SQLException {
         return new RegistroServico().findAllRegistroServico();
     }
+    
+    public RegistroServico findOne(int cod_s) throws DAOexception, SQLException {
+        RegistroServico registroservico = new RegistroServico(cod_s);
+        return registroservico.findOneServico(registroservico);
+    }
+    
 }

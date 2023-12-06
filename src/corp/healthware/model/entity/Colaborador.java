@@ -46,8 +46,13 @@ public class Colaborador {
         return new ColaboradorDAO().delete(colaborador);
     }
     
-   public ArrayList<Colaborador> findAllColaborador() throws DAOexception, SQLException {
+    public ArrayList<Colaborador> findAllColaborador() throws DAOexception, SQLException {
        return new ColaboradorDAO().findAll();
+       
+    }
+   
+    public ArrayList<Colaborador> searchColaborador(String colaborador) throws SQLException, DAOexception {
+        return new ColaboradorDAO().search(colaborador);
     }
     
     public int getCod_c() {
@@ -113,6 +118,8 @@ public class Colaborador {
     public void setAdm(boolean adm) {
         this.adm = adm;
     }
+
+    
     
     
 }

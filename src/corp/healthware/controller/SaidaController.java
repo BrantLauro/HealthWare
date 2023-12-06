@@ -15,7 +15,7 @@ import java.util.ArrayList;
  */
 public class SaidaController {
     public int insert(String data_saida, double valor_saida, String motivo_saida, int resp_saida) throws DAOexception, SQLException {
-        if (data_saida != null && valor_saida != null && motivo_saida != null && resp_saida){
+        if (data_saida != null && valor_saida != -1 && motivo_saida != null && resp_saida != -1){
             Saida saida = new Saida(data_saida, valor_saida, motivo_saida, resp_saida);
             return saida.cadastrarSaida(saida);
         }
@@ -23,7 +23,7 @@ public class SaidaController {
     }
 
     public int update(String data_saida, double valor_saida, String motivo_saida, int resp_saida) throws DAOexception, SQLException {
-        if (data_saida != null && valor_saida != null && motivo_saida != null && resp_saida) {
+        if (data_saida != null && valor_saida != -1 && motivo_saida != null && resp_saida != -1) {
             Saida saida = new Saida(data_saida, valor_saida, motivo_saida, resp_saida);
             return saida.updateSaida(saida);
         }
