@@ -393,23 +393,23 @@ public class ServicoCentralFrame extends javax.swing.JPanel {
     private void jButtonColaboradoresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonColaboradoresActionPerformed
         // TODO add your handling code here:
         ColaboradoresCentralFrame central = new ColaboradoresCentralFrame();
-        central.setSize(1000, 570);
+        central.setSize(800, 570);
         central.setLocation(0, 0);
-        jPanelCentral.removeAll();
-        jPanelCentral.add(central, BorderLayout.CENTER);
-        jPanelCentral.revalidate();
-        jPanelCentral.repaint();
+        removeAll();
+        add(central, BorderLayout.CENTER);
+        revalidate();
+        repaint();
     }//GEN-LAST:event_jButtonColaboradoresActionPerformed
 
     private void jButtonRegistrosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonRegistrosActionPerformed
         // TODO add your handling code here:
         RegistroServicoCentralFrame central = new RegistroServicoCentralFrame();
-        central.setSize(1000, 570);
+        central.setSize(800, 570);
         central.setLocation(0, 0);
-        jPanelCentral.removeAll();
-        jPanelCentral.add(central, BorderLayout.CENTER);
-        jPanelCentral.revalidate();
-        jPanelCentral.repaint();
+        removeAll();
+        add(central, BorderLayout.CENTER);
+        revalidate();
+        repaint();
     }//GEN-LAST:event_jButtonRegistrosActionPerformed
 
 

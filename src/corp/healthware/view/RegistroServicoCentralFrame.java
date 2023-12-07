@@ -139,27 +139,16 @@ public class RegistroServicoCentralFrame extends javax.swing.JPanel {
     private void initComponents() {
 
         jPanelCentral = new javax.swing.JPanel();
-        jButtonRegistros = new javax.swing.JButton();
         jTextFieldPesquisa = new javax.swing.JTextField();
         jLabelPesquisa = new javax.swing.JLabel();
         jScrollPaneTabela = new javax.swing.JScrollPane();
         jTableRegistroServicos = new javax.swing.JTable();
-        jButtonColaboradores = new javax.swing.JButton();
+        jButtonVoltar = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(239, 239, 239));
         setPreferredSize(new java.awt.Dimension(797, 570));
 
         jPanelCentral.setBackground(new java.awt.Color(239, 239, 239));
-
-        jButtonRegistros.setBackground(new java.awt.Color(212, 81, 93));
-        jButtonRegistros.setFont(new java.awt.Font("Rosario", 1, 18)); // NOI18N
-        jButtonRegistros.setForeground(new java.awt.Color(239, 239, 239));
-        jButtonRegistros.setText("Registros");
-        jButtonRegistros.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonRegistrosActionPerformed(evt);
-            }
-        });
 
         jTextFieldPesquisa.setBackground(new java.awt.Color(223, 223, 223));
         jTextFieldPesquisa.setFont(new java.awt.Font("Rosario", 1, 14)); // NOI18N
@@ -217,13 +206,13 @@ public class RegistroServicoCentralFrame extends javax.swing.JPanel {
             jTableRegistroServicos.getColumnModel().getColumn(4).setResizable(false);
         }
 
-        jButtonColaboradores.setBackground(new java.awt.Color(212, 81, 93));
-        jButtonColaboradores.setFont(new java.awt.Font("Rosario", 1, 18)); // NOI18N
-        jButtonColaboradores.setForeground(new java.awt.Color(239, 239, 239));
-        jButtonColaboradores.setText("Colaboradores");
-        jButtonColaboradores.addActionListener(new java.awt.event.ActionListener() {
+        jButtonVoltar.setBackground(new java.awt.Color(212, 81, 93));
+        jButtonVoltar.setFont(new java.awt.Font("Rosario", 1, 18)); // NOI18N
+        jButtonVoltar.setForeground(new java.awt.Color(239, 239, 239));
+        jButtonVoltar.setText("Voltar");
+        jButtonVoltar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonColaboradoresActionPerformed(evt);
+                jButtonVoltarActionPerformed(evt);
             }
         });
 
@@ -235,14 +224,12 @@ public class RegistroServicoCentralFrame extends javax.swing.JPanel {
                 .addContainerGap()
                 .addGroup(jPanelCentralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jScrollPaneTabela, javax.swing.GroupLayout.PREFERRED_SIZE, 774, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelCentralLayout.createSequentialGroup()
+                    .addGroup(jPanelCentralLayout.createSequentialGroup()
                         .addComponent(jTextFieldPesquisa)
-                        .addGap(18, 18, 18)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jLabelPesquisa)
                         .addGap(18, 18, 18)
-                        .addComponent(jButtonColaboradores)
-                        .addGap(18, 18, 18)
-                        .addComponent(jButtonRegistros, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jButtonVoltar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(24, Short.MAX_VALUE))
         );
         jPanelCentralLayout.setVerticalGroup(
@@ -252,8 +239,7 @@ public class RegistroServicoCentralFrame extends javax.swing.JPanel {
                 .addGroup(jPanelCentralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jTextFieldPesquisa)
                     .addComponent(jLabelPesquisa, javax.swing.GroupLayout.DEFAULT_SIZE, 38, Short.MAX_VALUE)
-                    .addComponent(jButtonRegistros, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButtonColaboradores, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jButtonVoltar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPaneTabela, javax.swing.GroupLayout.PREFERRED_SIZE, 433, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(55, 55, 55))
@@ -295,32 +281,20 @@ public class RegistroServicoCentralFrame extends javax.swing.JPanel {
         
     }//GEN-LAST:event_jLabelPesquisaMouseClicked
 
-    private void jButtonColaboradoresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonColaboradoresActionPerformed
+    private void jButtonVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonVoltarActionPerformed
         // TODO add your handling code here:
-        ColaboradoresCentralFrame central = new ColaboradoresCentralFrame();
-        central.setSize(1000, 570);
+        ServicoCentralFrame central = new ServicoCentralFrame();
+        central.setSize(790, 570);
         central.setLocation(0, 0);
-        jPanelCentral.removeAll();
-        jPanelCentral.add(central, BorderLayout.CENTER);
-        jPanelCentral.revalidate();
-        jPanelCentral.repaint();
-    }//GEN-LAST:event_jButtonColaboradoresActionPerformed
-
-    private void jButtonRegistrosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonRegistrosActionPerformed
-        // TODO add your handling code here:
-        RegistroServicoCentralFrame central = new RegistroServicoCentralFrame();
-        central.setSize(1000, 570);
-        central.setLocation(0, 0);
-        jPanelCentral.removeAll();
-        jPanelCentral.add(central, BorderLayout.CENTER);
-        jPanelCentral.revalidate();
-        jPanelCentral.repaint();
-    }//GEN-LAST:event_jButtonRegistrosActionPerformed
+        removeAll();
+        add(central, BorderLayout.CENTER);
+        revalidate();
+        repaint();
+    }//GEN-LAST:event_jButtonVoltarActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButtonColaboradores;
-    private javax.swing.JButton jButtonRegistros;
+    private javax.swing.JButton jButtonVoltar;
     private javax.swing.JLabel jLabelPesquisa;
     private javax.swing.JPanel jPanelCentral;
     private javax.swing.JScrollPane jScrollPaneTabela;
