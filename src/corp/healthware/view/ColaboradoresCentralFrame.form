@@ -67,7 +67,7 @@
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
                           <Component id="jLabelPesquisa" min="-2" max="-2" attributes="0"/>
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                          <Component id="jButtonRegistros" min="-2" pref="151" max="-2" attributes="0"/>
+                          <Component id="jButtonVoltar" min="-2" pref="151" max="-2" attributes="0"/>
                       </Group>
                   </Group>
                   <EmptySpace pref="24" max="32767" attributes="0"/>
@@ -81,7 +81,7 @@
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Component id="jTextFieldPesquisa" alignment="0" max="32767" attributes="0"/>
                       <Component id="jLabelPesquisa" alignment="0" pref="38" max="32767" attributes="0"/>
-                      <Component id="jButtonRegistros" alignment="0" max="32767" attributes="0"/>
+                      <Component id="jButtonVoltar" alignment="0" max="32767" attributes="0"/>
                   </Group>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Component id="jScrollPaneTabela" min="-2" pref="433" max="-2" attributes="0"/>
@@ -158,7 +158,7 @@
             </Component>
           </SubComponents>
         </Container>
-        <Component class="javax.swing.JButton" name="jButtonRegistros">
+        <Component class="javax.swing.JButton" name="jButtonVoltar">
           <Properties>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="5d" green="51" red="d4" type="rgb"/>
@@ -172,7 +172,7 @@
             <Property name="text" type="java.lang.String" value="Voltar"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonRegistrosActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonVoltarActionPerformed"/>
           </Events>
         </Component>
         <Component class="javax.swing.JTextField" name="jTextFieldPesquisa">

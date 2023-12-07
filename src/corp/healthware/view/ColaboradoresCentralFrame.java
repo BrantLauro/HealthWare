@@ -133,7 +133,7 @@ public class ColaboradoresCentralFrame extends javax.swing.JPanel {
         jPanelCentral = new javax.swing.JPanel();
         jScrollPaneTabela = new javax.swing.JScrollPane();
         jTableColaborador = new javax.swing.JTable();
-        jButtonRegistros = new javax.swing.JButton();
+        jButtonVoltar = new javax.swing.JButton();
         jTextFieldPesquisa = new javax.swing.JTextField();
         jLabelPesquisa = new javax.swing.JLabel();
 
@@ -176,13 +176,13 @@ public class ColaboradoresCentralFrame extends javax.swing.JPanel {
             jTableColaborador.getColumnModel().getColumn(5).setResizable(false);
         }
 
-        jButtonRegistros.setBackground(new java.awt.Color(212, 81, 93));
-        jButtonRegistros.setFont(new java.awt.Font("Rosario", 1, 18)); // NOI18N
-        jButtonRegistros.setForeground(new java.awt.Color(239, 239, 239));
-        jButtonRegistros.setText("Voltar");
-        jButtonRegistros.addActionListener(new java.awt.event.ActionListener() {
+        jButtonVoltar.setBackground(new java.awt.Color(212, 81, 93));
+        jButtonVoltar.setFont(new java.awt.Font("Rosario", 1, 18)); // NOI18N
+        jButtonVoltar.setForeground(new java.awt.Color(239, 239, 239));
+        jButtonVoltar.setText("Voltar");
+        jButtonVoltar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonRegistrosActionPerformed(evt);
+                jButtonVoltarActionPerformed(evt);
             }
         });
 
@@ -222,7 +222,7 @@ public class ColaboradoresCentralFrame extends javax.swing.JPanel {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jLabelPesquisa)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jButtonRegistros, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jButtonVoltar, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(24, Short.MAX_VALUE))
         );
         jPanelCentralLayout.setVerticalGroup(
@@ -232,7 +232,7 @@ public class ColaboradoresCentralFrame extends javax.swing.JPanel {
                 .addGroup(jPanelCentralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jTextFieldPesquisa)
                     .addComponent(jLabelPesquisa, javax.swing.GroupLayout.DEFAULT_SIZE, 38, Short.MAX_VALUE)
-                    .addComponent(jButtonRegistros, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jButtonVoltar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPaneTabela, javax.swing.GroupLayout.PREFERRED_SIZE, 433, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(55, 55, 55))
@@ -273,7 +273,7 @@ public class ColaboradoresCentralFrame extends javax.swing.JPanel {
             initTableColaborador(pesquisa);
     }//GEN-LAST:event_jLabelPesquisaMouseClicked
 
-    private void jButtonRegistrosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonRegistrosActionPerformed
+    private void jButtonVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonVoltarActionPerformed
         // TODO add your handling code here:
         ServicoCentralFrame central = new ServicoCentralFrame();
         central.setSize(800, 570);
@@ -282,11 +282,11 @@ public class ColaboradoresCentralFrame extends javax.swing.JPanel {
         add(central, BorderLayout.CENTER);
         revalidate();
         repaint();
-    }//GEN-LAST:event_jButtonRegistrosActionPerformed
+    }//GEN-LAST:event_jButtonVoltarActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButtonRegistros;
+    private javax.swing.JButton jButtonVoltar;
     private javax.swing.JLabel jLabelPesquisa;
     private javax.swing.JPanel jPanelCentral;
     private javax.swing.JScrollPane jScrollPaneTabela;
