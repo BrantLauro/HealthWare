@@ -46,5 +46,10 @@ public class RegistroServicoController {
         RegistroServico registroservico = new RegistroServico(cod_s);
         return registroservico.findOneServico(registroservico);
     }
+
+    public ArrayList<RegistroServico> search(String pesquisa) throws SQLException, DAOexception {
+        return new RegistroServico().searchRegistroServico(pesquisa);
+    }
+
     
 }

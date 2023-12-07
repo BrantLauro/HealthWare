@@ -26,10 +26,10 @@ public class ServicoDAO implements DAO<Servico>{
             String iQuery = "INSERT INTO servico (cod_s,nome_s,preco,resp) VALUES (?,?,?,?)";
 
             PreparedStatement st = conn.prepareStatement(iQuery);
-            st.setString(1, a.getNome_s());
-            st.setDouble(2, a.getPreco());
-            st.setInt(3, a.getResp());
-            st.setInt(4, a.getCod_s());
+            st.setString(2, a.getNome_s());
+            st.setDouble(3, a.getPreco());
+            st.setInt(4, a.getResp());
+            st.setInt(1, a.getCod_s());
             
             linhasGravadas = st.executeUpdate();
             JOptionPane.showMessageDialog(null, "Cadastrado");
@@ -139,7 +139,7 @@ public class ServicoDAO implements DAO<Servico>{
             func.setPreco(res.getDouble("preco"));
             func.setResp(Integer.parseInt(res.getString("resp")));
             if (res.getString("colaborador") != null) {
-                func.setResp(res.getInt("modalidade"));
+                func.setResp(res.getInt("colaborador"));
                 
             } else {
                 

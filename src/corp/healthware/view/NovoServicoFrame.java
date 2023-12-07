@@ -33,7 +33,7 @@ public class NovoServicoFrame extends javax.swing.JPanel {
     }
     
     private void voltar() {
-        AlunosCentralFrame central = new AlunosCentralFrame();
+        ServicoCentralFrame central = new ServicoCentralFrame();
         central.setSize(820, 570);
         central.setLocation(0, 0);
         removeAll();

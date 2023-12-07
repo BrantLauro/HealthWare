@@ -23,7 +23,7 @@ public class RegistroServicoDAO implements DAO<RegistroServico>{
     public int insert(RegistroServico a) throws DAOexception {
         int linhasGravadas = 0;
         try {
-            String iQuery = "INSERT INTO registroservico (cod_s,data,hora,nome_cliente) VALUES (?,?,?,?)";
+            String iQuery = "INSERT INTO registro_servico (cod_s,data,hora,nome_cliente) VALUES (?,?,?,?)";
 
             PreparedStatement st = conn.prepareStatement(iQuery);
             st.setInt(1, a.getCod_s());
@@ -53,7 +53,7 @@ public class RegistroServicoDAO implements DAO<RegistroServico>{
         int linhasAfetadas = 0;
 
         try {
-            String uQuery = "UPDATE aula SET nome_cliente = ?" + "where cod_s = ? and where data = ? and hora = ?";
+            String uQuery = "UPDATE registro_servico SET nome_cliente = ?" + "where cod_s = ? and where data = ? and hora = ?";
 
             PreparedStatement st = conn.prepareStatement(uQuery);
             st.setString(1, entidade.getNome_cliente());  
@@ -76,7 +76,7 @@ public class RegistroServicoDAO implements DAO<RegistroServico>{
         int linhasAfetadas = 0;
 
         try {
-            String delQuery = "DELETE from registroservico WHERE cod_s = ? and where data = ? and hora = ?";
+            String delQuery = "DELETE from registro_servico WHERE cod_s = ? and where data = ? and hora = ?";
 
             PreparedStatement st = conn.prepareStatement(delQuery);
             st.setInt(1, entidade.getCod_s());
@@ -101,7 +101,7 @@ public class RegistroServicoDAO implements DAO<RegistroServico>{
         PreparedStatement st = null;
 
         try {
-            String query = "SELECT * FROM registroservico";
+            String query = "SELECT * FROM registro_servico";
             st = conn.prepareStatement(query);
             ResultSet res = st.executeQuery();
             if (res != null) {
@@ -127,9 +127,65 @@ public class RegistroServicoDAO implements DAO<RegistroServico>{
     }
 
     @Override
-    public RegistroServico findOne(RegistroServico entidade) throws DAOexception {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public RegistroServico findOne(RegistroServico r) throws DAOexception {
+        try {
+            String query = "SELECT cod_s,data,hora,nome_cliente FROM registro_servico JOIN servico ON servico = cod_s WHERE cod_s = ?";
+            PreparedStatement st = conn.prepareStatement(query);
+            st.setInt(1, r.getCod_s());
+            ResultSet res = st.executeQuery();
+            res.next();
+            RegistroServico func = new RegistroServico();
+            func.setCod_s(Integer.parseInt(res.getString("cod_s")));
+            func.setData(res.getString("data"));
+            func.setHora(res.getString("hora"));
+            func.setNome_cliente(res.getString("nome_c"));
+            if (res.getString("servico") != null) {
+                func.setCod_s(res.getInt("servico"));
+                
+            } else {
+                
+                func.setCod_s(-1);
+            }
+            return func;
+        } catch (SQLException ex) {
+            System.out.println("sim" + ex.getMessage());
+        }
+        return null;
     }
+
+
+    public ArrayList<RegistroServico> search(String pesquisa) throws DAOexception {
+        ArrayList<RegistroServico> reg = null;
+        PreparedStatement st = null;
+        try {
+            String query = "SELECT cod_s, data, hora, nome_c FROM registro_servico JOIN servico ON servico = cod_s WHERE nome_s LIKE '%" + pesquisa + "%' order by nome_s";
+
+            st = conn.prepareStatement(query);
+            ResultSet res = st.executeQuery();
+            if (res != null) {
+                reg = new ArrayList<>();
+                while (res.next()) {
+                    RegistroServico func = new RegistroServico();
+                    func.setCod_s(Integer.parseInt(res.getString("cod_s")));
+                    func.setData(res.getString("data"));
+                    func.setHora(res.getString("hora"));
+                    func.setNome_cliente(res.getString("nome_c"));
+                    if (res.getString("servico") != null) {
+                        func.setCod_s(res.getInt("servico"));
+                    } else {
+                        func.setCod_s(-1);
+                    }
+                    reg.add(func);
+
+                }
+            }
+        } catch (SQLException e) {
+            throw new DAOexception("Erro ao tentar achar Aluno : SQLState : " + e.getMessage());
+        }
+        return reg;
+    }
+
+
 
     private static class DBSingleton {
 
