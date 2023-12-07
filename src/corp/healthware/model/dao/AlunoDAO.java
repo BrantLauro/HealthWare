@@ -201,7 +201,7 @@ public class AlunoDAO implements DAO<Aluno> {
         ArrayList<Aluno> alunos = null;
         PreparedStatement st = null;
         try {
-            String query = "SELECT cod_a, nome_a, data_nasc_a, dia_pag, obs, status, tel_a, obj, modalidade, endereco, horario, nome_m FROM aluno JOIN modalidade ON modalidade = cod_m WHERE nome_a LIKE '%" + nome + "%' order by nome_a";
+            String query = "SELECT cod_a, nome_a, data_nasc_a, dia_pag, obs, status, tel_a, obj, modalidade, endereco, horario, nome_m FROM aluno, modalidade WHERE (modalidade = cod_m OR modalidade IS NULL) AND nome_a LIKE '%" + nome + "%' GROUP BY cod_a ORDER BY nome_a";
 
             st = conn.prepareStatement(query);
             ResultSet res = st.executeQuery();

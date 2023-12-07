@@ -31,7 +31,6 @@ public class AlunosCentralFrame extends javax.swing.JPanel {
     public AlunosCentralFrame() {
         initComponents();
         jTextFieldPesquisa.putClientProperty(FlatClientProperties.STYLE, "arc: 9");
-        jButtonChange.putClientProperty(FlatClientProperties.STYLE, "arc: 999");
         initTableAlunos("");
 
     }
@@ -227,7 +226,7 @@ public class AlunosCentralFrame extends javax.swing.JPanel {
         jScrollPaneTabela = new javax.swing.JScrollPane();
         jTableAlunos = new javax.swing.JTable();
         jTextFieldPesquisa = new javax.swing.JTextField();
-        jLabelPesquisa = new javax.swing.JLabel();
+        jButtonPesquisa = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(239, 239, 239));
         setPreferredSize(new java.awt.Dimension(797, 570));
@@ -312,10 +311,13 @@ public class AlunosCentralFrame extends javax.swing.JPanel {
             }
         });
 
-        jLabelPesquisa.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/pesquisar.png"))); // NOI18N
-        jLabelPesquisa.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabelPesquisaMouseClicked(evt);
+        jButtonPesquisa.setBackground(new java.awt.Color(223, 223, 223));
+        jButtonPesquisa.setFont(new java.awt.Font("Rosario", 1, 20)); // NOI18N
+        jButtonPesquisa.setForeground(new java.awt.Color(239, 239, 239));
+        jButtonPesquisa.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/pesquisar.png"))); // NOI18N
+        jButtonPesquisa.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonPesquisaActionPerformed(evt);
             }
         });
 
@@ -324,29 +326,26 @@ public class AlunosCentralFrame extends javax.swing.JPanel {
         jPanelCentralLayout.setHorizontalGroup(
             jPanelCentralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelCentralLayout.createSequentialGroup()
-                .addGroup(jPanelCentralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelCentralLayout.createSequentialGroup()
-                        .addGap(46, 46, 46)
-                        .addComponent(jTextFieldPesquisa)
-                        .addGap(18, 18, 18)
-                        .addComponent(jLabelPesquisa)
-                        .addGap(18, 18, 18)
-                        .addComponent(jButtonChange, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(34, 34, 34))
-                    .addGroup(jPanelCentralLayout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jScrollPaneTabela, javax.swing.GroupLayout.PREFERRED_SIZE, 764, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap()
+                .addComponent(jScrollPaneTabela, javax.swing.GroupLayout.PREFERRED_SIZE, 764, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(16, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelCentralLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jTextFieldPesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, 558, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jButtonPesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jButtonChange, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(38, 38, 38))
         );
         jPanelCentralLayout.setVerticalGroup(
             jPanelCentralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelCentralLayout.createSequentialGroup()
                 .addGap(24, 24, 24)
-                .addGroup(jPanelCentralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanelCentralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(jTextFieldPesquisa)
-                        .addComponent(jLabelPesquisa, javax.swing.GroupLayout.DEFAULT_SIZE, 38, Short.MAX_VALUE))
-                    .addComponent(jButtonChange, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanelCentralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jButtonChange, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButtonPesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTextFieldPesquisa))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPaneTabela, javax.swing.GroupLayout.PREFERRED_SIZE, 433, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(53, Short.MAX_VALUE))
@@ -361,7 +360,7 @@ public class AlunosCentralFrame extends javax.swing.JPanel {
                 .addGroup(layout.createSequentialGroup()
                     .addGap(1, 1, 1)
                     .addComponent(jPanelCentral, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(24, Short.MAX_VALUE)))
+                    .addContainerGap(10, Short.MAX_VALUE)))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -392,19 +391,19 @@ public class AlunosCentralFrame extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_jButtonChangeActionPerformed
 
-    private void jLabelPesquisaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelPesquisaMouseClicked
+    private void jButtonPesquisaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonPesquisaActionPerformed
         String pesquisa = jTextFieldPesquisa.getText();
         if (tAluno) {
             initTableAlunos(pesquisa);
         } else {
             initTableModalidade(pesquisa);
         }
-    }//GEN-LAST:event_jLabelPesquisaMouseClicked
+    }//GEN-LAST:event_jButtonPesquisaActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonChange;
-    private javax.swing.JLabel jLabelPesquisa;
+    private javax.swing.JButton jButtonPesquisa;
     private javax.swing.JPanel jPanelCentral;
     private javax.swing.JScrollPane jScrollPaneTabela;
     private javax.swing.JTable jTableAlunos;
