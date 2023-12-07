@@ -275,7 +275,7 @@
                       <Font name="TT Hoves Pro Trial" size="12" style="0"/>
                     </Property>
                     <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                      <Color blue="89" green="89" red="8b" type="rgb"/>
+                      <Color blue="29" green="29" red="29" type="rgb"/>
                     </Property>
                     <Property name="text" type="java.lang.String" value="Lucas"/>
                   </Properties>
@@ -301,7 +301,7 @@
                       <Color blue="ef" green="ef" red="ef" type="rgb"/>
                     </Property>
                     <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                      <Color blue="89" green="89" red="8b" type="rgb"/>
+                      <Color blue="29" green="29" red="29" type="rgb"/>
                     </Property>
                     <Property name="formatterFactory" type="javax.swing.JFormattedTextField$AbstractFormatterFactory" editor="org.netbeans.modules.form.editors.AbstractFormatterFactoryEditor" preCode="try {" postCode="} catch (java.text.ParseException ex) {&#xa;ex.printStackTrace();&#xa;}">
                       <Format format="(##) #####-####" subtype="-1" type="5"/>
@@ -333,7 +333,7 @@
                       <Color blue="ef" green="ef" red="ef" type="rgb"/>
                     </Property>
                     <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                      <Color blue="89" green="89" red="8b" type="rgb"/>
+                      <Color blue="29" green="29" red="29" type="rgb"/>
                     </Property>
                     <Property name="formatterFactory" type="javax.swing.JFormattedTextField$AbstractFormatterFactory" editor="org.netbeans.modules.form.editors.AbstractFormatterFactoryEditor" preCode="try {" postCode="} catch (java.text.ParseException ex) {&#xa;ex.printStackTrace();&#xa;}">
                       <Format format="##/##/####" subtype="-1" type="5"/>
@@ -368,7 +368,7 @@
                       <Font name="TT Hoves Pro Trial" size="12" style="0"/>
                     </Property>
                     <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                      <Color blue="89" green="89" red="8b" type="rgb"/>
+                      <Color blue="29" green="29" red="29" type="rgb"/>
                     </Property>
                     <Property name="text" type="java.lang.String" value="Massagem"/>
                   </Properties>
@@ -397,7 +397,7 @@
                       <Font name="TT Hoves Pro Trial" size="12" style="0"/>
                     </Property>
                     <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                      <Color blue="89" green="89" red="8b" type="rgb"/>
+                      <Color blue="29" green="29" red="29" type="rgb"/>
                     </Property>
                     <Property name="text" type="java.lang.String" value="teste@dominio.com"/>
                   </Properties>
@@ -426,7 +426,7 @@
                       <Font name="TT Hoves Pro Trial" size="12" style="0"/>
                     </Property>
                     <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                      <Color blue="89" green="89" red="8b" type="rgb"/>
+                      <Color blue="29" green="29" red="29" type="rgb"/>
                     </Property>
                     <Property name="text" type="java.lang.String" value="**********"/>
                   </Properties>

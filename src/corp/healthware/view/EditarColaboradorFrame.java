@@ -38,12 +38,21 @@ public class EditarColaboradorFrame extends javax.swing.JPanel {
         
         initComboBoxAdm();
         cod_c = c.getCod_c();
-        jLabelTitulo.setText(c.getNome_c());
+        //jComboBoxAdm.setSelectedIndex(c.getAdm());
         jTextFieldNome.setText(c.getNome_c());
-        //jTextFieldPreco.setText(s.getPreco());
+        jTextFieldData.setText(formatarDataShow(c.getData_nasc_c()));
+        jTextFieldTel.setText(c.getTel_c());
+        jTextFieldEmail.setText(c.getEmail());
+        jTextFieldEspecialidade.setText(c.getEsp());
+        jTextFieldSenha.setText(c.getSenha());
+        //jPasswordField.setText(c.getSenha());
 
     }
-
+    
+    private String formatarDataShow(String data) {
+        return data.substring(8) + "/" + data.substring(5, 7) + "/" + data.substring(0, 4);
+    }
+    
     private void initComboBoxAdm() {
         jComboBoxAdm.addItem("Sim");
         jComboBoxAdm.addItem("Não");
@@ -119,7 +128,7 @@ public class EditarColaboradorFrame extends javax.swing.JPanel {
 
         jTextFieldNome.setBackground(new java.awt.Color(239, 239, 239));
         jTextFieldNome.setFont(new java.awt.Font("TT Hoves Pro Trial", 0, 12)); // NOI18N
-        jTextFieldNome.setForeground(new java.awt.Color(139, 137, 137));
+        jTextFieldNome.setForeground(new java.awt.Color(41, 41, 41));
         jTextFieldNome.setText("Lucas");
         jTextFieldNome.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
@@ -137,7 +146,7 @@ public class EditarColaboradorFrame extends javax.swing.JPanel {
         jLabelNome.setText("Nome");
 
         jTextFieldTel.setBackground(new java.awt.Color(239, 239, 239));
-        jTextFieldTel.setForeground(new java.awt.Color(139, 137, 137));
+        jTextFieldTel.setForeground(new java.awt.Color(41, 41, 41));
         try {
             jTextFieldTel.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("(##) #####-####")));
         } catch (java.text.ParseException ex) {
@@ -161,7 +170,7 @@ public class EditarColaboradorFrame extends javax.swing.JPanel {
         jLabelTel.setText("Telefone");
 
         jTextFieldData.setBackground(new java.awt.Color(239, 239, 239));
-        jTextFieldData.setForeground(new java.awt.Color(139, 137, 137));
+        jTextFieldData.setForeground(new java.awt.Color(41, 41, 41));
         try {
             jTextFieldData.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##/##/####")));
         } catch (java.text.ParseException ex) {
@@ -186,7 +195,7 @@ public class EditarColaboradorFrame extends javax.swing.JPanel {
 
         jTextFieldEspecialidade.setBackground(new java.awt.Color(239, 239, 239));
         jTextFieldEspecialidade.setFont(new java.awt.Font("TT Hoves Pro Trial", 0, 12)); // NOI18N
-        jTextFieldEspecialidade.setForeground(new java.awt.Color(139, 137, 137));
+        jTextFieldEspecialidade.setForeground(new java.awt.Color(41, 41, 41));
         jTextFieldEspecialidade.setText("Massagem");
         jTextFieldEspecialidade.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
@@ -205,7 +214,7 @@ public class EditarColaboradorFrame extends javax.swing.JPanel {
 
         jTextFieldEmail.setBackground(new java.awt.Color(239, 239, 239));
         jTextFieldEmail.setFont(new java.awt.Font("TT Hoves Pro Trial", 0, 12)); // NOI18N
-        jTextFieldEmail.setForeground(new java.awt.Color(139, 137, 137));
+        jTextFieldEmail.setForeground(new java.awt.Color(41, 41, 41));
         jTextFieldEmail.setText("teste@dominio.com");
         jTextFieldEmail.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
@@ -224,7 +233,7 @@ public class EditarColaboradorFrame extends javax.swing.JPanel {
 
         jTextFieldSenha.setBackground(new java.awt.Color(239, 239, 239));
         jTextFieldSenha.setFont(new java.awt.Font("TT Hoves Pro Trial", 0, 12)); // NOI18N
-        jTextFieldSenha.setForeground(new java.awt.Color(139, 137, 137));
+        jTextFieldSenha.setForeground(new java.awt.Color(41, 41, 41));
         jTextFieldSenha.setText("**********");
         jTextFieldSenha.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
