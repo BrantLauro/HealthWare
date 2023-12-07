@@ -4,11 +4,13 @@ import com.formdev.flatlaf.FlatClientProperties;
 import corp.healthware.controller.AlunoController;
 import corp.healthware.controller.ColaboradorController;
 import corp.healthware.controller.ModalidadeController;
+import corp.healthware.controller.RegistroServicoController;
 import corp.healthware.controller.ServicoController;
 import corp.healthware.model.dao.DAOexception;
 import corp.healthware.model.entity.Aluno;
 import corp.healthware.model.entity.Colaborador;
 import corp.healthware.model.entity.Modalidade;
+import corp.healthware.model.entity.RegistroServico;
 import corp.healthware.model.entity.Servico;
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -23,32 +25,43 @@ public class EditarRegistroServicoFrame extends javax.swing.JPanel {
 
     private int cod_s;
 
-    public EditarRegistroServicoFrame(Servico s) {
+    public EditarRegistroServicoFrame(RegistroServico r) {
         UIManager.put("Component.arrowType", "triangle");
         UIManager.put("ComboBox.selectionBackground", new Color(212, 81, 93));
         UIManager.put("ComboBox.buttonBackground", new Color(212, 81, 93));
         initComponents();
         jPanel.putClientProperty(FlatClientProperties.STYLE, "arc: 15");
-        jTextFieldServico.putClientProperty(FlatClientProperties.STYLE, "arc: 9");
-        jTextFieldPreco.putClientProperty(FlatClientProperties.STYLE, "arc: 9");
-        initComboBoxResp();
-        cod_s = s.getCod_s();
-        jLabelTitulo.setText(s.getNome_s());
-        jTextFieldServico.setText(s.getNome_s());
-        //jTextFieldPreco.setText(s.getPreco());
+        jTextFieldNomeC.putClientProperty(FlatClientProperties.STYLE, "arc: 9");
+        jTextFieldData.putClientProperty(FlatClientProperties.STYLE, "arc: 9");
+        initComboBoxHorario();
+        cod_s = r.getCod_s();     
 
     }
 
-    private void initComboBoxResp() {
-        try {
-            ColaboradorController colaboradorCtrl = new ColaboradorController();
-            ArrayList<Colaborador> colab = colaboradorCtrl.findAll();
-            colab.forEach((Colaborador col) -> {
-                jComboBoxResp.addItem(col.getNome_c());
-            });
-        } catch (SQLException | DAOexception ex) {
-            Logger.getLogger(NovoColaboradorFrame.class.getName()).log(Level.SEVERE, null, ex);
-        }
+    private void initComboBoxHorario() {
+        jComboBoxHorario.addItem("07:00");
+        jComboBoxHorario.addItem("07:30");
+        jComboBoxHorario.addItem("08:00");
+        jComboBoxHorario.addItem("08:30");
+        jComboBoxHorario.addItem("09:00");
+        jComboBoxHorario.addItem("09:30");
+        jComboBoxHorario.addItem("10:00");
+        jComboBoxHorario.addItem("10:30");
+        jComboBoxHorario.addItem("11:00");
+        jComboBoxHorario.addItem("11:30");
+        jComboBoxHorario.addItem("12:00");
+        jComboBoxHorario.addItem("12:30");
+        jComboBoxHorario.addItem("13:00");
+        jComboBoxHorario.addItem("13:30");
+        jComboBoxHorario.addItem("14:00");
+        jComboBoxHorario.addItem("14:30");
+        jComboBoxHorario.addItem("15:00");
+        jComboBoxHorario.addItem("15:30");
+        jComboBoxHorario.addItem("16:00");
+        jComboBoxHorario.addItem("16:30");
+        jComboBoxHorario.addItem("17:00");
+        jComboBoxHorario.addItem("17:30");
+        jComboBoxHorario.addItem("18:00"); 
     }
 
     private void voltar() {
@@ -69,7 +82,7 @@ public class EditarRegistroServicoFrame extends javax.swing.JPanel {
         jButtonSalvar = new javax.swing.JButton();
         jButtonVoltar = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
-        jLabelTitulo1 = new javax.swing.JLabel();
+        jLabelTitulo = new javax.swing.JLabel();
         jComboBoxHorario = new javax.swing.JComboBox<>();
         jTextFieldData = new javax.swing.JFormattedTextField();
         jLabelNome = new javax.swing.JLabel();
@@ -106,10 +119,10 @@ public class EditarRegistroServicoFrame extends javax.swing.JPanel {
         jPanel1.setBackground(new java.awt.Color(223, 223, 223));
         jPanel1.setPreferredSize(new java.awt.Dimension(773, 550));
 
-        jLabelTitulo1.setBackground(new java.awt.Color(41, 41, 41));
-        jLabelTitulo1.setFont(new java.awt.Font("Rosario", 1, 36)); // NOI18N
-        jLabelTitulo1.setForeground(new java.awt.Color(41, 41, 41));
-        jLabelTitulo1.setText("Editar");
+        jLabelTitulo.setBackground(new java.awt.Color(41, 41, 41));
+        jLabelTitulo.setFont(new java.awt.Font("Rosario", 1, 36)); // NOI18N
+        jLabelTitulo.setForeground(new java.awt.Color(41, 41, 41));
+        jLabelTitulo.setText("Editar");
 
         jComboBoxHorario.setBackground(new java.awt.Color(239, 239, 239));
         jComboBoxHorario.setFont(new java.awt.Font("TT Hoves Pro Trial", 0, 12)); // NOI18N
@@ -178,7 +191,7 @@ public class EditarRegistroServicoFrame extends javax.swing.JPanel {
                 .addContainerGap(346, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabelTitulo1)
+                        .addComponent(jLabelTitulo)
                         .addGap(335, 335, 335))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabelHorario, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -204,7 +217,7 @@ public class EditarRegistroServicoFrame extends javax.swing.JPanel {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabelTitulo1)
+                .addComponent(jLabelTitulo)
                 .addGap(155, 155, 155)
                 .addComponent(jLabelHorario)
                 .addContainerGap(326, Short.MAX_VALUE))
@@ -287,12 +300,12 @@ public class EditarRegistroServicoFrame extends javax.swing.JPanel {
 
     private void jButtonSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSalvarActionPerformed
         try {
-            String nome_s = jTextFieldServico.getText();
-            double preco = Double.parseDouble(jTextFieldPreco.getText().replace(',', '.'));
-            int resp = (int) jComboBoxResp.getSelectedIndex() + 1;
-            if (!nome_s.equals("")) {
-                ServicoController servicoCtrl = new ServicoController();
-                if (servicoCtrl.update(nome_s,preco,resp) != 0) {
+            String data = jTextFieldData.getText();
+            String nome_c = jTextFieldNomeC.getText();
+            //String hor = (String) jComboBoxHorario.getSelectedIndex();
+            if (!nome_c.equals("")) {
+                RegistroServicoController regCtrl = new RegistroServicoController();
+                if (regCtrl.update(nome_c) != 0) {
                     voltar();
                 }
             } else {
@@ -344,7 +357,7 @@ public class EditarRegistroServicoFrame extends javax.swing.JPanel {
     private javax.swing.JLabel jLabelHorario;
     private javax.swing.JLabel jLabelNome;
     private javax.swing.JLabel jLabelObs;
-    private javax.swing.JLabel jLabelTitulo1;
+    private javax.swing.JLabel jLabelTitulo;
     private javax.swing.JPanel jPanel;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanelCentral;

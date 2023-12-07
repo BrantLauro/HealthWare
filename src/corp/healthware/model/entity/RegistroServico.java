@@ -22,6 +22,12 @@ public class RegistroServico {
     public RegistroServico() {
     }
 
+    public RegistroServico(int cod_s) {
+        this.cod_s = cod_s;
+    }
+    
+    
+
     public RegistroServico(int cod_s, String data, String hora) {
         this.cod_s = cod_s;
         this.data = data;
@@ -48,8 +54,13 @@ public class RegistroServico {
         return new RegistroServicoDAO().findAll();
     }
     
+    public RegistroServico findOneServico(RegistroServico registroservico) throws SQLException, DAOexception {
+        return new RegistroServicoDAO().findOne(registroservico);
+    }  
     
-    
+    public ArrayList<RegistroServico> searchRegistroServico(String pesquisa) throws SQLException, DAOexception {
+        return new RegistroServicoDAO().search(pesquisa);
+    }
     
     public int getCod_s() {
         return cod_s;
@@ -82,7 +93,9 @@ public class RegistroServico {
     public void setNome_cliente(String nome_cliente) {
         this.nome_cliente = nome_cliente;
     }
-    
+
+
+
 
     
 }

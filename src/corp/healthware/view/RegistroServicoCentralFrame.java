@@ -4,18 +4,17 @@ import com.formdev.flatlaf.FlatClientProperties;
 import corp.healthware.controller.AlunoController;
 import corp.healthware.controller.ColaboradorController;
 import corp.healthware.controller.ModalidadeController;
+import corp.healthware.controller.RegistroServicoController;
 import corp.healthware.controller.ServicoController;
 import corp.healthware.model.dao.DAOexception;
 import corp.healthware.model.entity.Aluno;
 import corp.healthware.model.entity.Colaborador;
 import corp.healthware.model.entity.Modalidade;
+import corp.healthware.model.entity.RegistroServico;
 import corp.healthware.model.entity.Servico;
 import corp.healthware.view.cell.buttons.TableActionCellEditor;
-import corp.healthware.view.cell.buttons.TableActionCellEditorNoView;
 import corp.healthware.view.cell.buttons.TableActionCellRender;
-import corp.healthware.view.cell.buttons.TableActionCellRenderNoView;
 import corp.healthware.view.cell.buttons.TableActionEvent;
-import corp.healthware.view.cell.buttons.TableActionEventNoView;
 import java.awt.BorderLayout;
 import java.sql.SQLException;
 import java.text.NumberFormat;
@@ -23,57 +22,87 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
 
 public class RegistroServicoCentralFrame extends javax.swing.JPanel {
     
-    private boolean tServico = true;
 
     public RegistroServicoCentralFrame() {
         initComponents();
-        //initTableServicos("");
-
+        initTableRegistroServicos("");
     }
 
-    private void initTableRegistros() {
+    private void initTableRegistroServicos(String pesquisa) {
         try {
-            DefaultTableModel tableModel = (DefaultTableModel) jTableRegistros.getModel();
+            DefaultTableModel tableModel = (DefaultTableModel) jTableRegistroServicos.getModel();
             tableModel.setRowCount(0);
-            ArrayList<Colaborador> colabs;
-            ColaboradorController colabCtrl = new ColaboradorController();
-            colabs = colabCtrl.findAll();
-            colabs.forEach((Colaborador c) -> {
-                tableModel.addRow(new Object[]{c.getCod_c(), c.getNome_c(), c.getData_nasc_c(), c.getTel_c(), c.getEsp()});
+            String[] columns = {"Cod.", "Data", "Horario", "Nome do Cliente", "Ação"};
+            tableModel.setColumnIdentifiers(columns);
+            jTableRegistroServicos.getColumnModel().getColumn(0).setPreferredWidth(1);
+            jTableRegistroServicos.getColumnModel().getColumn(2).setPreferredWidth(1);
+            jTableRegistroServicos.getColumnModel().getColumn(4).setPreferredWidth(1);
+            ArrayList<RegistroServico> reg;
+            RegistroServicoController regCtrl = new RegistroServicoController();
+            if(pesquisa.equals("")) reg = regCtrl.findAll();
+            else reg = regCtrl.search(pesquisa);
+            reg.forEach((RegistroServico r) -> {
+                tableModel.addRow(new Object[]{r.getCod_s(), r.getData(), r.getHora(), r.getNome_cliente()});
             });
-            jTableRegistros.setModel(tableModel);
+            jTableRegistroServicos.setModel(tableModel);
         } catch (SQLException | DAOexception ex) {
             System.out.println("ERROR: " + ex);
 
         } catch (NumberFormatException ex) {
             System.out.println("ERROR: " + ex);
         }
-        TableActionEventNoView event = new TableActionEventNoView() {
+        TableActionEvent event = new TableActionEvent() {
             @Override
             public void onMais(int row) {
-                System.out.println("Nova aula para " + row);
+                NovoRegistroServicoFrame reg = new NovoRegistroServicoFrame((int) jTableRegistroServicos.getValueAt(row, 0));
+                reg.setSize(820, 570);
+                reg.setLocation(0, 0);
+                removeAll();
+                add(reg, BorderLayout.CENTER);
+                revalidate();
+                repaint();
+            }
+
+            @Override
+            public void onView(int row) {
+                RegistroServicoController regCtrl = new RegistroServicoController();
+                EditarRegistroServicoFrame edRegistro;
+                try {
+                    MostrarRegistroServicoFrame registro = new MostrarRegistroServicoFrame(regCtrl.findOne((int) jTableRegistroServicos.getValueAt(row, 0)));
+                    registro.setSize(820, 570);
+                    registro.setLocation(0, 0);
+                    removeAll();
+                    add(registro, BorderLayout.CENTER);
+                    revalidate();
+                    repaint();
+                } catch (DAOexception ex) {
+                    Logger.getLogger(RegistroServicoCentralFrame.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (SQLException ex) {
+                    Logger.getLogger(RegistroServicoCentralFrame.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
 
             @Override
             public void onEdit(int row) {
-                ColaboradorController colabCtrl = new ColaboradorController();
-                EditarColaboradorFrame edColab;
+                RegistroServicoController regCtrl = new RegistroServicoController();
+                EditarRegistroServicoFrame edRegistro;
                 try {
-                    edColab = new EditarColaboradorFrame(colabCtrl.findOne((int) jTableRegistros.getValueAt(row, 0)));
-                    edColab.setSize(820, 570);
-                    edColab.setLocation(0, 0);
+                    edRegistro = new EditarRegistroServicoFrame(regCtrl.findOne((int) jTableRegistroServicos.getValueAt(row, 0)));
+                    edRegistro.setSize(820, 570);
+                    edRegistro.setLocation(0, 0);
                     removeAll();
-                    add(edColab, BorderLayout.CENTER);
+                    add(edRegistro, BorderLayout.CENTER);
                     revalidate();
                     repaint();
                 } catch (DAOexception ex) {
-                    Logger.getLogger(ServicoCentralFrame.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(RegistroServicoCentralFrame.class.getName()).log(Level.SEVERE, null, ex);
                 } catch (SQLException ex) {
-                    Logger.getLogger(ServicoCentralFrame.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(RegistroServicoCentralFrame.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
 
@@ -83,13 +112,13 @@ public class RegistroServicoCentralFrame extends javax.swing.JPanel {
                 int resultado = JOptionPane.showConfirmDialog(null, "Tem certeza que deseja excluir esse aluno?\nIsso apagará todos os seus dados e suas aulas!", "Excluir Aluno", 0);
                 if (resultado == JOptionPane.YES_OPTION) {
                     try {
-                        if (jTableRegistros.isEditing()) {
-                            jTableRegistros.getCellEditor().stopCellEditing();
+                        if (jTableRegistroServicos.isEditing()) {
+                            jTableRegistroServicos.getCellEditor().stopCellEditing();
                         }
-                        DefaultTableModel model = (DefaultTableModel) jTableRegistros.getModel();
-                        AlunoController alunoCtrl = new AlunoController();
-                        int cod_a = (int) model.getValueAt(row, 0);
-                        alunoCtrl.delete(cod_a);
+                        DefaultTableModel model = (DefaultTableModel) jTableRegistroServicos.getModel();
+                        ServicoController servicoCtrl = new ServicoController();
+                        int cod_s = (int) model.getValueAt(row, 0);
+                        servicoCtrl.delete(cod_s);
                         model.removeRow(row);
                     } catch (NumberFormatException ex) {
                         System.out.println("ERROR: " + ex);
@@ -100,20 +129,37 @@ public class RegistroServicoCentralFrame extends javax.swing.JPanel {
 
             }
         };
-        jTableRegistros.getColumnModel().getColumn(5).setCellRenderer(new TableActionCellRenderNoView());
-        jTableRegistros.getColumnModel().getColumn(5).setCellEditor(new TableActionCellEditorNoView(event));
+        jTableRegistroServicos.getColumnModel().getColumn(4).setCellRenderer(new TableActionCellRender());
+        jTableRegistroServicos.getColumnModel().getColumn(4).setCellEditor(new TableActionCellEditor(event));
     }
+    
+    
     
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jPanelCentral = new javax.swing.JPanel();
+        jButtonRegistros = new javax.swing.JButton();
         jTextFieldPesquisa = new javax.swing.JTextField();
         jLabelPesquisa = new javax.swing.JLabel();
         jScrollPaneTabela = new javax.swing.JScrollPane();
-        jTableRegistros = new javax.swing.JTable();
+        jTableRegistroServicos = new javax.swing.JTable();
+        jButtonColaboradores = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(239, 239, 239));
         setPreferredSize(new java.awt.Dimension(797, 570));
+
+        jPanelCentral.setBackground(new java.awt.Color(239, 239, 239));
+
+        jButtonRegistros.setBackground(new java.awt.Color(212, 81, 93));
+        jButtonRegistros.setFont(new java.awt.Font("Rosario", 1, 18)); // NOI18N
+        jButtonRegistros.setForeground(new java.awt.Color(239, 239, 239));
+        jButtonRegistros.setText("Registros");
+        jButtonRegistros.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonRegistrosActionPerformed(evt);
+            }
+        });
 
         jTextFieldPesquisa.setBackground(new java.awt.Color(223, 223, 223));
         jTextFieldPesquisa.setFont(new java.awt.Font("Rosario", 1, 14)); // NOI18N
@@ -142,81 +188,96 @@ public class RegistroServicoCentralFrame extends javax.swing.JPanel {
         jScrollPaneTabela.setToolTipText("");
         jScrollPaneTabela.setFocusable(false);
 
-        jTableRegistros.setBackground(new java.awt.Color(223, 223, 223));
-        jTableRegistros.setFont(new java.awt.Font("TT Hoves Pro Trial", 0, 12)); // NOI18N
-        jTableRegistros.setForeground(new java.awt.Color(41, 41, 41));
-        jTableRegistros.setModel(new javax.swing.table.DefaultTableModel(
+        jTableRegistroServicos.setBackground(new java.awt.Color(239, 239, 239));
+        jTableRegistroServicos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
             },
             new String [] {
-                "Cod.", "Data", "Horário", "Cliente"
+                "Código", "Data", "Horário", "Nome do Cliente", "Ação"
             }
         ) {
-            Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class
-            };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false
+                false, false, true, false, true
             };
-
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
-            }
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
             }
         });
-        jTableRegistros.setFocusable(false);
-        jTableRegistros.setGridColor(new java.awt.Color(239, 239, 239));
-        jTableRegistros.setRowHeight(40);
-        jTableRegistros.setSelectionBackground(new java.awt.Color(239, 239, 239));
-        jTableRegistros.setSelectionForeground(new java.awt.Color(41, 41, 41));
-        jTableRegistros.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
-        jTableRegistros.setShowGrid(false);
-        jTableRegistros.setShowHorizontalLines(true);
-        jTableRegistros.setShowVerticalLines(true);
-        jTableRegistros.getTableHeader().setResizingAllowed(false);
-        jTableRegistros.getTableHeader().setReorderingAllowed(false);
-        jScrollPaneTabela.setViewportView(jTableRegistros);
-        if (jTableRegistros.getColumnModel().getColumnCount() > 0) {
-            jTableRegistros.getColumnModel().getColumn(0).setResizable(false);
-            jTableRegistros.getColumnModel().getColumn(0).setPreferredWidth(20);
-            jTableRegistros.getColumnModel().getColumn(1).setResizable(false);
-            jTableRegistros.getColumnModel().getColumn(1).setPreferredWidth(15);
-            jTableRegistros.getColumnModel().getColumn(2).setResizable(false);
-            jTableRegistros.getColumnModel().getColumn(2).setPreferredWidth(15);
-            jTableRegistros.getColumnModel().getColumn(3).setResizable(false);
-            jTableRegistros.getColumnModel().getColumn(3).setPreferredWidth(40);
+        jScrollPaneTabela.setViewportView(jTableRegistroServicos);
+        if (jTableRegistroServicos.getColumnModel().getColumnCount() > 0) {
+            jTableRegistroServicos.getColumnModel().getColumn(0).setResizable(false);
+            jTableRegistroServicos.getColumnModel().getColumn(1).setResizable(false);
+            jTableRegistroServicos.getColumnModel().getColumn(2).setResizable(false);
+            jTableRegistroServicos.getColumnModel().getColumn(3).setResizable(false);
+            jTableRegistroServicos.getColumnModel().getColumn(4).setResizable(false);
         }
+
+        jButtonColaboradores.setBackground(new java.awt.Color(212, 81, 93));
+        jButtonColaboradores.setFont(new java.awt.Font("Rosario", 1, 18)); // NOI18N
+        jButtonColaboradores.setForeground(new java.awt.Color(239, 239, 239));
+        jButtonColaboradores.setText("Colaboradores");
+        jButtonColaboradores.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonColaboradoresActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanelCentralLayout = new javax.swing.GroupLayout(jPanelCentral);
+        jPanelCentral.setLayout(jPanelCentralLayout);
+        jPanelCentralLayout.setHorizontalGroup(
+            jPanelCentralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanelCentralLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanelCentralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jScrollPaneTabela, javax.swing.GroupLayout.PREFERRED_SIZE, 774, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelCentralLayout.createSequentialGroup()
+                        .addComponent(jTextFieldPesquisa)
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabelPesquisa)
+                        .addGap(18, 18, 18)
+                        .addComponent(jButtonColaboradores)
+                        .addGap(18, 18, 18)
+                        .addComponent(jButtonRegistros, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(24, Short.MAX_VALUE))
+        );
+        jPanelCentralLayout.setVerticalGroup(
+            jPanelCentralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanelCentralLayout.createSequentialGroup()
+                .addGap(26, 26, 26)
+                .addGroup(jPanelCentralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jTextFieldPesquisa)
+                    .addComponent(jLabelPesquisa, javax.swing.GroupLayout.DEFAULT_SIZE, 38, Short.MAX_VALUE)
+                    .addComponent(jButtonRegistros, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jButtonColaboradores, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPaneTabela, javax.swing.GroupLayout.PREFERRED_SIZE, 433, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(55, 55, 55))
+        );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jScrollPaneTabela, javax.swing.GroupLayout.PREFERRED_SIZE, 792, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jTextFieldPesquisa)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jLabelPesquisa)))
-                .addContainerGap())
+            .addGap(0, 804, Short.MAX_VALUE)
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createSequentialGroup()
+                    .addGap(0, 0, Short.MAX_VALUE)
+                    .addComponent(jPanelCentral, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(0, 0, Short.MAX_VALUE)))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(26, 26, 26)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jTextFieldPesquisa)
-                    .addComponent(jLabelPesquisa, javax.swing.GroupLayout.DEFAULT_SIZE, 38, Short.MAX_VALUE))
-                .addGap(18, 18, 18)
-                .addComponent(jScrollPaneTabela, javax.swing.GroupLayout.PREFERRED_SIZE, 433, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(55, 55, 55))
+            .addGap(0, 570, Short.MAX_VALUE)
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createSequentialGroup()
+                    .addGap(0, 0, Short.MAX_VALUE)
+                    .addComponent(jPanelCentral, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(0, 0, Short.MAX_VALUE)))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -230,15 +291,40 @@ public class RegistroServicoCentralFrame extends javax.swing.JPanel {
 
     private void jLabelPesquisaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelPesquisaMouseClicked
         String pesquisa = jTextFieldPesquisa.getText();
-        //initTableColaboradores(pesquisa);
-
+        initTableRegistroServicos(pesquisa);
+        
     }//GEN-LAST:event_jLabelPesquisaMouseClicked
+
+    private void jButtonColaboradoresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonColaboradoresActionPerformed
+        // TODO add your handling code here:
+        ColaboradoresCentralFrame central = new ColaboradoresCentralFrame();
+        central.setSize(1000, 570);
+        central.setLocation(0, 0);
+        jPanelCentral.removeAll();
+        jPanelCentral.add(central, BorderLayout.CENTER);
+        jPanelCentral.revalidate();
+        jPanelCentral.repaint();
+    }//GEN-LAST:event_jButtonColaboradoresActionPerformed
+
+    private void jButtonRegistrosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonRegistrosActionPerformed
+        // TODO add your handling code here:
+        RegistroServicoCentralFrame central = new RegistroServicoCentralFrame();
+        central.setSize(1000, 570);
+        central.setLocation(0, 0);
+        jPanelCentral.removeAll();
+        jPanelCentral.add(central, BorderLayout.CENTER);
+        jPanelCentral.revalidate();
+        jPanelCentral.repaint();
+    }//GEN-LAST:event_jButtonRegistrosActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButtonColaboradores;
+    private javax.swing.JButton jButtonRegistros;
     private javax.swing.JLabel jLabelPesquisa;
+    private javax.swing.JPanel jPanelCentral;
     private javax.swing.JScrollPane jScrollPaneTabela;
-    private javax.swing.JTable jTableRegistros;
+    private javax.swing.JTable jTableRegistroServicos;
     private javax.swing.JTextField jTextFieldPesquisa;
     // End of variables declaration//GEN-END:variables
 }
