@@ -139,24 +139,28 @@ public class ColaboradorDAO implements DAO<Colaborador>{
     @Override
     public Colaborador findOne(Colaborador c) throws DAOexception {
         try {
-            String query = "SELECT cod_c, nome_c, tel_c, data_nasc_c, esp, email, senha, adm WHERE cod_c = ?";
+            String query = "SELECT * FROM colaborador WHERE cod_c = ?";
             PreparedStatement st = conn.prepareStatement(query);
             st.setInt(1, c.getCod_c());
             ResultSet res = st.executeQuery();
+
             res.next();
+
             Colaborador func = new Colaborador();
-            func.setCod_c(res.getInt("cod_c"));
+
+            func.setCod_c(Integer.parseInt(res.getString("cod_c")));
             func.setNome_c(res.getString("nome_c"));
             func.setTel_c(res.getString("tel_c"));
             func.setData_nasc_c(res.getString("data_nasc_c"));
             func.setEsp(res.getString("esp"));
             func.setEmail(res.getString("email"));
+            func.setSenha(res.getString("senha"));
             func.setAdm(res.getBoolean("adm"));
             return func;
+
         } catch (SQLException ex) {
-            System.out.println("sim" + ex.getMessage());
+            throw new DAOexception("Erro ao tentar encontrar todos Colaboradores: " + ex.getMessage());
         }
-        return null;
     }
     
     public ArrayList<Colaborador> search(String nome) throws DAOexception {

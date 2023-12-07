@@ -197,6 +197,7 @@ public class RegistroServicoCentralFrame extends javax.swing.JPanel {
                 return canEdit [columnIndex];
             }
         });
+        jTableRegistroServicos.setRowHeight(40);
         jScrollPaneTabela.setViewportView(jTableRegistroServicos);
         if (jTableRegistroServicos.getColumnModel().getColumnCount() > 0) {
             jTableRegistroServicos.getColumnModel().getColumn(0).setResizable(false);

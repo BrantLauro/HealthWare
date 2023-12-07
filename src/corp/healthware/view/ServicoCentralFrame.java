@@ -158,7 +158,13 @@ public class ServicoCentralFrame extends javax.swing.JPanel {
         TableActionEvent event = new TableActionEvent() {
             @Override
             public void onMais(int row) {
-                System.out.println("Nova aula para " + row);
+                NovoServicoFrame tCMod = new NovoServicoFrame();
+                tCMod.setSize(820, 570);
+                tCMod.setLocation(0, 0);
+                removeAll();
+                add(tCMod, BorderLayout.CENTER);
+                revalidate();
+                repaint();
             }
 
             @Override
@@ -229,7 +235,6 @@ public class ServicoCentralFrame extends javax.swing.JPanel {
     private void initComponents() {
 
         jPanelCentral = new javax.swing.JPanel();
-        jButtonRegistros = new javax.swing.JButton();
         jTextFieldPesquisa = new javax.swing.JTextField();
         jLabelPesquisa = new javax.swing.JLabel();
         jScrollPaneTabela = new javax.swing.JScrollPane();
@@ -240,16 +245,6 @@ public class ServicoCentralFrame extends javax.swing.JPanel {
         setPreferredSize(new java.awt.Dimension(797, 570));
 
         jPanelCentral.setBackground(new java.awt.Color(239, 239, 239));
-
-        jButtonRegistros.setBackground(new java.awt.Color(212, 81, 93));
-        jButtonRegistros.setFont(new java.awt.Font("Rosario", 1, 18)); // NOI18N
-        jButtonRegistros.setForeground(new java.awt.Color(239, 239, 239));
-        jButtonRegistros.setText("Registros");
-        jButtonRegistros.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonRegistrosActionPerformed(evt);
-            }
-        });
 
         jTextFieldPesquisa.setBackground(new java.awt.Color(223, 223, 223));
         jTextFieldPesquisa.setFont(new java.awt.Font("Rosario", 1, 14)); // NOI18N
@@ -298,6 +293,7 @@ public class ServicoCentralFrame extends javax.swing.JPanel {
                 return canEdit [columnIndex];
             }
         });
+        jTableServicos.setRowHeight(40);
         jScrollPaneTabela.setViewportView(jTableServicos);
         if (jTableServicos.getColumnModel().getColumnCount() > 0) {
             jTableServicos.getColumnModel().getColumn(0).setResizable(false);
@@ -327,14 +323,12 @@ public class ServicoCentralFrame extends javax.swing.JPanel {
                 .addContainerGap()
                 .addGroup(jPanelCentralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jScrollPaneTabela, javax.swing.GroupLayout.PREFERRED_SIZE, 774, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelCentralLayout.createSequentialGroup()
+                    .addGroup(jPanelCentralLayout.createSequentialGroup()
                         .addComponent(jTextFieldPesquisa)
-                        .addGap(18, 18, 18)
+                        .addGap(12, 12, 12)
                         .addComponent(jLabelPesquisa)
-                        .addGap(18, 18, 18)
-                        .addComponent(jButtonColaboradores)
-                        .addGap(18, 18, 18)
-                        .addComponent(jButtonRegistros, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jButtonColaboradores)))
                 .addContainerGap(24, Short.MAX_VALUE))
         );
         jPanelCentralLayout.setVerticalGroup(
@@ -344,7 +338,6 @@ public class ServicoCentralFrame extends javax.swing.JPanel {
                 .addGroup(jPanelCentralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jTextFieldPesquisa)
                     .addComponent(jLabelPesquisa, javax.swing.GroupLayout.DEFAULT_SIZE, 38, Short.MAX_VALUE)
-                    .addComponent(jButtonRegistros, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jButtonColaboradores, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPaneTabela, javax.swing.GroupLayout.PREFERRED_SIZE, 433, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -401,21 +394,9 @@ public class ServicoCentralFrame extends javax.swing.JPanel {
         repaint();
     }//GEN-LAST:event_jButtonColaboradoresActionPerformed
 
-    private void jButtonRegistrosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonRegistrosActionPerformed
-        // TODO add your handling code here:
-        RegistroServicoCentralFrame central = new RegistroServicoCentralFrame();
-        central.setSize(800, 570);
-        central.setLocation(0, 0);
-        removeAll();
-        add(central, BorderLayout.CENTER);
-        revalidate();
-        repaint();
-    }//GEN-LAST:event_jButtonRegistrosActionPerformed
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonColaboradores;
-    private javax.swing.JButton jButtonRegistros;
     private javax.swing.JLabel jLabelPesquisa;
     private javax.swing.JPanel jPanelCentral;
     private javax.swing.JScrollPane jScrollPaneTabela;

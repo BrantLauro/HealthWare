@@ -11,8 +11,11 @@ import corp.healthware.model.entity.Colaborador;
 import corp.healthware.model.entity.Modalidade;
 import corp.healthware.model.entity.Servico;
 import corp.healthware.view.cell.buttons.TableActionCellEditor;
+import corp.healthware.view.cell.buttons.TableActionCellEditorNoView;
 import corp.healthware.view.cell.buttons.TableActionCellRender;
+import corp.healthware.view.cell.buttons.TableActionCellRenderNoView;
 import corp.healthware.view.cell.buttons.TableActionEvent;
+import corp.healthware.view.cell.buttons.TableActionEventNoView;
 import java.awt.BorderLayout;
 import java.sql.SQLException;
 import java.text.NumberFormat;
@@ -35,11 +38,6 @@ public class ColaboradoresCentralFrame extends javax.swing.JPanel {
         try {
             DefaultTableModel tableModel = (DefaultTableModel) jTableColaborador.getModel();
             tableModel.setRowCount(0);
-            String[] columns = {"Cod.", "Nome", "Telefone", "Email", "Especialidade", "Ação"};
-            tableModel.setColumnIdentifiers(columns);
-            jTableColaborador.getColumnModel().getColumn(0).setPreferredWidth(1);
-            jTableColaborador.getColumnModel().getColumn(2).setPreferredWidth(1);
-            jTableColaborador.getColumnModel().getColumn(5).setPreferredWidth(1);
             ArrayList<Colaborador> colab;
             ColaboradorController colabCtrl = new ColaboradorController();
             if(pesquisa.equals("")) colab = colabCtrl.findAll();
@@ -54,29 +52,16 @@ public class ColaboradoresCentralFrame extends javax.swing.JPanel {
         } catch (NumberFormatException ex) {
             System.out.println("ERROR: " + ex);
         }
-        TableActionEvent event = new TableActionEvent() {
+        TableActionEventNoView event = new TableActionEventNoView() {
             @Override
             public void onMais(int row) {
-                System.out.println("Novo  para " + row);
-            }
-
-            @Override
-            public void onView(int row) {
-                ColaboradorController colabCtrl = new ColaboradorController();
-                EditarColaboradorFrame edColab;
-                try {
-                    MostrarColaboradorFrame colab = new MostrarColaboradorFrame(colabCtrl.findOne((int) jTableColaborador.getValueAt(row, 0)));
-                    colab.setSize(820, 570);
-                    colab.setLocation(0, 0);
-                    removeAll();
-                    add(colab, BorderLayout.CENTER);
-                    revalidate();
-                    repaint();
-                } catch (DAOexception ex) {
-                    Logger.getLogger(ServicoCentralFrame.class.getName()).log(Level.SEVERE, null, ex);
-                } catch (SQLException ex) {
-                    Logger.getLogger(ServicoCentralFrame.class.getName()).log(Level.SEVERE, null, ex);
-                }
+                NovoServicoFrame tCMod = new NovoServicoFrame();
+                tCMod.setSize(820, 570);
+                tCMod.setLocation(0, 0);
+                removeAll();
+                add(tCMod, BorderLayout.CENTER);
+                revalidate();
+                repaint();
             }
 
             @Override
@@ -92,16 +77,15 @@ public class ColaboradoresCentralFrame extends javax.swing.JPanel {
                     revalidate();
                     repaint();
                 } catch (DAOexception ex) {
-                    Logger.getLogger(ServicoCentralFrame.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(ColaboradoresCentralFrame.class.getName()).log(Level.SEVERE, null, ex);
                 } catch (SQLException ex) {
-                    Logger.getLogger(ServicoCentralFrame.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(ColaboradoresCentralFrame.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
 
             @Override
             public void onDelete(int row) {
-                System.out.println("Apagando Colaborador");
-                int resultado = JOptionPane.showConfirmDialog(null, "Tem certeza que deseja excluir esse colaborador?\nIsso apagará todos os seus dados e suas aulas!", "Excluir Aluno", 0);
+                int resultado = JOptionPane.showConfirmDialog(null, "Tem certeza que deseja excluir esse Colaborador?\nTodas as modalidades ministradas por esse colaborador ficarão sem responsável!", "Excluir Colaborador", 0);
                 if (resultado == JOptionPane.YES_OPTION) {
                     try {
                         if (jTableColaborador.isEditing()) {
@@ -110,8 +94,8 @@ public class ColaboradoresCentralFrame extends javax.swing.JPanel {
                         DefaultTableModel model = (DefaultTableModel) jTableColaborador.getModel();
                         ColaboradorController colabCtrl = new ColaboradorController();
                         int cod_c = (int) model.getValueAt(row, 0);
-                        colabCtrl.delete(cod_c);
-                        model.removeRow(row);
+                        if(colabCtrl.delete(cod_c) != 0)
+                            model.removeRow(row);
                     } catch (NumberFormatException ex) {
                         System.out.println("ERROR: " + ex);
                     } catch (DAOexception | SQLException ex) {
@@ -121,8 +105,8 @@ public class ColaboradoresCentralFrame extends javax.swing.JPanel {
 
             }
         };
-        jTableColaborador.getColumnModel().getColumn(5).setCellRenderer(new TableActionCellRender());
-        jTableColaborador.getColumnModel().getColumn(5).setCellEditor(new TableActionCellEditor(event));
+        jTableColaborador.getColumnModel().getColumn(5).setCellRenderer(new TableActionCellRenderNoView());
+        jTableColaborador.getColumnModel().getColumn(5).setCellEditor(new TableActionCellEditorNoView(event));
     }
     
     
@@ -166,20 +150,30 @@ public class ColaboradoresCentralFrame extends javax.swing.JPanel {
                 return canEdit [columnIndex];
             }
         });
+        jTableColaborador.setRowHeight(40);
         jScrollPaneTabela.setViewportView(jTableColaborador);
         if (jTableColaborador.getColumnModel().getColumnCount() > 0) {
             jTableColaborador.getColumnModel().getColumn(0).setResizable(false);
+            jTableColaborador.getColumnModel().getColumn(0).setPreferredWidth(20);
             jTableColaborador.getColumnModel().getColumn(1).setResizable(false);
+            jTableColaborador.getColumnModel().getColumn(1).setPreferredWidth(20);
             jTableColaborador.getColumnModel().getColumn(2).setResizable(false);
+            jTableColaborador.getColumnModel().getColumn(2).setPreferredWidth(20);
             jTableColaborador.getColumnModel().getColumn(3).setResizable(false);
+            jTableColaborador.getColumnModel().getColumn(3).setPreferredWidth(20);
             jTableColaborador.getColumnModel().getColumn(4).setResizable(false);
+            jTableColaborador.getColumnModel().getColumn(4).setPreferredWidth(20);
             jTableColaborador.getColumnModel().getColumn(5).setResizable(false);
+            jTableColaborador.getColumnModel().getColumn(5).setPreferredWidth(52);
         }
 
         jButtonVoltar.setBackground(new java.awt.Color(212, 81, 93));
         jButtonVoltar.setFont(new java.awt.Font("Rosario", 1, 18)); // NOI18N
         jButtonVoltar.setForeground(new java.awt.Color(239, 239, 239));
-        jButtonVoltar.setText("Voltar");
+        jButtonVoltar.setText("Serviços");
+        jButtonVoltar.setMaximumSize(new java.awt.Dimension(143, 30));
+        jButtonVoltar.setMinimumSize(new java.awt.Dimension(143, 30));
+        jButtonVoltar.setPreferredSize(new java.awt.Dimension(143, 30));
         jButtonVoltar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonVoltarActionPerformed(evt);
@@ -222,7 +216,7 @@ public class ColaboradoresCentralFrame extends javax.swing.JPanel {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jLabelPesquisa)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jButtonVoltar, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jButtonVoltar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(24, Short.MAX_VALUE))
         );
         jPanelCentralLayout.setVerticalGroup(
