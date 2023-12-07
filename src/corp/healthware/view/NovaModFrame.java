@@ -47,7 +47,7 @@ public class NovaModFrame extends javax.swing.JPanel {
             ArrayList<Colaborador> resp = respCtrl.findAll();
             resp.forEach((Colaborador col) -> {
 
-                jComboBoxResp.addItem(col.getNome_c());
+                jComboBoxResp.addItem("Cod. " + col.getCod_c() + ": "+ col.getNome_c());
             });
         } catch (SQLException | DAOexception ex) {
             Logger.getLogger(NovoAlunoFrame.class.getName()).log(Level.SEVERE, null, ex);
@@ -283,11 +283,12 @@ public class NovaModFrame extends javax.swing.JPanel {
             String nome = jTextFieldNome.getText();
             int vezes_semana = Integer.parseInt(jComboBoxVSem.getSelectedItem().toString().substring(0, 1));
             double preco = Double.parseDouble(jTextFieldPreco.getText().replace(',', '.'));
-            int resp = (int) jComboBoxResp.getSelectedIndex() + 1;
-            if (!nome.equals("") && !jTextFieldNome.getForeground().equals(new Color(139, 137, 137))) {
+            int resp = Integer.parseInt(jComboBoxResp.getSelectedItem().toString().substring(5, 7));
+            if (!nome.equals("") && !jTextFieldNome.getForeground().equals(new Color(139, 137, 137))
+                    && !jTextFieldPreco.getForeground().equals(new Color(139, 137, 137))) {
                 ModalidadeController modCtrl = new ModalidadeController();
-                modCtrl.insert(resp, nome, vezes_semana, preco);
-                voltar();
+                if(modCtrl.insert(resp, nome, vezes_semana, preco) != 0)
+                    voltar();
             } else {
                 JOptionPane.showMessageDialog(null, "Todos os campos devem ser preenchidos!", "Erro", JOptionPane.ERROR_MESSAGE);
             }

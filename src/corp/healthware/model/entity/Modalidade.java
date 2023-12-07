@@ -28,6 +28,12 @@ public class Modalidade {
         this.vezes_semana = vezes_semana;
         this.preco = preco;
     }
+
+    public Modalidade(int cod_m, int resp, double preco) {
+        this.cod_m = cod_m;
+        this.resp = resp;
+        this.preco = preco;
+    }
     
     public int cadastrarModalidade(Modalidade modalidade) throws SQLException, DAOexception {
         return new ModalidadeDAO().insert(modalidade);
@@ -41,9 +47,17 @@ public class Modalidade {
         return new ModalidadeDAO().delete(modalidade);
     }
     
+    public Modalidade findOneModalidade(Modalidade modalidade) throws SQLException, DAOexception {
+       return new ModalidadeDAO().findOne(modalidade);
+    }
+    
    public ArrayList<Modalidade> findAllModalidade() throws DAOexception, SQLException {
        return new ModalidadeDAO().findAll();
     }
+   
+    public ArrayList<Modalidade> searchModalidade(String nome) throws SQLException, DAOexception {
+        return new ModalidadeDAO().search(nome);
+    }   
     
     public int getCod_m() {
         return cod_m;
@@ -92,8 +106,4 @@ public class Modalidade {
     public void setPreco(double preco) {
         this.preco = preco;
     }
-
-    public ArrayList<Modalidade> searchModalidade(String nome) throws SQLException, DAOexception {
-        return new ModalidadeDAO().search(nome);
-    }   
 }

@@ -151,8 +151,6 @@ public class ColabCentralFrame extends javax.swing.JPanel {
         jTableColab.setSelectionForeground(new java.awt.Color(41, 41, 41));
         jTableColab.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         jTableColab.setShowGrid(false);
-        jTableColab.setShowHorizontalLines(true);
-        jTableColab.setShowVerticalLines(true);
         jTableColab.getTableHeader().setResizingAllowed(false);
         jTableColab.getTableHeader().setReorderingAllowed(false);
         jScrollPaneTabela.setViewportView(jTableColab);

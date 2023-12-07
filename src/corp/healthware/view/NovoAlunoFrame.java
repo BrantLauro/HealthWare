@@ -458,7 +458,7 @@ public class NovoAlunoFrame extends javax.swing.JPanel {
                     && !endereco.equals("") && !jTextFieldEndereco.getForeground().equals(new Color(139, 137, 137))) {
                 AlunoController alunoCtrl = new AlunoController();
                 if(alunoCtrl.insert(nome, dataNascimento, diaPag, obs, 1, telefone, obj, modalidade, endereco, horario) != 0)
-                voltar();
+                    voltar();
             } else {
                 JOptionPane.showMessageDialog(null, "Todos os campos obrigatórios devem ser preenchidos!", "Erro", JOptionPane.ERROR_MESSAGE);
             }

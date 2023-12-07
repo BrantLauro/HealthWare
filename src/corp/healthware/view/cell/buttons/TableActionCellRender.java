@@ -12,11 +12,11 @@ public class TableActionCellRender extends DefaultTableCellRenderer {
     public Component getTableCellRendererComponent(JTable jtable, Object o, boolean isSeleted, boolean bln1, int row, int column) {
         Component com = super.getTableCellRendererComponent(jtable, o, isSeleted, bln1, row, column);
         ActionPanel action = new ActionPanel();
-        /*if (isSeleted == false && row % 2 == 0) {
-            action.setBackground(new Color(239,239,239));
-        } else {
-            action.setBackground(com.getBackground());
-        }*/
+//        if (isSeleted == false && row % 2 == 0) {
+//            action.setBackground(new Color(239,239,239));
+//        } else {
+//            action.setBackground(com.getBackground());
+//        }
         action.setBackground(com.getBackground());
         return action;
     }

@@ -1,22 +1,61 @@
-
 package corp.healthware.view;
 
 import com.formdev.flatlaf.FlatClientProperties;
+import corp.healthware.controller.ColaboradorController;
+import corp.healthware.controller.ModalidadeController;
+import corp.healthware.model.dao.DAOexception;
+import corp.healthware.model.entity.Colaborador;
+import corp.healthware.model.entity.Modalidade;
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.sql.SQLException;
+import java.text.NumberFormat;
+import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 
 public class EditarModFrame extends javax.swing.JPanel {
 
-    public EditarModFrame() {
-        UIManager.put( "Component.arrowType", "triangle" );
-        UIManager.put( "ComboBox.selectionBackground", new Color(212,81,93));
-        UIManager.put( "ComboBox.buttonBackground", new Color(212,81,93));
+    private int cod_m;
+
+    public EditarModFrame(Modalidade m) {
+        UIManager.put("Component.arrowType", "triangle");
+        UIManager.put("ComboBox.selectionBackground", new Color(212, 81, 93));
+        UIManager.put("ComboBox.buttonBackground", new Color(212, 81, 93));
         initComponents();
         jPanel.putClientProperty(FlatClientProperties.STYLE, "arc: 15");
         jTextFieldPreco.putClientProperty(FlatClientProperties.STYLE, "arc: 9");
-        
-        
+        initComboBoxResp();
+        cod_m = m.getCod_m();
+        jLabelTitulo.setText(m.getNome_m() + " " + m.getVezes_semana() + " Vezes na Semana");
+        jTextFieldPreco.setText("" + NumberFormat.getCurrencyInstance().format(m.getPreco()).substring(3));
+        jComboBoxResp.setSelectedItem(m.getNomeResp());
+
+    }
+
+    private void initComboBoxResp() {
+        try {
+            ColaboradorController respCtrl = new ColaboradorController();
+            ArrayList<Colaborador> resp = respCtrl.findAll();
+            resp.forEach((Colaborador col) -> {
+
+                jComboBoxResp.addItem("Cod. " + col.getCod_c() + ": " + col.getNome_c());
+            });
+        } catch (SQLException | DAOexception ex) {
+            Logger.getLogger(NovoAlunoFrame.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    private void voltar() {
+        AlunosCentralFrame central = new AlunosCentralFrame();
+        central.setSize(820, 570);
+        central.setLocation(0, 0);
+        removeAll();
+        add(central, BorderLayout.CENTER);
+        revalidate();
+        repaint();
     }
 
     @SuppressWarnings("unchecked")
@@ -54,6 +93,7 @@ public class EditarModFrame extends javax.swing.JPanel {
         jLabelTitulo.setBackground(new java.awt.Color(41, 41, 41));
         jLabelTitulo.setFont(new java.awt.Font("Rosario", 1, 36)); // NOI18N
         jLabelTitulo.setForeground(new java.awt.Color(41, 41, 41));
+        jLabelTitulo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabelTitulo.setText("Editar");
 
         jButtonSalvar.setBackground(new java.awt.Color(212, 81, 93));
@@ -69,7 +109,6 @@ public class EditarModFrame extends javax.swing.JPanel {
         jComboBoxResp.setBackground(new java.awt.Color(239, 239, 239));
         jComboBoxResp.setFont(new java.awt.Font("TT Hoves Pro Trial", 0, 12)); // NOI18N
         jComboBoxResp.setForeground(new java.awt.Color(41, 41, 41));
-        jComboBoxResp.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Cecília Brant", "Clever" }));
         jComboBoxResp.setPreferredSize(new java.awt.Dimension(68, 26));
 
         jLabelResp.setFont(new java.awt.Font("Rosario", 1, 14)); // NOI18N
@@ -78,8 +117,7 @@ public class EditarModFrame extends javax.swing.JPanel {
 
         jTextFieldPreco.setBackground(new java.awt.Color(239, 239, 239));
         jTextFieldPreco.setFont(new java.awt.Font("TT Hoves Pro Trial", 0, 12)); // NOI18N
-        jTextFieldPreco.setForeground(new java.awt.Color(139, 137, 137));
-        jTextFieldPreco.setText("160.00");
+        jTextFieldPreco.setForeground(new java.awt.Color(41, 41, 41));
         jTextFieldPreco.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 jTextFieldPrecoFocusGained(evt);
@@ -110,26 +148,28 @@ public class EditarModFrame extends javax.swing.JPanel {
         jPanelLayout.setHorizontalGroup(
             jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelLayout.createSequentialGroup()
-                .addGap(193, 193, 193)
-                .addComponent(jLabelTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, 384, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelLayout.createSequentialGroup()
-                .addContainerGap(53, Short.MAX_VALUE)
+                .addContainerGap()
                 .addGroup(jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelLayout.createSequentialGroup()
+                        .addGap(0, 47, Short.MAX_VALUE)
                         .addGroup(jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jTextFieldPreco, javax.swing.GroupLayout.PREFERRED_SIZE, 320, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabelPreco))
-                        .addGap(30, 30, 30)
-                        .addGroup(jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jComboBoxResp, javax.swing.GroupLayout.PREFERRED_SIZE, 323, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabelResp))
-                        .addGap(47, 47, 47))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelLayout.createSequentialGroup()
+                                .addGroup(jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jTextFieldPreco, javax.swing.GroupLayout.PREFERRED_SIZE, 320, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabelPreco))
+                                .addGap(30, 30, 30)
+                                .addGroup(jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jComboBoxResp, javax.swing.GroupLayout.PREFERRED_SIZE, 323, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabelResp))
+                                .addGap(47, 47, 47))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelLayout.createSequentialGroup()
+                                .addComponent(jButtonSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(85, 85, 85)
+                                .addComponent(jButtonVoltar, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(191, 191, 191))))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelLayout.createSequentialGroup()
-                        .addComponent(jButtonSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(85, 85, 85)
-                        .addComponent(jButtonVoltar, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(191, 191, 191))))
+                        .addComponent(jLabelTitulo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addContainerGap())))
         );
         jPanelLayout.setVerticalGroup(
             jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -189,13 +229,18 @@ public class EditarModFrame extends javax.swing.JPanel {
     }//GEN-LAST:event_jTextFieldPrecoActionPerformed
 
     private void jButtonSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSalvarActionPerformed
-        /*MainFrame main = new MainFrame();
-        main.setSize(1000, 570);
-        main.setLocation(0, 0);
-        jPanelContent.removeAll();
-        jPanelContent.add(main, BorderLayout.CENTER);
-        jPanelContent.revalidate();
-        jPanelContent.repaint();*/
+        try {
+            double preco = Double.parseDouble(jTextFieldPreco.getText().replace(',', '.'));
+            int resp = Integer.parseInt(jComboBoxResp.getSelectedItem().toString().substring(5, 7));
+            ModalidadeController modCtrl = new ModalidadeController();
+            if(modCtrl.update(cod_m, resp, preco) != 0)
+                voltar();
+        } catch (NumberFormatException ex) {
+            JOptionPane.showMessageDialog(null, "Preencha os campos corretamente!", "Erro", JOptionPane.ERROR_MESSAGE);
+        } catch (DAOexception | SQLException ex) {
+            System.out.println("Erro criacao statement: " + ex);
+            System.exit(0);
+        }
     }//GEN-LAST:event_jButtonSalvarActionPerformed
 
     private void jButtonSalvar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSalvar1ActionPerformed
@@ -203,13 +248,7 @@ public class EditarModFrame extends javax.swing.JPanel {
     }//GEN-LAST:event_jButtonSalvar1ActionPerformed
 
     private void jButtonVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonVoltarActionPerformed
-        AlunosCentralFrame central = new AlunosCentralFrame();
-        central.setSize(820, 570);
-        central.setLocation(0, 0);
-        removeAll();
-        add(central, BorderLayout.CENTER);
-        revalidate();
-        repaint();
+        voltar();
     }//GEN-LAST:event_jButtonVoltarActionPerformed
 
 

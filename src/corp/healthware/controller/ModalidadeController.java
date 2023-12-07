@@ -16,9 +16,9 @@ public class ModalidadeController {
         return 0;
     }
 
-    public int update(int resp, String nome_m, int vezes_semana, double preco) throws DAOexception, SQLException {
-        if (resp != -1 && nome_m != null && vezes_semana != -1 && preco != -1) {
-            Modalidade modalidade = new Modalidade(resp, nome_m, vezes_semana, preco);
+    public int update(int cod_m, int resp, double preco) throws DAOexception, SQLException {
+        if (cod_m != -1 && resp != -1 && preco != -1) {
+            Modalidade modalidade = new Modalidade(cod_m, resp, preco);
             return modalidade.updateModalidade(modalidade);
         }
         return 0;
@@ -30,6 +30,11 @@ public class ModalidadeController {
             return func.excluirModalidade(func);
         }
         return 0;
+    }
+    
+    public Modalidade findOne(int cod_m) throws DAOexception, SQLException {
+        Modalidade mod = new Modalidade(cod_m);
+        return mod.findOneModalidade(mod);
     }
 
     public ArrayList<Modalidade> findAll() throws DAOexception, SQLException {

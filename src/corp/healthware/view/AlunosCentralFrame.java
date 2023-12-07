@@ -13,12 +13,15 @@ import corp.healthware.view.cell.buttons.TableActionCellRenderNoView;
 import corp.healthware.view.cell.buttons.TableActionEvent;
 import corp.healthware.view.cell.buttons.TableActionEventNoView;
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.sql.SQLException;
 import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import javax.swing.UIDefaults;
+import javax.swing.UIManager;
 import javax.swing.table.DefaultTableModel;
 
 public class AlunosCentralFrame extends javax.swing.JPanel {
@@ -76,7 +79,6 @@ public class AlunosCentralFrame extends javax.swing.JPanel {
             @Override
             public void onView(int row) {
                 try {
-                    System.out.println("" + jTableAlunos.getValueAt(row, 0));
                     MostrarAlunoFrame aluno = new MostrarAlunoFrame(alunoCtrl.findOne((int) jTableAlunos.getValueAt(row, 0)));
                     aluno.setSize(820, 570);
                     aluno.setLocation(0, 0);
@@ -161,21 +163,28 @@ public class AlunosCentralFrame extends javax.swing.JPanel {
             System.out.println("ERROR: " + ex);
         }
         TableActionEventNoView event = new TableActionEventNoView() {
+            ModalidadeController modCtrl = new ModalidadeController();
             @Override
             public void onMais(int row) {
-                System.out.println("Nova aula para " + row);
+                NovoAlunoFrame tCAluno = new NovoAlunoFrame();
+
+                tCAluno.setSize(820, 570);
+                tCAluno.setLocation(0, 0);
+                removeAll();
+                add(tCAluno, BorderLayout.CENTER);
+                revalidate();
+                repaint();
             }
 
             @Override
             public void onEdit(int row) {
-                AlunoController alunoCtrl = new AlunoController();
-                EditarAlunoFrame edAluno;
+                EditarModFrame edMod;
                 try {
-                    edAluno = new EditarAlunoFrame(alunoCtrl.findOne((int) jTableAlunos.getValueAt(row, 0)));
-                    edAluno.setSize(820, 570);
-                    edAluno.setLocation(0, 0);
+                    edMod = new EditarModFrame(modCtrl.findOne((int) jTableAlunos.getValueAt(row, 0)));
+                    edMod.setSize(820, 570);
+                    edMod.setLocation(0, 0);
                     removeAll();
-                    add(edAluno, BorderLayout.CENTER);
+                    add(edMod, BorderLayout.CENTER);
                     revalidate();
                     repaint();
                 } catch (DAOexception ex) {
@@ -194,7 +203,6 @@ public class AlunosCentralFrame extends javax.swing.JPanel {
                             jTableAlunos.getCellEditor().stopCellEditing();
                         }
                         DefaultTableModel model = (DefaultTableModel) jTableAlunos.getModel();
-                        ModalidadeController modCtrl = new ModalidadeController();
                         int cod_m = (int) model.getValueAt(row, 0);
                         modCtrl.delete(cod_m);
                         model.removeRow(row);
@@ -267,14 +275,12 @@ public class AlunosCentralFrame extends javax.swing.JPanel {
             }
         });
         jTableAlunos.setFocusable(false);
-        jTableAlunos.setGridColor(new java.awt.Color(239, 239, 239));
+        jTableAlunos.setGridColor(new java.awt.Color(41, 41, 41));
         jTableAlunos.setRowHeight(40);
         jTableAlunos.setSelectionBackground(new java.awt.Color(239, 239, 239));
         jTableAlunos.setSelectionForeground(new java.awt.Color(41, 41, 41));
         jTableAlunos.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         jTableAlunos.setShowGrid(false);
-        jTableAlunos.setShowHorizontalLines(true);
-        jTableAlunos.setShowVerticalLines(true);
         jTableAlunos.getTableHeader().setResizingAllowed(false);
         jTableAlunos.getTableHeader().setReorderingAllowed(false);
         jScrollPaneTabela.setViewportView(jTableAlunos);

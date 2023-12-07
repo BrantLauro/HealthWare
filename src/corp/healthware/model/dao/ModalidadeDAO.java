@@ -1,4 +1,3 @@
-
 package corp.healthware.model.dao;
 
 import com.mysql.jdbc.Connection;
@@ -11,9 +10,10 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
-public class ModalidadeDAO implements DAO<Modalidade>{
-        private Connection conn;
-    
+public class ModalidadeDAO implements DAO<Modalidade> {
+
+    private Connection conn;
+
     public ModalidadeDAO() throws SQLException {
         conn = (Connection) Singleton.getInstancia().getConexao();
     }
@@ -29,20 +29,15 @@ public class ModalidadeDAO implements DAO<Modalidade>{
             st.setString(2, a.getNome_m());
             st.setInt(3, a.getVezes_semana());
             st.setDouble(4, a.getPreco());
-            
+
             linhasGravadas = st.executeUpdate();
-            JOptionPane.showMessageDialog(null, "Cadastrado");
-        } catch (SQLException e) {
-//            if (e.getSQLState().equals("23505") || e.getSQLState().equals("23000")) {
-//                int resultado = JOptionPane.showConfirmDialog(null, "Modalidade já cadastrada, deseja atualizar?", "Erro", JOptionPane.ERROR_MESSAGE);
-//
-//                if(resultado == JOptionPane.YES_OPTION) {
-//                    JOptionPane.showMessageDialog(null, "Atualizado");
-//                    return update(a);
-//                }
-//                else return 0;
-//            }
-            System.out.println("sim" + e.getMessage());
+            JOptionPane.showMessageDialog(null, "Modalidade cadastrada com Sucesso!");
+        } catch (SQLException ex) {
+            if (ex.getSQLState().equals("S1009")) {
+                JOptionPane.showMessageDialog(null, "O preço deve ter no máximo 3 dígitos!", "Erro", JOptionPane.ERROR_MESSAGE);
+            } else {
+                throw new DAOexception("Erro ao tentar atualizar entidade Modalidade. SQLSTATE: " + ex.getSQLState());
+            }
         }
         return linhasGravadas;
     }
@@ -52,20 +47,24 @@ public class ModalidadeDAO implements DAO<Modalidade>{
         int linhasAfetadas = 0;
 
         try {
-            String uQuery = "UPDATE modalidade SET resp = ?, nome_m = ?, vezes_semana = ?, preco = ?"
+            String uQuery = "UPDATE modalidade SET resp = ?, preco = ?"
                     + "where cod_m = ?";
 
             PreparedStatement st = conn.prepareStatement(uQuery);
             st.setInt(1, entidade.getResp());
-            st.setString(2, entidade.getNome_m());
-            st.setInt(3, entidade.getVezes_semana());
-            st.setDouble(4, entidade.getPreco());
-            st.setInt(5, entidade.getCod_m());
+            st.setDouble(2, entidade.getPreco());
+            st.setInt(3, entidade.getCod_m());
 
             linhasAfetadas = st.executeUpdate();
+            JOptionPane.showMessageDialog(null, "Modalidade editada com sucesso!");
 
         } catch (SQLException ex) {
-            throw new DAOexception("Erro ao tentar atualizar entidade Modalidade. SQLSTATE: " + ex.getMessage());
+            if (ex.getSQLState().equals("S1009") || ex.getSQLState().equals("22001")) {
+                JOptionPane.showMessageDialog(null, "O preço deve ter no máximo 3 dígitos!", "Erro", JOptionPane.ERROR_MESSAGE);
+            } else {
+                throw new DAOexception("Erro ao tentar atualizar entidade Modalidade. SQLSTATE: " + ex.getSQLState());
+            }
+
         }
 
         return linhasAfetadas;
@@ -81,17 +80,16 @@ public class ModalidadeDAO implements DAO<Modalidade>{
 
             PreparedStatement st2 = conn.prepareStatement(upQuery);
             PreparedStatement st = conn.prepareStatement(delQuery);
-            
+
             st2.setInt(1, entidade.getCod_m());
             st.setInt(1, entidade.getCod_m());
-           
-            
+
             linhasAfetadas += st2.executeUpdate();
             linhasAfetadas += st.executeUpdate();
             JOptionPane.showMessageDialog(null, "Modalidade Removida!");
 
         } catch (SQLException ex) {
-            if(ex.getSQLState().equals("23000")) {
+            if (ex.getSQLState().equals("23000")) {
                 JOptionPane.showMessageDialog(null, "A Modalidade tem alunos!", "Erro", JOptionPane.ERROR_MESSAGE);
                 return linhasAfetadas;
             }
@@ -123,7 +121,7 @@ public class ModalidadeDAO implements DAO<Modalidade>{
                     func.setNome_m(res.getString("nome_m"));
                     func.setVezes_semana(Integer.parseInt(res.getString("vezes_semana")));
                     func.setPreco(Double.parseDouble(res.getString("preco")));
-                    
+
                     funcs.add(func);
 
                 }
@@ -134,8 +132,8 @@ public class ModalidadeDAO implements DAO<Modalidade>{
 
         return funcs;
     }
-    
-        public ArrayList<Modalidade> search(String nome) throws DAOexception {
+
+    public ArrayList<Modalidade> search(String nome) throws DAOexception {
         ArrayList<Modalidade> mods = null;
         PreparedStatement st = null;
         try {
@@ -164,8 +162,25 @@ public class ModalidadeDAO implements DAO<Modalidade>{
     }
 
     @Override
-    public Modalidade findOne(Modalidade entidade) throws DAOexception {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public Modalidade findOne(Modalidade a) throws DAOexception {
+        try {
+            String query = "SELECT cod_m, nome_m, nome_c, vezes_semana, preco FROM modalidade, colaborador WHERE resp = cod_c AND cod_m = ? GROUP BY cod_m";
+            PreparedStatement st = conn.prepareStatement(query);
+            st.setInt(1, a.getCod_m());
+            ResultSet res = st.executeQuery();
+            res.next();
+            Modalidade mod = new Modalidade();
+            mod.setCod_m(Integer.parseInt(res.getString("cod_m")));
+            mod.setNome_m(res.getString("nome_m"));
+            mod.setNomeResp(res.getString("nome_c"));
+            mod.setVezes_semana(res.getInt("vezes_semana"));
+            mod.setPreco(res.getDouble("preco"));
+
+            return mod;
+        } catch (SQLException ex) {
+            System.out.println("aqui" + ex.getMessage());
+        }
+        return null;
     }
 
     private static class DBSingleton {
