@@ -25,19 +25,19 @@ import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
-public class ColaboradoresCentralFrame extends javax.swing.JPanel {
+public class RegistroServicoCentralFrame extends javax.swing.JPanel {
     
     private boolean tServico = true;
 
-    public ColaboradoresCentralFrame() {
+    public RegistroServicoCentralFrame() {
         initComponents();
-        initTableColaboradores();
+        //initTableServicos("");
 
     }
 
-    private void initTableColaboradores() {
+    private void initTableRegistros() {
         try {
-            DefaultTableModel tableModel = (DefaultTableModel) jTableColaboradores.getModel();
+            DefaultTableModel tableModel = (DefaultTableModel) jTableRegistros.getModel();
             tableModel.setRowCount(0);
             ArrayList<Colaborador> colabs;
             ColaboradorController colabCtrl = new ColaboradorController();
@@ -45,7 +45,7 @@ public class ColaboradoresCentralFrame extends javax.swing.JPanel {
             colabs.forEach((Colaborador c) -> {
                 tableModel.addRow(new Object[]{c.getCod_c(), c.getNome_c(), c.getData_nasc_c(), c.getTel_c(), c.getEsp()});
             });
-            jTableColaboradores.setModel(tableModel);
+            jTableRegistros.setModel(tableModel);
         } catch (SQLException | DAOexception ex) {
             System.out.println("ERROR: " + ex);
 
@@ -63,7 +63,7 @@ public class ColaboradoresCentralFrame extends javax.swing.JPanel {
                 ColaboradorController colabCtrl = new ColaboradorController();
                 EditarColaboradorFrame edColab;
                 try {
-                    edColab = new EditarColaboradorFrame(colabCtrl.findOne((int) jTableColaboradores.getValueAt(row, 0)));
+                    edColab = new EditarColaboradorFrame(colabCtrl.findOne((int) jTableRegistros.getValueAt(row, 0)));
                     edColab.setSize(820, 570);
                     edColab.setLocation(0, 0);
                     removeAll();
@@ -83,10 +83,10 @@ public class ColaboradoresCentralFrame extends javax.swing.JPanel {
                 int resultado = JOptionPane.showConfirmDialog(null, "Tem certeza que deseja excluir esse aluno?\nIsso apagará todos os seus dados e suas aulas!", "Excluir Aluno", 0);
                 if (resultado == JOptionPane.YES_OPTION) {
                     try {
-                        if (jTableColaboradores.isEditing()) {
-                            jTableColaboradores.getCellEditor().stopCellEditing();
+                        if (jTableRegistros.isEditing()) {
+                            jTableRegistros.getCellEditor().stopCellEditing();
                         }
-                        DefaultTableModel model = (DefaultTableModel) jTableColaboradores.getModel();
+                        DefaultTableModel model = (DefaultTableModel) jTableRegistros.getModel();
                         AlunoController alunoCtrl = new AlunoController();
                         int cod_a = (int) model.getValueAt(row, 0);
                         alunoCtrl.delete(cod_a);
@@ -100,8 +100,8 @@ public class ColaboradoresCentralFrame extends javax.swing.JPanel {
 
             }
         };
-        jTableColaboradores.getColumnModel().getColumn(5).setCellRenderer(new TableActionCellRenderNoView());
-        jTableColaboradores.getColumnModel().getColumn(5).setCellEditor(new TableActionCellEditorNoView(event));
+        jTableRegistros.getColumnModel().getColumn(5).setCellRenderer(new TableActionCellRenderNoView());
+        jTableRegistros.getColumnModel().getColumn(5).setCellEditor(new TableActionCellEditorNoView(event));
     }
     
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -110,7 +110,7 @@ public class ColaboradoresCentralFrame extends javax.swing.JPanel {
         jTextFieldPesquisa = new javax.swing.JTextField();
         jLabelPesquisa = new javax.swing.JLabel();
         jScrollPaneTabela = new javax.swing.JScrollPane();
-        jTableColaboradores = new javax.swing.JTable();
+        jTableRegistros = new javax.swing.JTable();
 
         setBackground(new java.awt.Color(239, 239, 239));
         setPreferredSize(new java.awt.Dimension(797, 570));
@@ -142,22 +142,22 @@ public class ColaboradoresCentralFrame extends javax.swing.JPanel {
         jScrollPaneTabela.setToolTipText("");
         jScrollPaneTabela.setFocusable(false);
 
-        jTableColaboradores.setBackground(new java.awt.Color(223, 223, 223));
-        jTableColaboradores.setFont(new java.awt.Font("TT Hoves Pro Trial", 0, 12)); // NOI18N
-        jTableColaboradores.setForeground(new java.awt.Color(41, 41, 41));
-        jTableColaboradores.setModel(new javax.swing.table.DefaultTableModel(
+        jTableRegistros.setBackground(new java.awt.Color(223, 223, 223));
+        jTableRegistros.setFont(new java.awt.Font("TT Hoves Pro Trial", 0, 12)); // NOI18N
+        jTableRegistros.setForeground(new java.awt.Color(41, 41, 41));
+        jTableRegistros.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "Cod.", "Nome", "Especialidade", "Telefone", "Email", "Ação"
+                "Cod.", "Data", "Horário", "Cliente"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class
+                java.lang.Integer.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false
+                false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -168,29 +168,27 @@ public class ColaboradoresCentralFrame extends javax.swing.JPanel {
                 return canEdit [columnIndex];
             }
         });
-        jTableColaboradores.setFocusable(false);
-        jTableColaboradores.setGridColor(new java.awt.Color(239, 239, 239));
-        jTableColaboradores.setRowHeight(40);
-        jTableColaboradores.setSelectionBackground(new java.awt.Color(239, 239, 239));
-        jTableColaboradores.setSelectionForeground(new java.awt.Color(41, 41, 41));
-        jTableColaboradores.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
-        jTableColaboradores.setShowGrid(false);
-        jTableColaboradores.setShowHorizontalLines(true);
-        jTableColaboradores.setShowVerticalLines(true);
-        jTableColaboradores.getTableHeader().setResizingAllowed(false);
-        jTableColaboradores.getTableHeader().setReorderingAllowed(false);
-        jScrollPaneTabela.setViewportView(jTableColaboradores);
-        if (jTableColaboradores.getColumnModel().getColumnCount() > 0) {
-            jTableColaboradores.getColumnModel().getColumn(0).setResizable(false);
-            jTableColaboradores.getColumnModel().getColumn(0).setPreferredWidth(1);
-            jTableColaboradores.getColumnModel().getColumn(1).setResizable(false);
-            jTableColaboradores.getColumnModel().getColumn(2).setResizable(false);
-            jTableColaboradores.getColumnModel().getColumn(2).setPreferredWidth(30);
-            jTableColaboradores.getColumnModel().getColumn(3).setResizable(false);
-            jTableColaboradores.getColumnModel().getColumn(3).setPreferredWidth(15);
-            jTableColaboradores.getColumnModel().getColumn(4).setResizable(false);
-            jTableColaboradores.getColumnModel().getColumn(4).setPreferredWidth(60);
-            jTableColaboradores.getColumnModel().getColumn(5).setResizable(false);
+        jTableRegistros.setFocusable(false);
+        jTableRegistros.setGridColor(new java.awt.Color(239, 239, 239));
+        jTableRegistros.setRowHeight(40);
+        jTableRegistros.setSelectionBackground(new java.awt.Color(239, 239, 239));
+        jTableRegistros.setSelectionForeground(new java.awt.Color(41, 41, 41));
+        jTableRegistros.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        jTableRegistros.setShowGrid(false);
+        jTableRegistros.setShowHorizontalLines(true);
+        jTableRegistros.setShowVerticalLines(true);
+        jTableRegistros.getTableHeader().setResizingAllowed(false);
+        jTableRegistros.getTableHeader().setReorderingAllowed(false);
+        jScrollPaneTabela.setViewportView(jTableRegistros);
+        if (jTableRegistros.getColumnModel().getColumnCount() > 0) {
+            jTableRegistros.getColumnModel().getColumn(0).setResizable(false);
+            jTableRegistros.getColumnModel().getColumn(0).setPreferredWidth(20);
+            jTableRegistros.getColumnModel().getColumn(1).setResizable(false);
+            jTableRegistros.getColumnModel().getColumn(1).setPreferredWidth(15);
+            jTableRegistros.getColumnModel().getColumn(2).setResizable(false);
+            jTableRegistros.getColumnModel().getColumn(2).setPreferredWidth(15);
+            jTableRegistros.getColumnModel().getColumn(3).setResizable(false);
+            jTableRegistros.getColumnModel().getColumn(3).setPreferredWidth(40);
         }
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -240,7 +238,7 @@ public class ColaboradoresCentralFrame extends javax.swing.JPanel {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabelPesquisa;
     private javax.swing.JScrollPane jScrollPaneTabela;
-    private javax.swing.JTable jTableColaboradores;
+    private javax.swing.JTable jTableRegistros;
     private javax.swing.JTextField jTextFieldPesquisa;
     // End of variables declaration//GEN-END:variables
 }
