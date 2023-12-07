@@ -69,7 +69,7 @@ public class EditarServicoFrame extends javax.swing.JPanel {
         jButtonSalvar = new javax.swing.JButton();
         jButtonVoltar = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
-        jLabelTitulo1 = new javax.swing.JLabel();
+        jLabelTitulo = new javax.swing.JLabel();
         jLabelNome = new javax.swing.JLabel();
         jTextFieldServico = new javax.swing.JTextField();
         jComboBoxResp = new javax.swing.JComboBox<>();
@@ -106,10 +106,10 @@ public class EditarServicoFrame extends javax.swing.JPanel {
         jPanel1.setBackground(new java.awt.Color(223, 223, 223));
         jPanel1.setPreferredSize(new java.awt.Dimension(773, 550));
 
-        jLabelTitulo1.setBackground(new java.awt.Color(41, 41, 41));
-        jLabelTitulo1.setFont(new java.awt.Font("Rosario", 1, 36)); // NOI18N
-        jLabelTitulo1.setForeground(new java.awt.Color(41, 41, 41));
-        jLabelTitulo1.setText("Editar");
+        jLabelTitulo.setBackground(new java.awt.Color(41, 41, 41));
+        jLabelTitulo.setFont(new java.awt.Font("Rosario", 1, 36)); // NOI18N
+        jLabelTitulo.setForeground(new java.awt.Color(41, 41, 41));
+        jLabelTitulo.setText("Editar");
 
         jLabelNome.setFont(new java.awt.Font("Rosario", 1, 14)); // NOI18N
         jLabelNome.setForeground(new java.awt.Color(41, 41, 41));
@@ -184,14 +184,14 @@ public class EditarServicoFrame extends javax.swing.JPanel {
                                     .addComponent(jLabelResp))))
                         .addGap(48, 48, 48))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabelTitulo1)
+                        .addComponent(jLabelTitulo)
                         .addGap(335, 335, 335))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabelTitulo1)
+                .addComponent(jLabelTitulo)
                 .addGap(171, 171, 171)
                 .addComponent(jLabelNome)
                 .addGap(2, 2, 2)
@@ -329,7 +329,7 @@ public class EditarServicoFrame extends javax.swing.JPanel {
     private javax.swing.JLabel jLabelNome;
     private javax.swing.JLabel jLabelPreco;
     private javax.swing.JLabel jLabelResp;
-    private javax.swing.JLabel jLabelTitulo1;
+    private javax.swing.JLabel jLabelTitulo;
     private javax.swing.JPanel jPanel;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanelCentral;

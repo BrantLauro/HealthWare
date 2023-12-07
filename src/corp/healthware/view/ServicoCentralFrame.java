@@ -160,11 +160,11 @@ public class ServicoCentralFrame extends javax.swing.JPanel {
                 ColaboradorController colabCtrl = new ColaboradorController();
                 EditarColaboradorFrame edColab;
                 try {
-                    MostrarColaboradorFrame aluno = new MostrarAlunoFrame(colabCtrl.findOne((int) jTableServicos.getValueAt(row, 0)));
-                    aluno.setSize(820, 570);
-                    aluno.setLocation(0, 0);
+                    MostrarColaboradorFrame colab = new MostrarColaboradorFrame(colabCtrl.findOne((int) jTableServicos.getValueAt(row, 0)));
+                    colab.setSize(820, 570);
+                    colab.setLocation(0, 0);
                     removeAll();
-                    add(aluno, BorderLayout.CENTER);
+                    add(colab, BorderLayout.CENTER);
                     revalidate();
                     repaint();
                 } catch (DAOexception ex) {

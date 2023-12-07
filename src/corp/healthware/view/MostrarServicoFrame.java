@@ -41,7 +41,7 @@ public class MostrarServicoFrame extends javax.swing.JPanel {
         jPanelCentral = new javax.swing.JPanel();
         jPanel = new javax.swing.JPanel();
         jLabelTitulo = new javax.swing.JLabel();
-        jButtonVerAulas = new javax.swing.JButton();
+        jButtonVerServicos = new javax.swing.JButton();
         jButtonEditar = new javax.swing.JButton();
         jButtonVoltar = new javax.swing.JButton();
         jButtonNovoRegistro = new javax.swing.JButton();
@@ -76,13 +76,13 @@ public class MostrarServicoFrame extends javax.swing.JPanel {
         jLabelTitulo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabelTitulo.setText("Serviço");
 
-        jButtonVerAulas.setBackground(new java.awt.Color(212, 81, 93));
-        jButtonVerAulas.setFont(new java.awt.Font("Rosario", 1, 24)); // NOI18N
-        jButtonVerAulas.setForeground(new java.awt.Color(239, 239, 239));
-        jButtonVerAulas.setText("Ver Serviços");
-        jButtonVerAulas.addActionListener(new java.awt.event.ActionListener() {
+        jButtonVerServicos.setBackground(new java.awt.Color(212, 81, 93));
+        jButtonVerServicos.setFont(new java.awt.Font("Rosario", 1, 24)); // NOI18N
+        jButtonVerServicos.setForeground(new java.awt.Color(239, 239, 239));
+        jButtonVerServicos.setText("Ver Serviços");
+        jButtonVerServicos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonVerAulasActionPerformed(evt);
+                jButtonVerServicosActionPerformed(evt);
             }
         });
 
@@ -202,7 +202,7 @@ public class MostrarServicoFrame extends javax.swing.JPanel {
                 .addGap(41, 41, 41)
                 .addComponent(jButtonNovoRegistro)
                 .addGap(18, 18, 18)
-                .addComponent(jButtonVerAulas)
+                .addComponent(jButtonVerServicos)
                 .addGap(18, 18, 18)
                 .addComponent(jButtonEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
@@ -235,7 +235,7 @@ public class MostrarServicoFrame extends javax.swing.JPanel {
                 .addGroup(jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jButtonVoltar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jButtonVerAulas)
+                        .addComponent(jButtonVerServicos)
                         .addComponent(jButtonEditar)
                         .addComponent(jButtonNovoRegistro)))
                 .addGap(29, 29, 29))
@@ -270,7 +270,7 @@ public class MostrarServicoFrame extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButtonVerAulasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonVerAulasActionPerformed
+    private void jButtonVerServicosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonVerServicosActionPerformed
         ServicoCentralFrame main = new ServicoCentralFrame();
         main.setSize(1000, 570);
         main.setLocation(0, 0);
@@ -278,7 +278,7 @@ public class MostrarServicoFrame extends javax.swing.JPanel {
         add(main, BorderLayout.CENTER);
         revalidate();
         repaint();
-    }//GEN-LAST:event_jButtonVerAulasActionPerformed
+    }//GEN-LAST:event_jButtonVerServicosActionPerformed
 
     private void jButtonSalvar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSalvar1ActionPerformed
         // TODO add your handling code here:
@@ -328,7 +328,7 @@ public class MostrarServicoFrame extends javax.swing.JPanel {
     private javax.swing.JButton jButtonEditar;
     private javax.swing.JButton jButtonNovoRegistro;
     private javax.swing.JButton jButtonSalvar1;
-    private javax.swing.JButton jButtonVerAulas;
+    private javax.swing.JButton jButtonVerServicos;
     private javax.swing.JButton jButtonVoltar;
     private javax.swing.JLabel jLabelCodigo;
     private javax.swing.JLabel jLabelNome;

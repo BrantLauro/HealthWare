@@ -2,10 +2,12 @@ package corp.healthware.view;
 
 import com.formdev.flatlaf.FlatClientProperties;
 import corp.healthware.controller.AlunoController;
+import corp.healthware.controller.ColaboradorController;
 import corp.healthware.controller.RegistroServicoController;
 import corp.healthware.controller.ServicoController;
 import corp.healthware.model.dao.DAOexception;
 import corp.healthware.model.entity.Aluno;
+import corp.healthware.model.entity.Colaborador;
 import corp.healthware.model.entity.Servico;
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -16,21 +18,22 @@ import javax.swing.UIManager;
 
 public class MostrarColaboradorFrame extends javax.swing.JPanel {
 
-    private int cod_s;
+    private int cod_c;
     
-    public MostrarColaboradorFrame(Servico s) {
+    public MostrarColaboradorFrame(Colaborador c) {
         initComponents();
         jPanel.putClientProperty(FlatClientProperties.STYLE, "arc: 15");
         jPanelMain.putClientProperty(FlatClientProperties.STYLE, "arc: 15");
         jPanelEnd.putClientProperty(FlatClientProperties.STYLE, "arc: 15");
         jPanelObs.putClientProperty(FlatClientProperties.STYLE, "arc: 15");
         
-        cod_s = s.getCod_s();
-        jLabelTitulo.setText(s.getNome_s());
-        jLabelCodigo.setText("Código do serviço: " + s.getCod_s());
-        jLabelNome.setText("Nome do serviço: : " + s.getNome_s());;
-        jLabelPreco.setText("Preço: " + s.getPreco());
-        jLabelResp.setText("Responsável: " + s.getResp());
+        cod_c = c.getCod_c();
+        jLabelTitulo.setText(c.getNome_c());
+        jLabelCodigo.setText("Código do Colaborador: " + c.getCod_c());
+        jLabelEspecialidade.setText("Especialidade: " + c.getEsp());
+        jLabelData.setText("Data de Nascimento: " + c.getData_nasc_c());
+        jLabelEmail.setText("Email: " + c.getEmail());
+        jLabelTel.setText("Telefone: " + c.getTel_c());
 
     }
 
@@ -41,17 +44,17 @@ public class MostrarColaboradorFrame extends javax.swing.JPanel {
         jPanelCentral = new javax.swing.JPanel();
         jPanel = new javax.swing.JPanel();
         jLabelTitulo = new javax.swing.JLabel();
-        jButtonVerAulas = new javax.swing.JButton();
+        jButtonVerColaboradores = new javax.swing.JButton();
         jButtonEditar = new javax.swing.JButton();
         jButtonVoltar = new javax.swing.JButton();
-        jButtonNovoRegistro = new javax.swing.JButton();
         jPanelMain = new javax.swing.JPanel();
-        jLabelNome = new javax.swing.JLabel();
+        jLabelEspecialidade = new javax.swing.JLabel();
         jLabelCodigo = new javax.swing.JLabel();
         jPanelObs = new javax.swing.JPanel();
-        jLabelResp = new javax.swing.JLabel();
+        jLabelEmail = new javax.swing.JLabel();
+        jLabelTel = new javax.swing.JLabel();
         jPanelEnd = new javax.swing.JPanel();
-        jLabelPreco = new javax.swing.JLabel();
+        jLabelData = new javax.swing.JLabel();
 
         jButtonSalvar1.setBackground(new java.awt.Color(212, 81, 93));
         jButtonSalvar1.setFont(new java.awt.Font("Rosario", 1, 26)); // NOI18N
@@ -76,13 +79,13 @@ public class MostrarColaboradorFrame extends javax.swing.JPanel {
         jLabelTitulo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabelTitulo.setText("Serviço");
 
-        jButtonVerAulas.setBackground(new java.awt.Color(212, 81, 93));
-        jButtonVerAulas.setFont(new java.awt.Font("Rosario", 1, 24)); // NOI18N
-        jButtonVerAulas.setForeground(new java.awt.Color(239, 239, 239));
-        jButtonVerAulas.setText("Ver Serviços");
-        jButtonVerAulas.addActionListener(new java.awt.event.ActionListener() {
+        jButtonVerColaboradores.setBackground(new java.awt.Color(212, 81, 93));
+        jButtonVerColaboradores.setFont(new java.awt.Font("Rosario", 1, 24)); // NOI18N
+        jButtonVerColaboradores.setForeground(new java.awt.Color(239, 239, 239));
+        jButtonVerColaboradores.setText("Ver Colaboradores");
+        jButtonVerColaboradores.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonVerAulasActionPerformed(evt);
+                jButtonVerColaboradoresActionPerformed(evt);
             }
         });
 
@@ -106,25 +109,15 @@ public class MostrarColaboradorFrame extends javax.swing.JPanel {
             }
         });
 
-        jButtonNovoRegistro.setBackground(new java.awt.Color(212, 81, 93));
-        jButtonNovoRegistro.setFont(new java.awt.Font("Rosario", 1, 24)); // NOI18N
-        jButtonNovoRegistro.setForeground(new java.awt.Color(239, 239, 239));
-        jButtonNovoRegistro.setText("Novo Registro");
-        jButtonNovoRegistro.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonNovoRegistroActionPerformed(evt);
-            }
-        });
-
         jPanelMain.setBackground(new java.awt.Color(239, 239, 239));
 
-        jLabelNome.setFont(new java.awt.Font("TT Hoves Pro Trial", 0, 20)); // NOI18N
-        jLabelNome.setForeground(new java.awt.Color(41, 41, 41));
-        jLabelNome.setText("Nome do serviço:");
+        jLabelEspecialidade.setFont(new java.awt.Font("TT Hoves Pro Trial", 0, 20)); // NOI18N
+        jLabelEspecialidade.setForeground(new java.awt.Color(41, 41, 41));
+        jLabelEspecialidade.setText("Especialidade");
 
         jLabelCodigo.setFont(new java.awt.Font("TT Hoves Pro Trial", 0, 20)); // NOI18N
         jLabelCodigo.setForeground(new java.awt.Color(41, 41, 41));
-        jLabelCodigo.setText("Código do serviço:");
+        jLabelCodigo.setText("Código:");
 
         javax.swing.GroupLayout jPanelMainLayout = new javax.swing.GroupLayout(jPanelMain);
         jPanelMain.setLayout(jPanelMainLayout);
@@ -133,7 +126,7 @@ public class MostrarColaboradorFrame extends javax.swing.JPanel {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelMainLayout.createSequentialGroup()
                 .addContainerGap(25, Short.MAX_VALUE)
                 .addGroup(jPanelMainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jLabelNome, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabelEspecialidade, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jLabelCodigo, javax.swing.GroupLayout.DEFAULT_SIZE, 707, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -143,39 +136,48 @@ public class MostrarColaboradorFrame extends javax.swing.JPanel {
                 .addGap(17, 17, 17)
                 .addComponent(jLabelCodigo)
                 .addGap(38, 38, 38)
-                .addComponent(jLabelNome)
+                .addComponent(jLabelEspecialidade)
                 .addContainerGap(17, Short.MAX_VALUE))
         );
 
         jPanelObs.setBackground(new java.awt.Color(239, 239, 239));
 
-        jLabelResp.setFont(new java.awt.Font("TT Hoves Pro Trial", 0, 20)); // NOI18N
-        jLabelResp.setForeground(new java.awt.Color(41, 41, 41));
-        jLabelResp.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabelResp.setText("Responsável:");
+        jLabelEmail.setFont(new java.awt.Font("TT Hoves Pro Trial", 0, 20)); // NOI18N
+        jLabelEmail.setForeground(new java.awt.Color(41, 41, 41));
+        jLabelEmail.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jLabelEmail.setText("Email:");
+
+        jLabelTel.setFont(new java.awt.Font("TT Hoves Pro Trial", 0, 20)); // NOI18N
+        jLabelTel.setForeground(new java.awt.Color(41, 41, 41));
+        jLabelTel.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jLabelTel.setText("Telefone:");
 
         javax.swing.GroupLayout jPanelObsLayout = new javax.swing.GroupLayout(jPanelObs);
         jPanelObs.setLayout(jPanelObsLayout);
         jPanelObsLayout.setHorizontalGroup(
             jPanelObsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelObsLayout.createSequentialGroup()
+            .addGroup(jPanelObsLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabelResp, javax.swing.GroupLayout.PREFERRED_SIZE, 706, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanelObsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabelEmail, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 706, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabelTel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 706, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
         jPanelObsLayout.setVerticalGroup(
             jPanelObsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelObsLayout.createSequentialGroup()
-                .addGap(28, 28, 28)
-                .addComponent(jLabelResp, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(32, Short.MAX_VALUE))
+                .addContainerGap()
+                .addComponent(jLabelEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabelTel, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(31, Short.MAX_VALUE))
         );
 
         jPanelEnd.setBackground(new java.awt.Color(239, 239, 239));
 
-        jLabelPreco.setFont(new java.awt.Font("TT Hoves Pro Trial", 0, 20)); // NOI18N
-        jLabelPreco.setForeground(new java.awt.Color(41, 41, 41));
-        jLabelPreco.setText("Preço:");
+        jLabelData.setFont(new java.awt.Font("TT Hoves Pro Trial", 0, 20)); // NOI18N
+        jLabelData.setForeground(new java.awt.Color(41, 41, 41));
+        jLabelData.setText("Data Nascimento:");
 
         javax.swing.GroupLayout jPanelEndLayout = new javax.swing.GroupLayout(jPanelEnd);
         jPanelEnd.setLayout(jPanelEndLayout);
@@ -183,14 +185,14 @@ public class MostrarColaboradorFrame extends javax.swing.JPanel {
             jPanelEndLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelEndLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabelPreco, javax.swing.GroupLayout.PREFERRED_SIZE, 691, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jLabelData, javax.swing.GroupLayout.PREFERRED_SIZE, 691, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18))
         );
         jPanelEndLayout.setVerticalGroup(
             jPanelEndLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelEndLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabelPreco, javax.swing.GroupLayout.DEFAULT_SIZE, 73, Short.MAX_VALUE)
+                .addComponent(jLabelData, javax.swing.GroupLayout.DEFAULT_SIZE, 73, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -199,15 +201,13 @@ public class MostrarColaboradorFrame extends javax.swing.JPanel {
         jPanelLayout.setHorizontalGroup(
             jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelLayout.createSequentialGroup()
-                .addGap(41, 41, 41)
-                .addComponent(jButtonNovoRegistro)
-                .addGap(18, 18, 18)
-                .addComponent(jButtonVerAulas)
-                .addGap(18, 18, 18)
+                .addGap(97, 97, 97)
+                .addComponent(jButtonVerColaboradores)
+                .addGap(31, 31, 31)
                 .addComponent(jButtonEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addGap(27, 27, 27)
                 .addComponent(jButtonVoltar, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(42, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabelTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, 384, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -232,12 +232,10 @@ public class MostrarColaboradorFrame extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 31, Short.MAX_VALUE)
                 .addComponent(jPanelObs, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addGroup(jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButtonVoltar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jButtonVerAulas)
-                        .addComponent(jButtonEditar)
-                        .addComponent(jButtonNovoRegistro)))
+                .addGroup(jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButtonVerColaboradores)
+                    .addComponent(jButtonEditar)
+                    .addComponent(jButtonVoltar, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(29, 29, 29))
         );
 
@@ -270,7 +268,7 @@ public class MostrarColaboradorFrame extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButtonVerAulasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonVerAulasActionPerformed
+    private void jButtonVerColaboradoresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonVerColaboradoresActionPerformed
         ServicoCentralFrame main = new ServicoCentralFrame();
         main.setSize(1000, 570);
         main.setLocation(0, 0);
@@ -278,21 +276,21 @@ public class MostrarColaboradorFrame extends javax.swing.JPanel {
         add(main, BorderLayout.CENTER);
         revalidate();
         repaint();
-    }//GEN-LAST:event_jButtonVerAulasActionPerformed
+    }//GEN-LAST:event_jButtonVerColaboradoresActionPerformed
 
     private void jButtonSalvar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSalvar1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jButtonSalvar1ActionPerformed
 
     private void jButtonEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEditarActionPerformed
-        ServicoController servicoCtrl = new ServicoController();
-        EditarServicoFrame edServico;
+        ColaboradorController colabCtrl = new ColaboradorController();
+        EditarColaboradorFrame edColab;
         try {
-            edServico = new EditarServicoFrame(servicoCtrl.findOne(cod_s));
-            edServico.setSize(820, 570);
-            edServico.setLocation(0, 0);
+            edColab = new EditarColaboradorFrame(colabCtrl.findOne(cod_c));
+            edColab.setSize(820, 570);
+            edColab.setLocation(0, 0);
             removeAll();
-            add(edServico, BorderLayout.CENTER);
+            add(edColab, BorderLayout.CENTER);
             revalidate();
             repaint();
         } catch (DAOexception ex) {
@@ -303,7 +301,7 @@ public class MostrarColaboradorFrame extends javax.swing.JPanel {
     }//GEN-LAST:event_jButtonEditarActionPerformed
 
     private void jButtonVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonVoltarActionPerformed
-        AlunosCentralFrame central = new AlunosCentralFrame();
+        ServicoCentralFrame central = new ServicoCentralFrame();
         central.setSize(820, 570);
         central.setLocation(0, 0);
         removeAll();
@@ -312,28 +310,17 @@ public class MostrarColaboradorFrame extends javax.swing.JPanel {
         repaint();
     }//GEN-LAST:event_jButtonVoltarActionPerformed
 
-    private void jButtonNovoRegistroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonNovoRegistroActionPerformed
-        // TODO add your handling code here:
-        NovoRegistroServicoFrame novoRegistro = new NovoRegistroServicoFrame(cod_s);
-        novoRegistro.setSize(820, 570);
-        novoRegistro.setLocation(0, 0);
-        removeAll();
-        add(novoRegistro, BorderLayout.CENTER);
-        revalidate();
-        repaint();        
-    }//GEN-LAST:event_jButtonNovoRegistroActionPerformed
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonEditar;
-    private javax.swing.JButton jButtonNovoRegistro;
     private javax.swing.JButton jButtonSalvar1;
-    private javax.swing.JButton jButtonVerAulas;
+    private javax.swing.JButton jButtonVerColaboradores;
     private javax.swing.JButton jButtonVoltar;
     private javax.swing.JLabel jLabelCodigo;
-    private javax.swing.JLabel jLabelNome;
-    private javax.swing.JLabel jLabelPreco;
-    private javax.swing.JLabel jLabelResp;
+    private javax.swing.JLabel jLabelData;
+    private javax.swing.JLabel jLabelEmail;
+    private javax.swing.JLabel jLabelEspecialidade;
+    private javax.swing.JLabel jLabelTel;
     private javax.swing.JLabel jLabelTitulo;
     private javax.swing.JPanel jPanel;
     private javax.swing.JPanel jPanelCentral;

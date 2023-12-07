@@ -178,7 +178,7 @@
                                   <EmptySpace min="-2" pref="48" max="-2" attributes="0"/>
                               </Group>
                               <Group type="102" alignment="1" attributes="0">
-                                  <Component id="jLabelTitulo1" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jLabelTitulo" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace min="-2" pref="335" max="-2" attributes="0"/>
                               </Group>
                           </Group>
@@ -189,7 +189,7 @@
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="jLabelTitulo1" min="-2" max="-2" attributes="0"/>
+                          <Component id="jLabelTitulo" min="-2" max="-2" attributes="0"/>
                           <EmptySpace min="-2" pref="171" max="-2" attributes="0"/>
                           <Component id="jLabelNome" min="-2" max="-2" attributes="0"/>
                           <EmptySpace min="-2" pref="2" max="-2" attributes="0"/>
@@ -210,7 +210,7 @@
                 </DimensionLayout>
               </Layout>
               <SubComponents>
-                <Component class="javax.swing.JLabel" name="jLabelTitulo1">
+                <Component class="javax.swing.JLabel" name="jLabelTitulo">
                   <Properties>
                     <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="29" green="29" red="29" type="rgb"/>

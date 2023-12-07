@@ -95,7 +95,7 @@
                       <EmptySpace min="-2" pref="41" max="-2" attributes="0"/>
                       <Component id="jButtonNovoRegistro" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Component id="jButtonVerAulas" min="-2" max="-2" attributes="0"/>
+                      <Component id="jButtonVerServicos" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Component id="jButtonEditar" min="-2" pref="161" max="-2" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
@@ -133,7 +133,7 @@
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="jButtonVoltar" alignment="1" min="-2" pref="37" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="jButtonVerAulas" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="jButtonVerServicos" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="jButtonEditar" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="jButtonNovoRegistro" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
@@ -159,7 +159,7 @@
                 <Property name="text" type="java.lang.String" value="Servi&#xe7;o"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JButton" name="jButtonVerAulas">
+            <Component class="javax.swing.JButton" name="jButtonVerServicos">
               <Properties>
                 <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="5d" green="51" red="d4" type="rgb"/>
@@ -173,7 +173,7 @@
                 <Property name="text" type="java.lang.String" value="Ver Servi&#xe7;os"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonVerAulasActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonVerServicosActionPerformed"/>
               </Events>
             </Component>
             <Component class="javax.swing.JButton" name="jButtonEditar">
