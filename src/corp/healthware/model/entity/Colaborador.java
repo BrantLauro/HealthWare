@@ -50,6 +50,10 @@ public class Colaborador {
        return new ColaboradorDAO().findAll();
        
     }
+    
+    public Colaborador findOneColaborador(Colaborador colaborador) throws SQLException, DAOexception {
+       return new ColaboradorDAO().findOne(colaborador);
+    }
    
     public ArrayList<Colaborador> searchColaborador(String colaborador) throws SQLException, DAOexception {
         return new ColaboradorDAO().search(colaborador);
@@ -118,8 +122,6 @@ public class Colaborador {
     public void setAdm(boolean adm) {
         this.adm = adm;
     }
-
-    
     
     
 }

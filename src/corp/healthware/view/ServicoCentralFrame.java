@@ -176,14 +176,14 @@ public class ServicoCentralFrame extends javax.swing.JPanel {
 
             @Override
             public void onEdit(int row) {
-                AlunoController alunoCtrl = new AlunoController();
-                EditarAlunoFrame edAluno;
+                ColaboradorController colabCtrl = new ColaboradorController();
+                EditarColaboradorFrame edColab;
                 try {
-                    edAluno = new EditarAlunoFrame(alunoCtrl.findOne((int) jTableServicos.getValueAt(row, 0)));
-                    edAluno.setSize(820, 570);
-                    edAluno.setLocation(0, 0);
+                    edColab = new EditarColaboradorFrame(colabCtrl.findOne((int) jTableServicos.getValueAt(row, 0)));
+                    edColab.setSize(820, 570);
+                    edColab.setLocation(0, 0);
                     removeAll();
-                    add(edAluno, BorderLayout.CENTER);
+                    add(edColab, BorderLayout.CENTER);
                     revalidate();
                     repaint();
                 } catch (DAOexception ex) {

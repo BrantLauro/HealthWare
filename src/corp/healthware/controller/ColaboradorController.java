@@ -40,6 +40,9 @@ public class ColaboradorController {
         return new Colaborador().searchColaborador(colaborador);
     }
 
+    public Colaborador findOne(int cod_c) throws DAOexception, SQLException {
+        Colaborador colaborador = new Colaborador(cod_c);
+        return colaborador.findOneColaborador(colaborador);
+    }
 
-    
 }
