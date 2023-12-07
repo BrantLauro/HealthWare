@@ -24,8 +24,6 @@ import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 public class ColabCentralFrame extends javax.swing.JPanel {
-    
-    private boolean tAluno = true;
 
     public ColabCentralFrame() {
         initComponents();
@@ -41,7 +39,7 @@ public class ColabCentralFrame extends javax.swing.JPanel {
             ColaboradorController colabCtrl = new ColaboradorController();
             colabs = colabCtrl.findAll();
             colabs.forEach((Colaborador c) -> {
-                tableModel.addRow(new Object[]{c.getCod_c(), c.getNome_c(), c.getData_nasc_c(), c.getTel_c(), c.getEsp()});
+                tableModel.addRow(new Object[]{c.getCod_c(), c.getNome_c(), formatarDataShow(c.getData_nasc_c()), c.getTel_c(), c.getEsp()});
             });
             jTableColab.setModel(tableModel);
         } catch (SQLException | DAOexception ex) {
@@ -53,19 +51,25 @@ public class ColabCentralFrame extends javax.swing.JPanel {
         TableActionEventNoView event = new TableActionEventNoView() {
             @Override
             public void onMais(int row) {
-                System.out.println("Nova aula para " + row);
+                NovaModFrame tCMod = new NovaModFrame();
+                tCMod.setSize(820, 570);
+                tCMod.setLocation(0, 0);
+                removeAll();
+                add(tCMod, BorderLayout.CENTER);
+                revalidate();
+                repaint();
             }
 
             @Override
             public void onEdit(int row) {
-                AlunoController alunoCtrl = new AlunoController();
-                EditarAlunoFrame edAluno;
+                ColaboradorController colabCtrl = new ColaboradorController();
+                EditarColabFrame edColab;
                 try {
-                    edAluno = new EditarAlunoFrame(alunoCtrl.findOne((int) jTableColab.getValueAt(row, 0)));
-                    edAluno.setSize(820, 570);
-                    edAluno.setLocation(0, 0);
+                    edColab = new EditarColabFrame(colabCtrl.findOne((int) jTableColab.getValueAt(row, 0)));
+                    edColab.setSize(820, 570);
+                    edColab.setLocation(0, 0);
                     removeAll();
-                    add(edAluno, BorderLayout.CENTER);
+                    add(edColab, BorderLayout.CENTER);
                     revalidate();
                     repaint();
                 } catch (DAOexception ex) {
@@ -77,18 +81,17 @@ public class ColabCentralFrame extends javax.swing.JPanel {
 
             @Override
             public void onDelete(int row) {
-                System.out.println("Apagando ALuno");
-                int resultado = JOptionPane.showConfirmDialog(null, "Tem certeza que deseja excluir esse aluno?\nIsso apagará todos os seus dados e suas aulas!", "Excluir Aluno", 0);
+                int resultado = JOptionPane.showConfirmDialog(null, "Tem certeza que deseja excluir esse Colaborador?\nTodas as modalidades ministradas por esse colaborador ficarão sem responsável!", "Excluir Colaborador", 0);
                 if (resultado == JOptionPane.YES_OPTION) {
                     try {
                         if (jTableColab.isEditing()) {
                             jTableColab.getCellEditor().stopCellEditing();
                         }
                         DefaultTableModel model = (DefaultTableModel) jTableColab.getModel();
-                        AlunoController alunoCtrl = new AlunoController();
-                        int cod_a = (int) model.getValueAt(row, 0);
-                        alunoCtrl.delete(cod_a);
-                        model.removeRow(row);
+                        ColaboradorController colabCtrl = new ColaboradorController();
+                        int cod_c = (int) model.getValueAt(row, 0);
+                        if(colabCtrl.delete(cod_c) != 0)
+                            model.removeRow(row);
                     } catch (NumberFormatException ex) {
                         System.out.println("ERROR: " + ex);
                     } catch (DAOexception | SQLException ex) {
@@ -101,7 +104,11 @@ public class ColabCentralFrame extends javax.swing.JPanel {
         jTableColab.getColumnModel().getColumn(5).setCellRenderer(new TableActionCellRenderNoView());
         jTableColab.getColumnModel().getColumn(5).setCellEditor(new TableActionCellEditorNoView(event));
     }
-    
+
+    private String formatarDataShow(String data) {
+        return data.substring(8) + "/" + data.substring(5, 7) + "/" + data.substring(0, 4);
+    }
+
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 

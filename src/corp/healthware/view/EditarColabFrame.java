@@ -17,20 +17,30 @@ import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 
-public class NovoColabFrame extends javax.swing.JPanel {
+public class EditarColabFrame extends javax.swing.JPanel {
+    
+    private int cod_c;
 
-    public NovoColabFrame() {
+    public EditarColabFrame(Colaborador c) {
         UIManager.put( "Component.arrowType", "triangle" );
         UIManager.put( "ComboBox.selectionBackground", new Color(212,81,93));
         UIManager.put( "ComboBox.buttonBackground", new Color(212,81,93));
         initComponents();
         jPanel.putClientProperty(FlatClientProperties.STYLE, "arc: 15");
-        jTextFieldNome.putClientProperty(FlatClientProperties.STYLE, "arc: 9");
         jTextFieldData.putClientProperty(FlatClientProperties.STYLE, "arc: 9");
         jTextFieldTel.putClientProperty(FlatClientProperties.STYLE, "arc: 9");
         jTextFieldEmail.putClientProperty(FlatClientProperties.STYLE, "arc: 9");
         jTextFieldEsp.putClientProperty(FlatClientProperties.STYLE, "arc: 9");
         jPasswordField.putClientProperty(FlatClientProperties.STYLE, "arc: 9");
+        
+        cod_c = c.getCod_c();
+        jComboBoxAdm.setSelectedIndex(c.getAdm());
+        jLabelTitulo.setText(c.getNome_c());
+        jTextFieldData.setText(formatarDataShow(c.getData_nasc_c()));
+        jTextFieldTel.setText(c.getTel_c());
+        jTextFieldEmail.setText(c.getEmail());
+        jTextFieldEsp.setText(c.getEsp());
+        jPasswordField.setText(c.getSenha());
     }
     
     private void voltar() {
@@ -51,7 +61,6 @@ public class NovoColabFrame extends javax.swing.JPanel {
         jLabelTitulo = new javax.swing.JLabel();
         jLabelVSem = new javax.swing.JLabel();
         jLabelNome = new javax.swing.JLabel();
-        jTextFieldNome = new javax.swing.JTextField();
         jButtonSalvar = new javax.swing.JButton();
         jLabelResp = new javax.swing.JLabel();
         jLabelPreco = new javax.swing.JLabel();
@@ -63,6 +72,7 @@ public class NovoColabFrame extends javax.swing.JPanel {
         jLabelResp1 = new javax.swing.JLabel();
         jLabelResp2 = new javax.swing.JLabel();
         jPasswordField = new javax.swing.JPasswordField();
+        jComboBoxAdm = new javax.swing.JComboBox<>();
 
         setPreferredSize(new java.awt.Dimension(820, 570));
 
@@ -74,7 +84,8 @@ public class NovoColabFrame extends javax.swing.JPanel {
         jLabelTitulo.setBackground(new java.awt.Color(41, 41, 41));
         jLabelTitulo.setFont(new java.awt.Font("Rosario", 1, 36)); // NOI18N
         jLabelTitulo.setForeground(new java.awt.Color(41, 41, 41));
-        jLabelTitulo.setText("Cadastro de Colaborador");
+        jLabelTitulo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabelTitulo.setText("editar");
 
         jLabelVSem.setFont(new java.awt.Font("Rosario", 1, 14)); // NOI18N
         jLabelVSem.setForeground(new java.awt.Color(41, 41, 41));
@@ -82,22 +93,7 @@ public class NovoColabFrame extends javax.swing.JPanel {
 
         jLabelNome.setFont(new java.awt.Font("Rosario", 1, 14)); // NOI18N
         jLabelNome.setForeground(new java.awt.Color(41, 41, 41));
-        jLabelNome.setText("Nome");
-
-        jTextFieldNome.setBackground(new java.awt.Color(239, 239, 239));
-        jTextFieldNome.setFont(new java.awt.Font("TT Hoves Pro Trial", 0, 12)); // NOI18N
-        jTextFieldNome.setForeground(new java.awt.Color(139, 137, 137));
-        jTextFieldNome.setText("Lucas Colen");
-        jTextFieldNome.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                jTextFieldNomeFocusGained(evt);
-            }
-        });
-        jTextFieldNome.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextFieldNomeActionPerformed(evt);
-            }
-        });
+        jLabelNome.setText("Administrador");
 
         jButtonSalvar.setBackground(new java.awt.Color(212, 81, 93));
         jButtonSalvar.setFont(new java.awt.Font("Rosario", 1, 26)); // NOI18N
@@ -128,7 +124,7 @@ public class NovoColabFrame extends javax.swing.JPanel {
         });
 
         jTextFieldTel.setBackground(new java.awt.Color(239, 239, 239));
-        jTextFieldTel.setForeground(new java.awt.Color(139, 137, 137));
+        jTextFieldTel.setForeground(new java.awt.Color(41, 41, 41));
         try {
             jTextFieldTel.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("(##) #####-####")));
         } catch (java.text.ParseException ex) {
@@ -148,7 +144,7 @@ public class NovoColabFrame extends javax.swing.JPanel {
         });
 
         jTextFieldData.setBackground(new java.awt.Color(239, 239, 239));
-        jTextFieldData.setForeground(new java.awt.Color(139, 137, 137));
+        jTextFieldData.setForeground(new java.awt.Color(41, 41, 41));
         try {
             jTextFieldData.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##/##/####")));
         } catch (java.text.ParseException ex) {
@@ -169,7 +165,7 @@ public class NovoColabFrame extends javax.swing.JPanel {
 
         jTextFieldEmail.setBackground(new java.awt.Color(239, 239, 239));
         jTextFieldEmail.setFont(new java.awt.Font("TT Hoves Pro Trial", 0, 12)); // NOI18N
-        jTextFieldEmail.setForeground(new java.awt.Color(139, 137, 137));
+        jTextFieldEmail.setForeground(new java.awt.Color(41, 41, 41));
         jTextFieldEmail.setText("brantcissa@gmail.com");
         jTextFieldEmail.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
@@ -184,7 +180,7 @@ public class NovoColabFrame extends javax.swing.JPanel {
 
         jTextFieldEsp.setBackground(new java.awt.Color(239, 239, 239));
         jTextFieldEsp.setFont(new java.awt.Font("TT Hoves Pro Trial", 0, 12)); // NOI18N
-        jTextFieldEsp.setForeground(new java.awt.Color(139, 137, 137));
+        jTextFieldEsp.setForeground(new java.awt.Color(41, 41, 41));
         jTextFieldEsp.setText("Massagem");
         jTextFieldEsp.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
@@ -206,13 +202,19 @@ public class NovoColabFrame extends javax.swing.JPanel {
         jLabelResp2.setText("E-mail");
 
         jPasswordField.setBackground(new java.awt.Color(239, 239, 239));
-        jPasswordField.setForeground(new java.awt.Color(139, 137, 137));
+        jPasswordField.setForeground(new java.awt.Color(41, 41, 41));
         jPasswordField.setText("********");
         jPasswordField.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 jPasswordFieldFocusGained(evt);
             }
         });
+
+        jComboBoxAdm.setBackground(new java.awt.Color(239, 239, 239));
+        jComboBoxAdm.setFont(new java.awt.Font("TT Hoves Pro Trial", 0, 12)); // NOI18N
+        jComboBoxAdm.setForeground(new java.awt.Color(41, 41, 41));
+        jComboBoxAdm.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Não", "Sim" }));
+        jComboBoxAdm.setPreferredSize(new java.awt.Dimension(68, 26));
 
         javax.swing.GroupLayout jPanelLayout = new javax.swing.GroupLayout(jPanel);
         jPanel.setLayout(jPanelLayout);
@@ -227,27 +229,26 @@ public class NovoColabFrame extends javax.swing.JPanel {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelLayout.createSequentialGroup()
                 .addContainerGap(58, Short.MAX_VALUE)
                 .addGroup(jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelLayout.createSequentialGroup()
-                        .addComponent(jLabelTitulo)
-                        .addGap(196, 196, 196))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelLayout.createSequentialGroup()
-                        .addGroup(jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabelNome)
-                            .addComponent(jLabelPreco)
-                            .addComponent(jTextFieldTel, javax.swing.GroupLayout.PREFERRED_SIZE, 320, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jTextFieldNome, javax.swing.GroupLayout.PREFERRED_SIZE, 320, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabelResp1)
-                            .addComponent(jTextFieldEsp, javax.swing.GroupLayout.PREFERRED_SIZE, 320, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(30, 30, 30)
-                        .addGroup(jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(jTextFieldData)
-                                .addComponent(jLabelResp)
-                                .addComponent(jLabelVSem)
-                                .addComponent(jTextFieldEmail)
-                                .addComponent(jPasswordField, javax.swing.GroupLayout.PREFERRED_SIZE, 320, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jLabelResp2))
-                        .addGap(45, 45, 45))))
+                    .addComponent(jLabelNome)
+                    .addComponent(jLabelPreco)
+                    .addComponent(jTextFieldTel, javax.swing.GroupLayout.PREFERRED_SIZE, 320, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabelResp1)
+                    .addComponent(jTextFieldEsp, javax.swing.GroupLayout.PREFERRED_SIZE, 320, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jComboBoxAdm, javax.swing.GroupLayout.PREFERRED_SIZE, 323, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(27, 27, 27)
+                .addGroup(jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(jTextFieldData)
+                        .addComponent(jLabelResp)
+                        .addComponent(jLabelVSem)
+                        .addComponent(jTextFieldEmail)
+                        .addComponent(jPasswordField, javax.swing.GroupLayout.PREFERRED_SIZE, 320, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabelResp2))
+                .addGap(45, 45, 45))
+            .addGroup(jPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabelTitulo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
         jPanelLayout.setVerticalGroup(
             jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -260,8 +261,8 @@ public class NovoColabFrame extends javax.swing.JPanel {
                     .addComponent(jLabelVSem))
                 .addGap(2, 2, 2)
                 .addGroup(jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextFieldNome, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextFieldData, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jTextFieldData, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jComboBoxAdm, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabelPreco)
@@ -314,39 +315,28 @@ public class NovoColabFrame extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jTextFieldNomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldNomeActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextFieldNomeActionPerformed
-
-    private void jTextFieldNomeFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextFieldNomeFocusGained
-        if(jTextFieldNome.getForeground().equals(new Color(139,137,137))) {
-            jTextFieldNome.setForeground(new Color(41,41,41));
-            jTextFieldNome.setText("");
-        }
-    }//GEN-LAST:event_jTextFieldNomeFocusGained
 
     private String formatarData() {
         String str = jTextFieldData.getText();
         return str.substring(6) + "-" + str.substring(3, 5) + "-" + str.substring(0, 2);
     }
 
+    private String formatarDataShow(String data) {
+        return data.substring(8) + "/" + data.substring(5, 7) + "/" + data.substring(0, 4);
+    }
+
     
     private void jButtonSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSalvarActionPerformed
         try {
-            String nome = jTextFieldNome.getText();
+            int adm = jComboBoxAdm.getSelectedIndex();
             String data_nasc = formatarData();
             String tel = jTextFieldTel.getText();
             String esp = jTextFieldEsp.getText();
             String email = jTextFieldEmail.getText();
             String senha = jPasswordField.getText();
-            if (!nome.equals("") && !jTextFieldNome.getForeground().equals(new Color(139, 137, 137))
-                    && !data_nasc.equals("    -  -  ") && !jTextFieldData.getForeground().equals(new Color(139, 137, 137))
-                    && !tel.equals("(  )      -    ") && !jTextFieldTel.getForeground().equals(new Color(139, 137, 137))
-                    && !esp.equals("") && !jTextFieldEsp.getForeground().equals(new Color(139, 137, 137))
-                    && !email.equals("") && !jTextFieldEmail.getForeground().equals(new Color(139, 137, 137))
-                    && !senha.equals("") && !jPasswordField.getForeground().equals(new Color(139, 137, 137))) {
+            if (!data_nasc.equals("    -  -  ") && !tel.equals("(  )      -    ") && !esp.equals("") && !email.equals("") && !senha.equals("")) {
                 ColaboradorController colabCtrl = new ColaboradorController();
-                if(colabCtrl.insert(nome, tel, data_nasc, esp, email, senha) != 0)
+                if(colabCtrl.update(cod_c, tel, data_nasc, esp, email, senha, adm) != 0)
                     voltar();
             } else {
                 JOptionPane.showMessageDialog(null, "Todos os campos devem ser preenchidos!", "Erro", JOptionPane.ERROR_MESSAGE);
@@ -364,10 +354,7 @@ public class NovoColabFrame extends javax.swing.JPanel {
     }//GEN-LAST:event_jButtonVoltarActionPerformed
 
     private void jTextFieldTelFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextFieldTelFocusGained
-        if (jTextFieldTel.getForeground().equals(new Color(139, 137, 137))) {
-            jTextFieldTel.setForeground(new Color(41, 41, 41));
-            jTextFieldTel.setText("");
-        }
+
     }//GEN-LAST:event_jTextFieldTelFocusGained
 
     private void jTextFieldTelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldTelActionPerformed
@@ -375,10 +362,7 @@ public class NovoColabFrame extends javax.swing.JPanel {
     }//GEN-LAST:event_jTextFieldTelActionPerformed
 
     private void jTextFieldDataFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextFieldDataFocusGained
-        if (jTextFieldData.getForeground().equals(new Color(139, 137, 137))) {
-            jTextFieldData.setForeground(new Color(41, 41, 41));
-            jTextFieldData.setText("");
-        }
+
     }//GEN-LAST:event_jTextFieldDataFocusGained
 
     private void jTextFieldDataActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldDataActionPerformed
@@ -386,10 +370,7 @@ public class NovoColabFrame extends javax.swing.JPanel {
     }//GEN-LAST:event_jTextFieldDataActionPerformed
 
     private void jTextFieldEmailFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextFieldEmailFocusGained
-        if (jTextFieldEmail.getForeground().equals(new Color(139, 137, 137))) {
-            jTextFieldEmail.setForeground(new Color(41, 41, 41));
-            jTextFieldEmail.setText("");
-        }
+
     }//GEN-LAST:event_jTextFieldEmailFocusGained
 
     private void jTextFieldEmailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldEmailActionPerformed
@@ -397,10 +378,7 @@ public class NovoColabFrame extends javax.swing.JPanel {
     }//GEN-LAST:event_jTextFieldEmailActionPerformed
 
     private void jTextFieldEspFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextFieldEspFocusGained
-        if (jTextFieldEsp.getForeground().equals(new Color(139, 137, 137))) {
-            jTextFieldEsp.setForeground(new Color(41, 41, 41));
-            jTextFieldEsp.setText("");
-        }
+
     }//GEN-LAST:event_jTextFieldEspFocusGained
 
     private void jTextFieldEspActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldEspActionPerformed
@@ -408,16 +386,14 @@ public class NovoColabFrame extends javax.swing.JPanel {
     }//GEN-LAST:event_jTextFieldEspActionPerformed
 
     private void jPasswordFieldFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jPasswordFieldFocusGained
-        if (jPasswordField.getForeground().equals(new Color(139, 137, 137))) {
-            jPasswordField.setForeground(new Color(41, 41, 41));
-            jPasswordField.setText("");
-        }
+
     }//GEN-LAST:event_jPasswordFieldFocusGained
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonSalvar;
     private javax.swing.JButton jButtonVoltar;
+    private javax.swing.JComboBox<String> jComboBoxAdm;
     private javax.swing.JLabel jLabelNome;
     private javax.swing.JLabel jLabelPreco;
     private javax.swing.JLabel jLabelResp;
@@ -431,7 +407,6 @@ public class NovoColabFrame extends javax.swing.JPanel {
     private javax.swing.JFormattedTextField jTextFieldData;
     private javax.swing.JTextField jTextFieldEmail;
     private javax.swing.JTextField jTextFieldEsp;
-    private javax.swing.JTextField jTextFieldNome;
     private javax.swing.JFormattedTextField jTextFieldTel;
     // End of variables declaration//GEN-END:variables
 }

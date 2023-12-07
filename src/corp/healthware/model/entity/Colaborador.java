@@ -1,4 +1,3 @@
-
 package corp.healthware.model.entity;
 
 import corp.healthware.model.dao.DAOexception;
@@ -7,6 +6,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class Colaborador {
+
     private int cod_c;
     private String nome_c;
     private String tel_c;
@@ -14,17 +14,17 @@ public class Colaborador {
     private String esp;
     private String email;
     private String senha;
-    private boolean adm;
+    private int adm;
 
     public Colaborador() {
-        
+
     }
 
     public Colaborador(int cod_c) {
         this.cod_c = cod_c;
     }
 
-    public Colaborador(String nome_c, String tel_c, String data_nasc_c, String esp, String email, String senha, boolean adm) {
+    public Colaborador(String nome_c, String tel_c, String data_nasc_c, String esp, String email, String senha, int adm) {
         this.nome_c = nome_c;
         this.tel_c = tel_c;
         this.data_nasc_c = data_nasc_c;
@@ -42,23 +42,37 @@ public class Colaborador {
         this.email = email;
         this.senha = senha;
     }
-    
+
+    public Colaborador(int cod_c, String tel_c, String data_nasc_c, String esp, String email, String senha, int adm) {
+        this.cod_c = cod_c;
+        this.tel_c = tel_c;
+        this.data_nasc_c = data_nasc_c;
+        this.esp = esp;
+        this.email = email;
+        this.senha = senha;
+        this.adm = adm;
+    }
+
     public int cadastrarColaborador(Colaborador colaborador) throws SQLException, DAOexception {
         return new ColaboradorDAO().insert(colaborador);
     }
-    
-     public int updateColaborador(Colaborador colaborador) throws DAOexception, SQLException {
+
+    public int updateColaborador(Colaborador colaborador) throws DAOexception, SQLException {
         return new ColaboradorDAO().update(colaborador);
     }
-    
-    public int excluirColaborador(Colaborador colaborador)throws SQLException, DAOexception{
+
+    public int excluirColaborador(Colaborador colaborador) throws SQLException, DAOexception {
         return new ColaboradorDAO().delete(colaborador);
     }
-    
-   public ArrayList<Colaborador> findAllColaborador() throws DAOexception, SQLException {
-       return new ColaboradorDAO().findAll();
+
+    public ArrayList<Colaborador> findAllColaborador() throws DAOexception, SQLException {
+        return new ColaboradorDAO().findAll();
     }
-    
+
+    public Colaborador findOneColab(Colaborador colab) throws SQLException, DAOexception {
+        return new ColaboradorDAO().findOne(colab);
+    }
+
     public int getCod_c() {
         return cod_c;
     }
@@ -115,13 +129,11 @@ public class Colaborador {
         this.senha = senha;
     }
 
-    public boolean getAdm() {
+    public int getAdm() {
         return adm;
     }
 
-    public void setAdm(boolean adm) {
+    public void setAdm(int adm) {
         this.adm = adm;
     }
-    
-    
 }
