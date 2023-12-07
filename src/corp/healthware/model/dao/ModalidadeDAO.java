@@ -105,7 +105,7 @@ public class ModalidadeDAO implements DAO<Modalidade> {
         PreparedStatement st = null;
 
         try {
-            String query = "SELECT cod_m, resp, nome_c, nome_m, vezes_semana, preco FROM modalidade JOIN colaborador ON resp = cod_c ORDER BY nome_m";
+            String query = "SELECT cod_m, resp, nome_c, nome_m, vezes_semana, preco FROM modalidade, colaborador WHERE (resp = cod_c  OR resp IS NULL) GROUP BY cod_m ORDER BY nome_m";
             st = conn.prepareStatement(query);
             ResultSet res = st.executeQuery();
             if (res != null) {
@@ -117,13 +117,19 @@ public class ModalidadeDAO implements DAO<Modalidade> {
 
                     func.setCod_m(Integer.parseInt(res.getString("cod_m")));
                     func.setNomeResp(res.getString("nome_c"));
-                    func.setResp(Integer.parseInt(res.getString("resp")));
                     func.setNome_m(res.getString("nome_m"));
                     func.setVezes_semana(Integer.parseInt(res.getString("vezes_semana")));
                     func.setPreco(Double.parseDouble(res.getString("preco")));
 
-                    funcs.add(func);
+                    if (res.getInt("resp") != 0) {
+                        func.setResp(res.getInt("resp"));
+                        func.setNomeResp(res.getString("nome_c"));
+                    } else {
+                        func.setNomeResp("Sem Responsável");
+                        func.setResp(-1);
+                    }
 
+                    funcs.add(func);
                 }
             }
         } catch (SQLException ex) {
@@ -133,38 +139,10 @@ public class ModalidadeDAO implements DAO<Modalidade> {
         return funcs;
     }
 
-    public ArrayList<Modalidade> search(String nome) throws DAOexception {
-        ArrayList<Modalidade> mods = null;
-        PreparedStatement st = null;
-        try {
-            String query = "SELECT cod_m, resp, nome_m, vezes_semana, preco, nome_c FROM modalidade JOIN colaborador ON resp = cod_c WHERE nome_m LIKE '%" + nome + "%' order by nome_m";
-
-            st = conn.prepareStatement(query);
-            ResultSet res = st.executeQuery();
-            if (res != null) {
-                mods = new ArrayList<>();
-                while (res.next()) {
-                    Modalidade func = new Modalidade();
-                    func.setCod_m(Integer.parseInt(res.getString("cod_m")));
-                    func.setResp(Integer.parseInt(res.getString("resp")));
-                    func.setNome_m(res.getString("nome_m"));
-                    func.setVezes_semana(Integer.parseInt(res.getString("vezes_semana")));
-                    func.setPreco(Double.parseDouble(res.getString("preco")));
-                    func.setNomeResp(res.getString("nome_c"));
-                    mods.add(func);
-
-                }
-            }
-        } catch (SQLException e) {
-            throw new DAOexception("Erro ao tentar achar modalidade : SQLState : " + e.getMessage());
-        }
-        return mods;
-    }
-
     @Override
     public Modalidade findOne(Modalidade a) throws DAOexception {
         try {
-            String query = "SELECT cod_m, nome_m, nome_c, vezes_semana, preco FROM modalidade, colaborador WHERE resp = cod_c AND cod_m = ? GROUP BY cod_m";
+            String query = "SELECT cod_m, nome_m, resp, nome_c, vezes_semana, preco FROM modalidade, colaborador WHERE (resp = cod_c  OR resp IS NULL) AND cod_m = ? GROUP BY cod_m";
             PreparedStatement st = conn.prepareStatement(query);
             st.setInt(1, a.getCod_m());
             ResultSet res = st.executeQuery();
@@ -172,9 +150,16 @@ public class ModalidadeDAO implements DAO<Modalidade> {
             Modalidade mod = new Modalidade();
             mod.setCod_m(Integer.parseInt(res.getString("cod_m")));
             mod.setNome_m(res.getString("nome_m"));
-            mod.setNomeResp(res.getString("nome_c"));
             mod.setVezes_semana(res.getInt("vezes_semana"));
             mod.setPreco(res.getDouble("preco"));
+
+            if (res.getInt("resp") != 0) {
+                mod.setResp(res.getInt("resp"));
+                mod.setNomeResp(res.getString("nome_c"));
+            } else {
+                mod.setNomeResp("Sem Responsável");
+                mod.setResp(-1);
+            }
 
             return mod;
         } catch (SQLException ex) {
@@ -183,9 +168,37 @@ public class ModalidadeDAO implements DAO<Modalidade> {
         return null;
     }
 
-    private static class DBSingleton {
+    public ArrayList<Modalidade> search(String nome) throws DAOexception {
+        ArrayList<Modalidade> mods = null;
+        PreparedStatement st = null;
+        try {
+            String query = "SELECT cod_m, resp, nome_m, vezes_semana, preco, nome_c FROM modalidade, colaborador WHERE (resp = cod_c  OR resp IS NULL) AND nome_m LIKE '%" + nome + "%' GROUP BY cod_m ORDER BY nome_m";
 
-        public DBSingleton() {
+            st = conn.prepareStatement(query);
+            ResultSet res = st.executeQuery();
+            if (res != null) {
+                mods = new ArrayList<>();
+                while (res.next()) {
+                    Modalidade func = new Modalidade();
+                    func.setCod_m(Integer.parseInt(res.getString("cod_m")));
+                    func.setNome_m(res.getString("nome_m"));
+                    func.setVezes_semana(Integer.parseInt(res.getString("vezes_semana")));
+                    func.setPreco(Double.parseDouble(res.getString("preco")));
+                    
+                    if (res.getInt("resp") != 0) {
+                        func.setResp(res.getInt("resp"));
+                        func.setNomeResp(res.getString("nome_c"));
+                    } else {
+                        func.setNomeResp("Sem Responsável");
+                        func.setResp(-1);
+                    }
+                    mods.add(func);
+
+                }
+            }
+        } catch (SQLException e) {
+            throw new DAOexception("Erro ao tentar achar modalidade : SQLState : " + e.getMessage());
         }
+        return mods;
     }
 }
