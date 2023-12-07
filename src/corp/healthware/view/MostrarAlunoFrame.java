@@ -278,11 +278,11 @@ public class MostrarAlunoFrame extends javax.swing.JPanel {
                 .addComponent(jPanelMain, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(38, 38, 38)
                 .addComponent(jPanelEnd, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 27, Short.MAX_VALUE)
+                .addGap(27, 27, 27)
                 .addComponent(jPanelObs, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButtonVoltar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButtonVoltar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jButtonVerAulas)
                         .addComponent(jButtonEditar)
@@ -320,7 +320,8 @@ public class MostrarAlunoFrame extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonVerAulasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonVerAulasActionPerformed
-        MostrarAulasFrame main = new MostrarAulasFrame();
+
+        MostrarAulasFrame main = new MostrarAulasFrame(cod_a);
         main.setSize(1000, 570);
         main.setLocation(0, 0);
         removeAll();
@@ -362,7 +363,6 @@ public class MostrarAlunoFrame extends javax.swing.JPanel {
     }//GEN-LAST:event_jButtonVoltarActionPerformed
 
     private void jButtonNovaAulaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonNovaAulaActionPerformed
-        // TODO add your handling code here:
         NovaAulaFrame novaAula = new NovaAulaFrame(cod_a);
         novaAula.setSize(820, 570);
         novaAula.setLocation(0, 0);

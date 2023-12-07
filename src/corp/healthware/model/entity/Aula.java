@@ -2,6 +2,7 @@
 package corp.healthware.model.entity;
 
 import corp.healthware.model.dao.AulaDAO;
+import corp.healthware.model.entity.Aluno;
 import corp.healthware.model.dao.DAOexception;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -46,9 +47,9 @@ public class Aula {
        return new AulaDAO().findOne(aula);
     }
     
-    /*public ArrayList<Aula> searchAluno(String nome) throws SQLException, DAOexception {
-        return new AulaDAO().search(nome);
-    }*/
+    public ArrayList<Aula> findAllAulas(Aluno a) throws SQLException, DAOexception {
+        return new AulaDAO().findAll(a);
+    }
     
     public int getCod_a() {
         return cod_a;
@@ -81,6 +82,5 @@ public class Aula {
     public void setDescricao(String descricao) {
         this.descricao = descricao;
     }
-    
     
 }

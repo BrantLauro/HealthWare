@@ -105,7 +105,7 @@ public class ModalidadeDAO implements DAO<Modalidade> {
         PreparedStatement st = null;
 
         try {
-            String query = "SELECT cod_m, resp, nome_c, nome_m, vezes_semana, preco FROM modalidade JOIN colaborador ON resp = cod_c";
+            String query = "SELECT cod_m, resp, nome_c, nome_m, vezes_semana, preco FROM modalidade JOIN colaborador ON resp = cod_c ORDER BY nome_m";
             st = conn.prepareStatement(query);
             ResultSet res = st.executeQuery();
             if (res != null) {

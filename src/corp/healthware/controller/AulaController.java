@@ -1,6 +1,7 @@
 package corp.healthware.controller;
 
 import corp.healthware.model.dao.DAOexception;
+import corp.healthware.model.entity.Aluno;
 import corp.healthware.model.entity.Aula;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -24,14 +25,16 @@ public class AulaController {
     }
 
     public int delete(int cod_a) throws DAOexception, SQLException {
-        if (cod_a != -1) {
-            Aula func = new Aula(cod_a);
-            return func.excluirAula(func);
-        }
+        // Não suportado
         return 0;
     }
 
     public ArrayList<Aula> findAll() throws DAOexception, SQLException {
         return new Aula().findAllAula();
+    }
+    
+    public ArrayList<Aula> findAll(int cod_a) throws DAOexception, SQLException {
+        Aluno a = new Aluno(cod_a);
+        return new Aula().findAllAulas(a);
     }
 }

@@ -9,7 +9,9 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
 import java.sql.SQLException;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultComboBoxModel;
@@ -26,14 +28,11 @@ public class NovaAulaFrame extends javax.swing.JPanel {
         UIManager.put("ComboBox.selectionBackground", new Color(212, 81, 93));
         UIManager.put("ComboBox.buttonBackground", new Color(212, 81, 93));
         initComponents();
+        jTextFieldData.setText(formatarDataShow(LocalDateTime.now().toString().substring(0, 10)));
         jPanel.putClientProperty(FlatClientProperties.STYLE, "arc: 15");
         jTextFieldData.putClientProperty(FlatClientProperties.STYLE, "arc: 9");
         jTextFieldData.putClientProperty(FlatClientProperties.STYLE, "arc: 9");
-        //jTextFieldObj.putClientProperty(FlatClientProperties.STYLE, "arc: 9");
         jTextFieldDescricao.putClientProperty(FlatClientProperties.STYLE, "arc: 9");
-        //jTextFieldTel.putClientProperty(FlatClientProperties.STYLE, "arc: 9");
-        //jTextFieldEndereco.putClientProperty(FlatClientProperties.STYLE, "arc: 9");
-        //initComboBoxAula();
     }
     
     private void voltar() {
@@ -45,20 +44,7 @@ public class NovaAulaFrame extends javax.swing.JPanel {
         revalidate();
         repaint();
     }
-
-/*    private void initComboBoxMod() {
-        try {
-            ModalidadeController modController = new ModalidadeController();
-            ArrayList<Modalidade> mods = modController.findAll();
-            mods.forEach((Modalidade mod) -> {
-
-                jComboBoxModalidade.addItem("Cod. " + mod.getCod_m() + ": " + mod.getNome_m() + " " + mod.getVezes_semana() + " Vezes na semana");
-            });
-        } catch (SQLException | DAOexception ex) {
-            Logger.getLogger(NovaAulaFrame.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }*/
-
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -146,7 +132,7 @@ public class NovaAulaFrame extends javax.swing.JPanel {
         });
 
         jTextFieldData.setBackground(new java.awt.Color(239, 239, 239));
-        jTextFieldData.setForeground(new java.awt.Color(139, 137, 137));
+        jTextFieldData.setForeground(new java.awt.Color(41, 41, 41));
         try {
             jTextFieldData.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##/##/####")));
         } catch (java.text.ParseException ex) {
@@ -176,46 +162,45 @@ public class NovaAulaFrame extends javax.swing.JPanel {
                 .addComponent(jButtonVoltar, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(186, 186, 186))
             .addGroup(jPanelLayout.createSequentialGroup()
-                .addGroup(jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGap(269, 269, 269)
+                .addComponent(jLabelTitulo)
+                .addContainerGap(282, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(jPanelLayout.createSequentialGroup()
-                        .addGap(269, 269, 269)
-                        .addComponent(jLabelTitulo))
-                    .addGroup(jPanelLayout.createSequentialGroup()
-                        .addGap(60, 60, 60)
-                        .addGroup(jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanelLayout.createSequentialGroup()
-                                .addGroup(jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(jPanelLayout.createSequentialGroup()
-                                        .addComponent(jLabelNome)
-                                        .addGap(309, 309, 309))
-                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelLayout.createSequentialGroup()
-                                        .addComponent(jTextFieldData, javax.swing.GroupLayout.PREFERRED_SIZE, 320, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(18, 18, 18)))
-                                .addGroup(jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabelHorario, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jComboBoxHorario, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                            .addComponent(jTextFieldDescricao, javax.swing.GroupLayout.PREFERRED_SIZE, 670, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabelObs, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(43, Short.MAX_VALUE))
+                                .addComponent(jLabelNome)
+                                .addGap(309, 309, 309))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelLayout.createSequentialGroup()
+                                .addComponent(jTextFieldData, javax.swing.GroupLayout.PREFERRED_SIZE, 320, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)))
+                        .addGroup(jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabelHorario, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jComboBoxHorario, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addComponent(jTextFieldDescricao, javax.swing.GroupLayout.PREFERRED_SIZE, 670, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabelObs, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(41, 41, 41))
         );
         jPanelLayout.setVerticalGroup(
             jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelLayout.createSequentialGroup()
                 .addGap(25, 25, 25)
                 .addComponent(jLabelTitulo)
-                .addGap(78, 78, 78)
+                .addGap(116, 116, 116)
                 .addGroup(jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabelHorario, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabelNome))
                 .addGap(2, 2, 2)
                 .addGroup(jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jComboBoxHorario, javax.swing.GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE)
-                    .addComponent(jTextFieldData))
+                    .addComponent(jComboBoxHorario, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jTextFieldData, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(jLabelObs)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jTextFieldDescricao, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(167, 167, 167)
+                .addGap(129, 129, 129)
                 .addGroup(jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButtonSalvar)
                     .addComponent(jButtonVoltar))
@@ -259,17 +244,18 @@ public class NovaAulaFrame extends javax.swing.JPanel {
         String str = jTextFieldData.getText();
         return str.substring(6) + "-" + str.substring(3, 5) + "-" + str.substring(0, 2);
     }
+    
+    private String formatarDataShow(String data) {
+        return data.substring(8) + "/" + data.substring(5, 7) + "/" + data.substring(0, 4);
+    }
 
     private void jButtonSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSalvarActionPerformed
         try {
             String data_au = formatarData();
             String horario = (String) jComboBoxHorario.getSelectedItem();
-            String descricao = "";
-            if (!jTextFieldDescricao.getForeground().equals(new Color(139, 137, 137))) {
-                descricao = jTextFieldDescricao.getText();
-            }
-            if (!data_au.equals("    -  -  ") &&
-                !jTextFieldData.getForeground().equals(new Color(139, 137, 137))) {
+            String descricao = jTextFieldDescricao.getText();
+            if (!data_au.equals("    -  -  ") && !jTextFieldData.getForeground().equals(new Color(139, 137, 137))
+                    && !descricao.equals("") && !jTextFieldDescricao.getForeground().equals(new Color(139, 137, 137))) {
                 AulaController aulaCtrl = new AulaController();
                 if(aulaCtrl.insert(cod_a, data_au, horario, descricao) != 0)
                 voltar();
@@ -300,10 +286,7 @@ public class NovaAulaFrame extends javax.swing.JPanel {
     }//GEN-LAST:event_jComboBoxHorarioActionPerformed
 
     private void jTextFieldDataFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextFieldDataFocusGained
-        if (jTextFieldData.getForeground().equals(new Color(139, 137, 137))) {
-            jTextFieldData.setForeground(new Color(41, 41, 41));
-            jTextFieldData.setText("");
-        }
+
     }//GEN-LAST:event_jTextFieldDataFocusGained
 
     private void jTextFieldDataActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldDataActionPerformed

@@ -22,7 +22,10 @@ import javax.swing.table.DefaultTableModel;
 
 public class MostrarAulasFrame extends javax.swing.JPanel {
 
-    public MostrarAulasFrame() {
+    private int cod_a;
+    
+    public MostrarAulasFrame(int cod_a) {
+        this.cod_a = cod_a;
         initComponents();
         initTableAulas();
     }
@@ -34,10 +37,10 @@ public class MostrarAulasFrame extends javax.swing.JPanel {
     private void initTableAulas() {
         try {
             DefaultTableModel tableModel = (DefaultTableModel) jTableAulas.getModel();
-            tableModel.setRowCount(0);;
+            tableModel.setRowCount(0);
             ArrayList<Aula> aulas;
             AulaController aulaCtrl = new AulaController();
-            aulas = aulaCtrl.findAll();
+            aulas = aulaCtrl.findAll(this.cod_a);
             aulas.forEach((Aula a) -> {
                 tableModel.addRow(new Object[]{formatarDataShow(a.getData_au()), a.getHora_au(), a.getDescricao()});
             });
@@ -161,13 +164,20 @@ public class MostrarAulasFrame extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonVoltarActionPerformed
-        AlunosCentralFrame central = new AlunosCentralFrame();
-        central.setSize(820, 570);
-        central.setLocation(0, 0);
-        removeAll();
-        add(central, BorderLayout.CENTER);
-        revalidate();
-        repaint();
+        try {
+            AlunoController alunoCtrl = new AlunoController();
+            MostrarAlunoFrame mA = new MostrarAlunoFrame(alunoCtrl.findOne(cod_a));
+            mA.setSize(820, 570);
+            mA.setLocation(0, 0);
+            removeAll();
+            add(mA, BorderLayout.CENTER);
+            revalidate();
+            repaint();
+        } catch (DAOexception ex) {
+            Logger.getLogger(MostrarAulasFrame.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(MostrarAulasFrame.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_jButtonVoltarActionPerformed
 
 

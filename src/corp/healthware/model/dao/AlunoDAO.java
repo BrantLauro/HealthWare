@@ -125,7 +125,7 @@ public class AlunoDAO implements DAO<Aluno> {
         PreparedStatement st = null;
 
         try {
-            String query = "SELECT cod_a, nome_a, data_nasc_a, dia_pag, obs, status, tel_a, obj, modalidade, nome_m, endereco, horario FROM aluno, modalidade WHERE modalidade = cod_m OR modalidade IS NULL GROUP BY cod_a";
+            String query = "SELECT cod_a, nome_a, data_nasc_a, dia_pag, obs, status, tel_a, obj, modalidade, nome_m, endereco, horario FROM aluno, modalidade WHERE modalidade = cod_m OR modalidade IS NULL GROUP BY cod_a ORDER BY nome_a";
             st = conn.prepareStatement(query);
             ResultSet res = st.executeQuery();
             if (res != null) {
