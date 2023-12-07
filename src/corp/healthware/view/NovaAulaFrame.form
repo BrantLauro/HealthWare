@@ -185,7 +185,7 @@
                   <Color blue="89" green="89" red="8b" type="rgb"/>
                 </Property>
                 <Property name="horizontalAlignment" type="int" value="2"/>
-                <Property name="text" type="java.lang.String" value="Problema na coluna"/>
+                <Property name="text" type="java.lang.String" value="Agachamento e Exerc&#xed;cio com Bola."/>
               </Properties>
               <Events>
                 <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="jTextFieldDescricaoFocusGained"/>

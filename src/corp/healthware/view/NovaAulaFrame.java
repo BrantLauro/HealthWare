@@ -84,7 +84,7 @@ public class NovaAulaFrame extends javax.swing.JPanel {
         jTextFieldDescricao.setFont(new java.awt.Font("TT Hoves Pro Trial", 0, 12)); // NOI18N
         jTextFieldDescricao.setForeground(new java.awt.Color(139, 137, 137));
         jTextFieldDescricao.setHorizontalAlignment(javax.swing.JTextField.LEFT);
-        jTextFieldDescricao.setText("Problema na coluna");
+        jTextFieldDescricao.setText("Agachamento e Exercício com Bola.");
         jTextFieldDescricao.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 jTextFieldDescricaoFocusGained(evt);
