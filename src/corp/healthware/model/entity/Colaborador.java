@@ -53,6 +53,19 @@ public class Colaborador {
         this.adm = adm;
     }
 
+    public Colaborador(String email, String senha) {
+        this.email = email;
+        this.senha = senha;
+    }
+    
+    public boolean logarColaborador(Colaborador colaborador) throws SQLException, DAOexception {
+        return new ColaboradorDAO().login(colaborador);
+    }
+    
+    public int getCod_cLoginColab(Colaborador colaborador) throws SQLException, DAOexception {
+        return new ColaboradorDAO().getCod_cLogin(colaborador);
+    }
+
     public int cadastrarColaborador(Colaborador colaborador) throws SQLException, DAOexception {
         return new ColaboradorDAO().insert(colaborador);
     }

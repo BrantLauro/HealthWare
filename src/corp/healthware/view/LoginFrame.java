@@ -2,14 +2,19 @@
 package corp.healthware.view;
 
 import com.formdev.flatlaf.FlatClientProperties;
+import corp.healthware.controller.ColaboradorController;
+import corp.healthware.model.dao.DAOexception;
 import java.awt.BorderLayout;
+import java.awt.Color;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 
 public class LoginFrame extends javax.swing.JFrame {
     
     private boolean typed = false;
-
 
     public LoginFrame() {
         initComponents();
@@ -161,17 +166,31 @@ public class LoginFrame extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonLoginActionPerformed
-        MainFrame main = new MainFrame();
-        main.setSize(1000, 570);
-        main.setLocation(0, 0);
-        jPanelContent.removeAll();
-        jPanelContent.add(main, BorderLayout.CENTER);
-        jPanelContent.revalidate();
-        jPanelContent.repaint();
+        String email = jTextFieldUsuario.getText();
+        String senha = jPasswordField.getText();
+        ColaboradorController colabCtrl = new ColaboradorController();
+        try {
+            if(colabCtrl.login(email, senha)){
+                MainFrame main = new MainFrame(colabCtrl.findOne(colabCtrl.getCod_cLogin(email, senha)));
+                main.setSize(1000, 570);
+                main.setLocation(0, 0);
+                jPanelContent.removeAll();
+                jPanelContent.add(main, BorderLayout.CENTER);
+                jPanelContent.revalidate();
+                jPanelContent.repaint();
+            } else {
+                JOptionPane.showMessageDialog(null, "Email ou Senha inválidos!", "Erro", JOptionPane.ERROR_MESSAGE);
+            }
+        } catch (DAOexception ex) {
+            Logger.getLogger(LoginFrame.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(LoginFrame.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_jButtonLoginActionPerformed
 
     private void jTextFieldUsuarioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTextFieldUsuarioMouseClicked
        if(typed == false) {
+            jTextFieldUsuario.setForeground(new Color(41, 41, 41));
             jTextFieldUsuario.setText("");
             typed = true;   
        }
@@ -179,13 +198,17 @@ public class LoginFrame extends javax.swing.JFrame {
 
     private void jTextFieldUsuarioKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldUsuarioKeyPressed
         if(typed == false) {
+            jTextFieldUsuario.setForeground(new Color(41, 41, 41));
             jTextFieldUsuario.setText("");
             typed = true;   
        }
     }//GEN-LAST:event_jTextFieldUsuarioKeyPressed
 
     private void jPasswordFieldFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jPasswordFieldFocusGained
-        if(jPasswordField.getText().equals("************")) jPasswordField.setText("");
+        if(jPasswordField.getText().equals("************")) {
+            jPasswordField.setForeground(new Color(41, 41, 41));
+            jPasswordField.setText("");
+        }
     }//GEN-LAST:event_jPasswordFieldFocusGained
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

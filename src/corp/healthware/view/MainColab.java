@@ -1,5 +1,6 @@
 package corp.healthware.view;
 
+import corp.healthware.model.entity.Colaborador;
 import java.awt.BorderLayout;
 import java.awt.Insets;
 import java.sql.SQLException;
@@ -11,7 +12,9 @@ import javax.swing.table.DefaultTableModel;
 
 public class MainColab extends javax.swing.JPanel {
 
-    public MainColab() {
+    Colaborador user;
+    
+    public MainColab(Colaborador user) {
         UIManager.put("ScrollBar.thumbArc", 10);
         UIManager.put("ScrollBar.thumbInsets", new Insets(2, 2, 2, 2));
         initComponents();
@@ -22,6 +25,7 @@ public class MainColab extends javax.swing.JPanel {
         jPanelCentral.add(central, BorderLayout.CENTER);
         jPanelCentral.revalidate();
         jPanelCentral.repaint();
+        this.user = user;
         
     }
 
@@ -134,7 +138,7 @@ public class MainColab extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonVoltarActionPerformed
-        MainFrame main = new MainFrame();
+        MainFrame main = new MainFrame(user);
         main.setSize(1000, 570);
         main.setLocation(0, 0);
         jPanelContent.removeAll();

@@ -1,5 +1,6 @@
 package corp.healthware.view;
 
+import corp.healthware.model.entity.Colaborador;
 import java.awt.BorderLayout;
 import java.awt.Insets;
 import java.sql.SQLException;
@@ -10,8 +11,10 @@ import javax.swing.table.DefaultTableModel;
 
 
 public class MainAlunos extends javax.swing.JPanel {
+    
+    Colaborador user;
 
-    public MainAlunos() {
+    public MainAlunos(Colaborador user) {
         UIManager.put("ScrollBar.thumbArc", 10);
         UIManager.put("ScrollBar.thumbInsets", new Insets(2, 2, 2, 2));
         initComponents();
@@ -22,6 +25,7 @@ public class MainAlunos extends javax.swing.JPanel {
         jPanelCentral.add(central, BorderLayout.CENTER);
         jPanelCentral.revalidate();
         jPanelCentral.repaint();
+        this.user = user;
         
     }
 
@@ -112,7 +116,7 @@ public class MainAlunos extends javax.swing.JPanel {
         jPanelCentral.setLayout(jPanelCentralLayout);
         jPanelCentralLayout.setHorizontalGroup(
             jPanelCentralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 651, Short.MAX_VALUE)
+            .addGap(0, 622, Short.MAX_VALUE)
         );
         jPanelCentralLayout.setVerticalGroup(
             jPanelCentralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -138,7 +142,7 @@ public class MainAlunos extends javax.swing.JPanel {
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanelContent, javax.swing.GroupLayout.DEFAULT_SIZE, 844, Short.MAX_VALUE)
+            .addComponent(jPanelContent, javax.swing.GroupLayout.DEFAULT_SIZE, 815, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -147,7 +151,7 @@ public class MainAlunos extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonVoltarActionPerformed
-        MainFrame main = new MainFrame();
+        MainFrame main = new MainFrame(user);
         main.setSize(1000, 570);
         main.setLocation(0, 0);
         jPanelContent.removeAll();

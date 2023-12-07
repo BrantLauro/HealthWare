@@ -5,13 +5,14 @@ import corp.healthware.model.entity.Colaborador;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
 public class ColaboradorDAO implements DAO<Colaborador> {
 
     private Connection conn;
-
+    
     public ColaboradorDAO() throws SQLException {
         conn = (Connection) Singleton.getInstancia().getConexao();
     }
@@ -83,7 +84,7 @@ public class ColaboradorDAO implements DAO<Colaborador> {
 
             PreparedStatement stMods = conn.prepareStatement(upQueryMods);
             PreparedStatement st = conn.prepareStatement(delQuery);
-            
+
             stMods.setInt(1, entidade.getCod_c());
             st.setInt(1, entidade.getCod_c());
 
@@ -92,10 +93,6 @@ public class ColaboradorDAO implements DAO<Colaborador> {
             JOptionPane.showMessageDialog(null, "Colaborador Removido!");
 
         } catch (SQLException ex) {
-//            if (ex.getSQLState().equals("23000")) {
-//                JOptionPane.showMessageDialog(null, "O Colaborador tem requisições pendentes!", "Erro", JOptionPane.ERROR_MESSAGE);
-//                return linhasAfetadas;
-//            }
             throw new DAOexception("Erro ao tentar deletar entidade Colaborador SQLSTATE: " + ex.getSQLState() + " " + ex.getMessage());
         }
 
@@ -164,9 +161,43 @@ public class ColaboradorDAO implements DAO<Colaborador> {
         }
     }
 
-    private static class DBSingleton {
+    public boolean login(Colaborador entidade) throws DAOexception {
+        try {
+            PreparedStatement st = conn.prepareStatement("SELECT * FROM colaborador WHERE email = ? AND senha = ?");
+            st.setString(1, entidade.getEmail());
+            st.setString(2, entidade.getSenha());
+            ResultSet res = st.executeQuery();
+            if (res.next()) {
+                String emailTemp = res.getString("email");
+                String senhaTemp = res.getString("senha");
 
-        public DBSingleton() {
+                if (senhaTemp.equals(entidade.getSenha()) && emailTemp.equals(entidade.getEmail())) {
+                    return true;
+                }
+            }
+            return false;
+        } catch (SQLException ex) {
+            throw new DAOexception("Erro ao tentar logar Adm na ADMdao : SQLState : " + ex.getSQLState());
+        }
+    }
+    
+    public int getCod_cLogin(Colaborador entidade) throws DAOexception {
+        try {
+            PreparedStatement st = conn.prepareStatement("SELECT * FROM colaborador WHERE email = ? AND senha = ?");
+            st.setString(1, entidade.getEmail());
+            st.setString(2, entidade.getSenha());
+            ResultSet res = st.executeQuery();
+            if (res.next()) {
+                String emailTemp = res.getString("email");
+                String senhaTemp = res.getString("senha");
+
+                if (senhaTemp.equals(entidade.getSenha()) && emailTemp.equals(entidade.getEmail())) {
+                    return res.getInt("cod_c");
+                }
+            }
+            return -1;
+        } catch (SQLException ex) {
+            throw new DAOexception("Erro ao tentar logar Adm na ADMdao : SQLState : " + ex.getSQLState());
         }
     }
 }
