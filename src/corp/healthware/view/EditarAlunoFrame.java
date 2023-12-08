@@ -425,8 +425,8 @@ public class EditarAlunoFrame extends javax.swing.JPanel {
             String horario = (String) jComboBoxHorario.getSelectedItem();
             String endereco = jTextFieldEndereco.getText();
             int diaPag = Integer.parseInt((String) jComboBoxPagamento.getSelectedItem());
-            String obs = jTextFieldObj.getText();
-            String obj = jTextFieldObs.getText();
+            String obs = jTextFieldObs.getText();
+            String obj = jTextFieldObj.getText();
 
             if (!dataNascimento.equals("    -  -  ")
                     && !telefone.equals("(  )      -    ")

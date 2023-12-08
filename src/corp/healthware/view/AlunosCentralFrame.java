@@ -13,15 +13,12 @@ import corp.healthware.view.cell.buttons.TableActionCellRenderNoView;
 import corp.healthware.view.cell.buttons.TableActionEvent;
 import corp.healthware.view.cell.buttons.TableActionEventNoView;
 import java.awt.BorderLayout;
-import java.awt.Color;
 import java.sql.SQLException;
 import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
-import javax.swing.UIDefaults;
-import javax.swing.UIManager;
 import javax.swing.table.DefaultTableModel;
 
 public class AlunosCentralFrame extends javax.swing.JPanel {
