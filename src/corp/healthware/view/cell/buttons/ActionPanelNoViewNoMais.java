@@ -11,9 +11,8 @@ public class ActionPanelNoViewNoMais extends javax.swing.JPanel {
         initComponents();
     }
 
-    public void initEvent(TableActionEventNoView event, int row) {
-        
-        
+    public void initEvent(TableActionEventNoViewNoMais event, int row) {
+             
         cmdEdit.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {

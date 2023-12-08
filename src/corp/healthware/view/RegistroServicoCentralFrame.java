@@ -80,11 +80,26 @@ public class RegistroServicoCentralFrame extends javax.swing.JPanel {
 
             @Override
             public void onEdit(int row) {
-                throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+                //throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+                RegistroServicoController regCtrl = new RegistroServicoController();
+                EditarRegistroServicoFrame edRegistro;
+                try {
+                    edRegistro = new EditarRegistroServicoFrame(regCtrl.findOne((int) jTableRegistroServicos.getValueAt(row, 0)));
+                    edRegistro.setSize(820, 570);
+                    edRegistro.setLocation(0, 0);
+                    removeAll();
+                    add(edRegistro, BorderLayout.CENTER);
+                    revalidate();
+                    repaint();
+                } catch (DAOexception ex) {
+                    Logger.getLogger(ServicoCentralFrame.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (SQLException ex) {
+                    Logger.getLogger(ServicoCentralFrame.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         };
         jTableRegistroServicos.getColumnModel().getColumn(4).setCellRenderer(new TableActionCellRenderNoViewNoMais());
-        jTableRegistroServicos.getColumnModel().getColumn(4).setCellEditor(new TableActionCellEditorNoViewNoMais((TableActionEventNoViewNoMais) (TableActionEventNoView) event));
+        jTableRegistroServicos.getColumnModel().getColumn(4).setCellEditor(new TableActionCellEditorNoViewNoMais(event));
     }
     
     
