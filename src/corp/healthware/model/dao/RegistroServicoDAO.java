@@ -23,10 +23,10 @@ public class RegistroServicoDAO implements DAO<RegistroServico>{
     public int insert(RegistroServico a) throws DAOexception {
         int linhasGravadas = 0;
         try {
-            String iQuery = "INSERT INTO registro_servico (cod_s,data,hora,nome_cliente) VALUES (?,?,?,?)";
+            String iQuery = "INSERT INTO registro_servico (cod_rs,data_s,hora_s,nome_cliente) VALUES (?,?,?,?)";
 
             PreparedStatement st = conn.prepareStatement(iQuery);
-            st.setInt(1, a.getCod_s());
+            st.setInt(1, a.getCod_rs());
             st.setString(2, a.getData());
             st.setString(3, a.getHora());
             st.setString(4, a.getNome_cliente());
@@ -34,7 +34,7 @@ public class RegistroServicoDAO implements DAO<RegistroServico>{
             linhasGravadas = st.executeUpdate();
             JOptionPane.showMessageDialog(null, "Cadastrado");
         } catch (SQLException e) {
-            if (e.getSQLState().equals("23505") || e.getSQLState().equals("23000")) {
+            /*if (e.getSQLState().equals("23505") || e.getSQLState().equals("23000")) {
                 int resultado = JOptionPane.showConfirmDialog(null, "Registro do Servico já cadastrado, deseja atualizar?", "Erro", JOptionPane.ERROR_MESSAGE);
 
                 if(resultado == JOptionPane.YES_OPTION) {
@@ -42,7 +42,7 @@ public class RegistroServicoDAO implements DAO<RegistroServico>{
                     return update(a);
                 }
                 else return 0;
-            }
+            }*/
             System.out.println("sim" + e.getMessage());
         }
         return linhasGravadas;
@@ -53,11 +53,11 @@ public class RegistroServicoDAO implements DAO<RegistroServico>{
         int linhasAfetadas = 0;
 
         try {
-            String uQuery = "UPDATE registro_servico SET nome_cliente = ?" + "where cod_s = ? and where data = ? and hora = ?";
+            String uQuery = "UPDATE registro_servico SET nome_cliente = ?" + "where cod_rs = ? and where data_s = ? and hora_s = ?";
 
             PreparedStatement st = conn.prepareStatement(uQuery);
             st.setString(1, entidade.getNome_cliente());  
-            st.setInt(2, entidade.getCod_s());
+            st.setInt(2, entidade.getCod_rs());
             st.setString(3, entidade.getData());
             st.setString(4, entidade.getHora());
 
@@ -76,10 +76,10 @@ public class RegistroServicoDAO implements DAO<RegistroServico>{
         int linhasAfetadas = 0;
 
         try {
-            String delQuery = "DELETE from registro_servico WHERE cod_s = ? and where data = ? and hora = ?";
+            String delQuery = "DELETE from registro_servico WHERE cod_rs = ? and where data_s = ? and hora_s = ?";
 
             PreparedStatement st = conn.prepareStatement(delQuery);
-            st.setInt(1, entidade.getCod_s());
+            st.setInt(1, entidade.getCod_rs());
             
             linhasAfetadas = st.executeUpdate();
             JOptionPane.showMessageDialog(null, "Registro de Servico Removido!");
@@ -111,9 +111,9 @@ public class RegistroServicoDAO implements DAO<RegistroServico>{
 
                     RegistroServico func = new RegistroServico();
 
-                    func.setCod_s(Integer.parseInt(res.getString("cod_s")));
-                    func.setData(res.getString("data"));
-                    func.setHora(res.getString("hora"));
+                    func.setCod_s(Integer.parseInt(res.getString("cod_rs")));
+                    func.setData(res.getString("data_s"));
+                    func.setHora(res.getString("hora_s"));
                     func.setNome_cliente(res.getString("nome_cliente"));                    
                     funcs.add(func);
 
@@ -129,15 +129,15 @@ public class RegistroServicoDAO implements DAO<RegistroServico>{
     @Override
     public RegistroServico findOne(RegistroServico r) throws DAOexception {
         try {
-            String query = "SELECT cod_s,data,hora,nome_cliente FROM registro_servico JOIN servico ON servico = cod_s WHERE cod_s = ?";
+            String query = "SELECT cod_rs,data_s,hora_s,nome_cliente FROM registro_servico JOIN servico ON servico = cod_rs WHERE cod_s = ?";
             PreparedStatement st = conn.prepareStatement(query);
-            st.setInt(1, r.getCod_s());
+            st.setInt(1, r.getCod_rs());
             ResultSet res = st.executeQuery();
             res.next();
             RegistroServico func = new RegistroServico();
-            func.setCod_s(Integer.parseInt(res.getString("cod_s")));
-            func.setData(res.getString("data"));
-            func.setHora(res.getString("hora"));
+            func.setCod_s(Integer.parseInt(res.getString("cod_rs")));
+            func.setData(res.getString("data_s"));
+            func.setHora(res.getString("hora_s"));
             func.setNome_cliente(res.getString("nome_c"));
             if (res.getString("servico") != null) {
                 func.setCod_s(res.getInt("servico"));
@@ -158,7 +158,7 @@ public class RegistroServicoDAO implements DAO<RegistroServico>{
         ArrayList<RegistroServico> reg = null;
         PreparedStatement st = null;
         try {
-            String query = "SELECT cod_s, data, hora, nome_c FROM registro_servico JOIN servico ON servico = cod_s WHERE nome_s LIKE '%" + pesquisa + "%' order by nome_s";
+            String query = "SELECT cod_rs, data_s, hora_s, nome_c FROM registro_servico JOIN servico ON servico = cod_rs WHERE nome_s LIKE '%" + pesquisa + "%' order by nome_s";
 
             st = conn.prepareStatement(query);
             ResultSet res = st.executeQuery();
@@ -166,9 +166,9 @@ public class RegistroServicoDAO implements DAO<RegistroServico>{
                 reg = new ArrayList<>();
                 while (res.next()) {
                     RegistroServico func = new RegistroServico();
-                    func.setCod_s(Integer.parseInt(res.getString("cod_s")));
-                    func.setData(res.getString("data"));
-                    func.setHora(res.getString("hora"));
+                    func.setCod_s(Integer.parseInt(res.getString("cod_rs")));
+                    func.setData(res.getString("data_s"));
+                    func.setHora(res.getString("hora_s"));
                     func.setNome_cliente(res.getString("nome_c"));
                     if (res.getString("servico") != null) {
                         func.setCod_s(res.getInt("servico"));

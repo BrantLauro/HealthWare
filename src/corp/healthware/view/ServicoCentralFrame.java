@@ -4,6 +4,7 @@ import com.formdev.flatlaf.FlatClientProperties;
 import corp.healthware.controller.AlunoController;
 import corp.healthware.controller.ColaboradorController;
 import corp.healthware.controller.ModalidadeController;
+import corp.healthware.controller.RegistroServicoController;
 import corp.healthware.controller.ServicoController;
 import corp.healthware.model.dao.DAOexception;
 import corp.healthware.model.entity.Aluno;
@@ -58,25 +59,27 @@ public class ServicoCentralFrame extends javax.swing.JPanel {
         TableActionEvent event = new TableActionEvent() {
             @Override
             public void onMais(int row) {
-                NovoServicoFrame servico = new NovoServicoFrame();
+                int codigo = (int) jTableServicos.getValueAt(row, 0);
+                NovoRegistroServicoFrame servico = new NovoRegistroServicoFrame(codigo);
                 servico.setSize(820, 570);
                 servico.setLocation(0, 0);
-                jPanelCentral.removeAll();
-                jPanelCentral.add(servico, BorderLayout.CENTER);
-                jPanelCentral.revalidate();
-                jPanelCentral.repaint();
+                removeAll();
+                add(servico, BorderLayout.CENTER);
+                revalidate();
+                repaint();
             }
 
             @Override
             public void onView(int row) {
-                ServicoController servicoCtrl = new ServicoController();
-                EditarServicoFrame edServico;
+                RegistroServicoController regCtrl = new RegistroServicoController();
+                EditarRegistroServicoFrame edRegistro;
                 try {
-                    MostrarServicoFrame servico = new MostrarServicoFrame(servicoCtrl.findOne((int) jTableServicos.getValueAt(row, 0)));
-                    servico.setSize(820, 570);
-                    servico.setLocation(0, 0);
+                    int codigo = (int) jTableServicos.getValueAt(row, 0);
+                    RegistroServicoCentralFrame registro = new RegistroServicoCentralFrame(regCtrl.findOne(codigo));
+                    registro.setSize(820, 570);
+                    registro.setLocation(0, 0);
                     removeAll();
-                    add(servico, BorderLayout.CENTER);
+                    add(registro, BorderLayout.CENTER);
                     revalidate();
                     repaint();
                 } catch (DAOexception ex) {
@@ -107,8 +110,8 @@ public class ServicoCentralFrame extends javax.swing.JPanel {
 
             @Override
             public void onDelete(int row) {
-                System.out.println("Apagando ALuno");
-                int resultado = JOptionPane.showConfirmDialog(null, "Tem certeza que deseja excluir esse Colaborador?\nIsso apagará todos os seus dados!", "Excluir AColaborador", 0);
+                System.out.println("Apagando Serviço");
+                int resultado = JOptionPane.showConfirmDialog(null, "Tem certeza que deseja excluir esse Serviço?\nIsso apagará todos os seus dados!", "Excluir AColaborador", 0);
                 if (resultado == JOptionPane.YES_OPTION) {
                     try {
                         if (jTableServicos.isEditing()) {
@@ -132,7 +135,7 @@ public class ServicoCentralFrame extends javax.swing.JPanel {
         jTableServicos.getColumnModel().getColumn(4).setCellEditor(new TableActionCellEditor(event));
     }
     
-    private void initTableColaboradores(String pesquisa) {
+    /*private void initTableColaboradores(String pesquisa) {
         try {
             DefaultTableModel tableModel = (DefaultTableModel) jTableServicos.getModel();
             tableModel.setRowCount(0);
@@ -207,7 +210,7 @@ public class ServicoCentralFrame extends javax.swing.JPanel {
 
             @Override
             public void onDelete(int row) {
-                int resultado = JOptionPane.showConfirmDialog(null, "Tem certeza que deseja excluir essa Modalidade?", "Excluir Modalidade", 0);
+                int resultado = JOptionPane.showConfirmDialog(null, "Tem certeza que deseja excluir esse Colaborador?", "Excluir Colaborador", 0);
                 if (resultado == JOptionPane.YES_OPTION) {
                     try {
                         if (jTableServicos.isEditing()) {
@@ -229,17 +232,17 @@ public class ServicoCentralFrame extends javax.swing.JPanel {
         };
         jTableServicos.getColumnModel().getColumn(5).setCellRenderer(new TableActionCellRender());
         jTableServicos.getColumnModel().getColumn(5).setCellEditor(new TableActionCellEditor(event));
-    }
+    }*/
     
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
         jPanelCentral = new javax.swing.JPanel();
         jTextFieldPesquisa = new javax.swing.JTextField();
-        jLabelPesquisa = new javax.swing.JLabel();
         jScrollPaneTabela = new javax.swing.JScrollPane();
         jTableServicos = new javax.swing.JTable();
         jButtonColaboradores = new javax.swing.JButton();
+        jButtonPesquisa = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(239, 239, 239));
         setPreferredSize(new java.awt.Dimension(797, 570));
@@ -259,13 +262,6 @@ public class ServicoCentralFrame extends javax.swing.JPanel {
         jTextFieldPesquisa.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextFieldPesquisaActionPerformed(evt);
-            }
-        });
-
-        jLabelPesquisa.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/pesquisar.png"))); // NOI18N
-        jLabelPesquisa.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabelPesquisaMouseClicked(evt);
             }
         });
 
@@ -315,6 +311,16 @@ public class ServicoCentralFrame extends javax.swing.JPanel {
             }
         });
 
+        jButtonPesquisa.setBackground(new java.awt.Color(223, 223, 223));
+        jButtonPesquisa.setFont(new java.awt.Font("Rosario", 1, 20)); // NOI18N
+        jButtonPesquisa.setForeground(new java.awt.Color(239, 239, 239));
+        jButtonPesquisa.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/pesquisar.png"))); // NOI18N
+        jButtonPesquisa.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonPesquisaActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanelCentralLayout = new javax.swing.GroupLayout(jPanelCentral);
         jPanelCentral.setLayout(jPanelCentralLayout);
         jPanelCentralLayout.setHorizontalGroup(
@@ -325,9 +331,9 @@ public class ServicoCentralFrame extends javax.swing.JPanel {
                     .addComponent(jScrollPaneTabela, javax.swing.GroupLayout.PREFERRED_SIZE, 774, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanelCentralLayout.createSequentialGroup()
                         .addComponent(jTextFieldPesquisa)
-                        .addGap(12, 12, 12)
-                        .addComponent(jLabelPesquisa)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButtonPesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButtonColaboradores)))
                 .addContainerGap(24, Short.MAX_VALUE))
         );
@@ -337,8 +343,10 @@ public class ServicoCentralFrame extends javax.swing.JPanel {
                 .addGap(26, 26, 26)
                 .addGroup(jPanelCentralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jTextFieldPesquisa)
-                    .addComponent(jLabelPesquisa, javax.swing.GroupLayout.DEFAULT_SIZE, 38, Short.MAX_VALUE)
-                    .addComponent(jButtonColaboradores, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jButtonColaboradores, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(jPanelCentralLayout.createSequentialGroup()
+                        .addComponent(jButtonPesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPaneTabela, javax.swing.GroupLayout.PREFERRED_SIZE, 433, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(55, 55, 55))
@@ -357,7 +365,7 @@ public class ServicoCentralFrame extends javax.swing.JPanel {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 570, Short.MAX_VALUE)
+            .addGap(0, 572, Short.MAX_VALUE)
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addGap(0, 0, Short.MAX_VALUE)
@@ -372,16 +380,8 @@ public class ServicoCentralFrame extends javax.swing.JPanel {
 
     private void jTextFieldPesquisaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldPesquisaActionPerformed
         // TODO add your handling code here:
+       
     }//GEN-LAST:event_jTextFieldPesquisaActionPerformed
-
-    private void jLabelPesquisaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelPesquisaMouseClicked
-        String pesquisa = jTextFieldPesquisa.getText();
-        if (tServico) {
-            initTableServicos(pesquisa);
-        } else {
-            initTableColaboradores(pesquisa);
-        }
-    }//GEN-LAST:event_jLabelPesquisaMouseClicked
 
     private void jButtonColaboradoresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonColaboradoresActionPerformed
         // TODO add your handling code here:
@@ -394,10 +394,16 @@ public class ServicoCentralFrame extends javax.swing.JPanel {
         repaint();
     }//GEN-LAST:event_jButtonColaboradoresActionPerformed
 
+    private void jButtonPesquisaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonPesquisaActionPerformed
+        // TODO add your handling code here:
+        String pesquisa = jTextFieldPesquisa.getText();
+        initTableServicos(pesquisa);
+    }//GEN-LAST:event_jButtonPesquisaActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonColaboradores;
-    private javax.swing.JLabel jLabelPesquisa;
+    private javax.swing.JButton jButtonPesquisa;
     private javax.swing.JPanel jPanelCentral;
     private javax.swing.JScrollPane jScrollPaneTabela;
     private javax.swing.JTable jTableServicos;

@@ -14,7 +14,7 @@ import java.sql.SQLException;
  * @author dilceu
  */
 public class RegistroServico {
-    private int cod_s;
+    private int cod_rs;
     private String data;
     private String hora;
     private String nome_cliente;
@@ -22,14 +22,14 @@ public class RegistroServico {
     public RegistroServico() {
     }
 
-    public RegistroServico(int cod_s) {
-        this.cod_s = cod_s;
+    public RegistroServico(int cod_rs) {
+        this.cod_rs = cod_rs;
     }
     
     
 
-    public RegistroServico(int cod_s, String data, String hora) {
-        this.cod_s = cod_s;
+    public RegistroServico(int cod_rs, String data, String hora) {
+        this.cod_rs = cod_rs;
         this.data = data;
         this.hora = hora;
     }
@@ -37,6 +37,21 @@ public class RegistroServico {
     public RegistroServico(String nome_cliente) {
         this.nome_cliente = nome_cliente;
     }
+
+    public RegistroServico(String nome_cliente, String data, String hora) {
+        this.data = data;
+        this.hora = hora;
+        this.nome_cliente = nome_cliente;
+    }
+
+    public RegistroServico(int cod_rs, String nome_cliente, String data, String hora) {
+        this.cod_rs = cod_rs;
+        this.data = data;
+        this.hora = hora;
+        this.nome_cliente = nome_cliente;
+    }
+
+   
 
     public int cadastrarRegistroServico(RegistroServico registroservico) throws SQLException, DAOexception{
         return new RegistroServicoDAO().insert(registroservico);
@@ -62,8 +77,8 @@ public class RegistroServico {
         return new RegistroServicoDAO().search(pesquisa);
     }
     
-    public int getCod_s() {
-        return cod_s;
+    public int getCod_rs() {
+        return cod_rs;
     }
 
     public String getData() {
@@ -78,8 +93,8 @@ public class RegistroServico {
         return nome_cliente;
     }
 
-    public void setCod_s(int cod_s) {
-        this.cod_s = cod_s;
+    public void setCod_s(int cod_rs) {
+        this.cod_rs = cod_rs;
     }
 
     public void setData(String data) {

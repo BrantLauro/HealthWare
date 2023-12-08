@@ -260,16 +260,16 @@ public class NovoRegistroServicoFrame extends javax.swing.JPanel {
 
     private void jButtonSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSalvarActionPerformed
         try {
-            String data_au = formatarData();
+            String data_s = formatarData();
             String horario = (String) jComboBoxHorario.getSelectedItem();
             String nome_c = "";
             if (!jTextFieldNomeC.getForeground().equals(new Color(139, 137, 137))) {
                 nome_c = jTextFieldNomeC.getText();
             }
-            if (!data_au.equals("    -  -  ") &&
+            if (!data_s.equals("    -  -  ") &&
                 !jTextFieldData.getForeground().equals(new Color(139, 137, 137))) {
                 RegistroServicoController regCtrl = new RegistroServicoController();
-                if(regCtrl.insert(nome_c) != 0)
+                if(regCtrl.insert(cod_s,nome_c, data_s, horario) != 0)
                 voltar();
             } else {
                 JOptionPane.showMessageDialog(null, "Todos os campos obrigatórios devem ser preenchidos!", "Erro", JOptionPane.ERROR_MESSAGE);

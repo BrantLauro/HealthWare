@@ -14,9 +14,9 @@ import java.util.ArrayList;
  * @author dilce
  */
 public class RegistroServicoController {
-    public int insert(String nome_cliente) throws DAOexception, SQLException {
+    public int insert(int codigo, String nome_cliente, String data, String hora) throws DAOexception, SQLException {
         if (nome_cliente != null) {
-            RegistroServico registroservico = new RegistroServico(nome_cliente);
+            RegistroServico registroservico = new RegistroServico(codigo, nome_cliente, data, hora);
             return registroservico.cadastrarRegistroServico(registroservico);
         }
         return 0;
@@ -42,8 +42,8 @@ public class RegistroServicoController {
         return new RegistroServico().findAllRegistroServico();
     }
     
-    public RegistroServico findOne(int cod_s) throws DAOexception, SQLException {
-        RegistroServico registroservico = new RegistroServico(cod_s);
+    public RegistroServico findOne(int cod) throws DAOexception, SQLException {
+        RegistroServico registroservico = new RegistroServico(cod);
         return registroservico.findOneServico(registroservico);
     }
 
