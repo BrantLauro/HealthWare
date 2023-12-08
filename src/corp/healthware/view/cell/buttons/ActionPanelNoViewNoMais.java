@@ -12,12 +12,7 @@ public class ActionPanelNoViewNoMais extends javax.swing.JPanel {
     }
 
     public void initEvent(TableActionEventNoView event, int row) {
-        cmdMais.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                event.onMais(row);
-            }
-        });
+        
         
         cmdEdit.addActionListener(new ActionListener() {
             @Override
@@ -40,11 +35,9 @@ public class ActionPanelNoViewNoMais extends javax.swing.JPanel {
 
         cmdEdit = new corp.healthware.view.cell.buttons.ActionButton();
         cmdDelete = new corp.healthware.view.cell.buttons.ActionButton();
-        cmdMais = new corp.healthware.view.cell.buttons.ActionButton();
         jPanel1 = new javax.swing.JPanel();
         cmdEdit1 = new corp.healthware.view.cell.buttons.ActionButton();
         cmdDelete1 = new corp.healthware.view.cell.buttons.ActionButton();
-        cmdMais1 = new corp.healthware.view.cell.buttons.ActionButton();
 
         setBackground(new java.awt.Color(223, 223, 223));
 
@@ -57,13 +50,6 @@ public class ActionPanelNoViewNoMais extends javax.swing.JPanel {
 
         cmdDelete.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/delete_white.png"))); // NOI18N
 
-        cmdMais.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/mais_white.png"))); // NOI18N
-        cmdMais.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cmdMaisActionPerformed(evt);
-            }
-        });
-
         jPanel1.setBackground(new java.awt.Color(223, 223, 223));
 
         cmdEdit1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/edit_white.png"))); // NOI18N
@@ -75,21 +61,12 @@ public class ActionPanelNoViewNoMais extends javax.swing.JPanel {
 
         cmdDelete1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/delete_white.png"))); // NOI18N
 
-        cmdMais1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/mais_white.png"))); // NOI18N
-        cmdMais1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cmdMais1ActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(cmdMais1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addContainerGap(38, Short.MAX_VALUE)
                 .addComponent(cmdEdit1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(cmdDelete1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -101,8 +78,7 @@ public class ActionPanelNoViewNoMais extends javax.swing.JPanel {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(cmdEdit1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(cmdDelete1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(cmdMais1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(cmdDelete1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -111,9 +87,7 @@ public class ActionPanelNoViewNoMais extends javax.swing.JPanel {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(cmdMais, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addContainerGap(38, Short.MAX_VALUE)
                 .addComponent(cmdEdit, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(cmdDelete, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -130,8 +104,7 @@ public class ActionPanelNoViewNoMais extends javax.swing.JPanel {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(cmdEdit, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(cmdDelete, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(cmdMais, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(cmdDelete, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
@@ -145,17 +118,9 @@ public class ActionPanelNoViewNoMais extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_cmdEditActionPerformed
 
-    private void cmdMaisActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmdMaisActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cmdMaisActionPerformed
-
     private void cmdEdit1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmdEdit1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_cmdEdit1ActionPerformed
-
-    private void cmdMais1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmdMais1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cmdMais1ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -163,8 +128,6 @@ public class ActionPanelNoViewNoMais extends javax.swing.JPanel {
     private corp.healthware.view.cell.buttons.ActionButton cmdDelete1;
     private corp.healthware.view.cell.buttons.ActionButton cmdEdit;
     private corp.healthware.view.cell.buttons.ActionButton cmdEdit1;
-    private corp.healthware.view.cell.buttons.ActionButton cmdMais;
-    private corp.healthware.view.cell.buttons.ActionButton cmdMais1;
     private javax.swing.JPanel jPanel1;
     // End of variables declaration//GEN-END:variables
 }

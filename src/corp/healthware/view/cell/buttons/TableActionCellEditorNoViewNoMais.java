@@ -6,18 +6,19 @@ import javax.swing.DefaultCellEditor;
 import javax.swing.JCheckBox;
 import javax.swing.JTable;
 
+
 public class TableActionCellEditorNoViewNoMais extends DefaultCellEditor {
     
-    private TableActionEventNoView event;
+    private TableActionEventNoViewNoMais event;
     
-    public TableActionCellEditorNoViewNoMais(TableActionEventNoView event) {
+    public TableActionCellEditorNoViewNoMais(TableActionEventNoViewNoMais event) {
         super(new JCheckBox());
         this.event = event;
     }
 
     public Component getTableCellEditorComponent(JTable jtable, Object o, boolean bln, int row, int column) {
-        ActionPanelNoView action = new ActionPanelNoView();
-        action.initEvent(event, row);
+        ActionPanelNoViewNoMais action = new ActionPanelNoViewNoMais();
+        action.initEvent(TableActionEventNoViewNoMais) event, row);
         action.setBackground(jtable.getSelectionBackground());
         return action;
     }

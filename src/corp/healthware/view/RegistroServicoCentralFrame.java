@@ -5,6 +5,7 @@ import corp.healthware.model.dao.DAOexception;
 import corp.healthware.model.entity.RegistroServico;
 import corp.healthware.view.cell.buttons.TableActionCellEditorNoViewNoMais;
 import corp.healthware.view.cell.buttons.TableActionCellRenderNoViewNoMais;
+import corp.healthware.view.cell.buttons.TableActionEventNoView;
 import corp.healthware.view.cell.buttons.TableActionEventNoViewNoMais;
 import java.awt.BorderLayout;
 import java.sql.SQLException;
@@ -83,7 +84,7 @@ public class RegistroServicoCentralFrame extends javax.swing.JPanel {
             }
         };
         jTableRegistroServicos.getColumnModel().getColumn(4).setCellRenderer(new TableActionCellRenderNoViewNoMais());
-        jTableRegistroServicos.getColumnModel().getColumn(4).setCellEditor(new TableActionCellEditorNoViewNoMais(event));
+        jTableRegistroServicos.getColumnModel().getColumn(4).setCellEditor(new TableActionCellEditorNoViewNoMais((TableActionEventNoViewNoMais) (TableActionEventNoView) event));
     }
     
     
