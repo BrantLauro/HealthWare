@@ -53,7 +53,7 @@ public class ServicoDAO implements DAO<Servico>{
         int linhasAfetadas = 0;
 
         try {
-            String uQuery = "UPDATE aula SET nome_s = ?, preco = ?, resp = ?" + "where cod_s = ?";
+            String uQuery = "UPDATE servico SET nome_s = ?, preco = ?, resp = ? where cod_s = ?";
 
             PreparedStatement st = conn.prepareStatement(uQuery);
             st.setString(1, entidade.getNome_s());
@@ -64,6 +64,7 @@ public class ServicoDAO implements DAO<Servico>{
             linhasAfetadas = st.executeUpdate();
 
         } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
             throw new DAOexception("Erro ao tentar atualizar entidade Servico. SQLSTATE: " + ex.getMessage());
         }
 
@@ -128,7 +129,7 @@ public class ServicoDAO implements DAO<Servico>{
     @Override
     public Servico findOne(Servico s) throws DAOexception {
         try {
-            String query = "SELECT cod_s, nome_s, preco, resp FROM servico JOIN colaborador ON colaborador = cod_c WHERE cod_s = ?";
+            String query = "SELECT cod_s, nome_s, preco, resp FROM servico JOIN colaborador ON resp = cod_c WHERE cod_s = ?";
             PreparedStatement st = conn.prepareStatement(query);
             st.setInt(1, s.getCod_s());
             ResultSet res = st.executeQuery();
@@ -138,13 +139,13 @@ public class ServicoDAO implements DAO<Servico>{
             func.setNome_s(res.getString("nome_s"));
             func.setPreco(res.getDouble("preco"));
             func.setResp(Integer.parseInt(res.getString("resp")));
-            if (res.getString("colaborador") != null) {
-                func.setResp(res.getInt("colaborador"));
-                
-            } else {
-                
-                func.setResp(-1);
-            }
+//            if (res.getString("colaborador") != null) {
+//                func.setResp(res.getInt("colaborador"));
+//                
+//            } else {
+//                
+//                func.setResp(-1);
+//            }
             return func;
         } catch (SQLException ex) {
             System.out.println("sim" + ex.getMessage());
@@ -156,7 +157,7 @@ public class ServicoDAO implements DAO<Servico>{
         ArrayList<Servico> servicos = null;
         PreparedStatement st = null;
         try {
-            String query = "SELECT cod_s, nome_s, preco, resp FROM servico JOIN colaborador ON colaborador = cod_c WHERE nome_s LIKE '%" + nome + "%' order by nome_s";
+            String query = "SELECT cod_s, nome_s, preco, resp FROM servico JOIN colaborador ON resp = cod_c WHERE nome_s LIKE '%" + nome + "%' order by nome_s";
 
             st = conn.prepareStatement(query);
             ResultSet res = st.executeQuery();
@@ -168,11 +169,11 @@ public class ServicoDAO implements DAO<Servico>{
                     func.setNome_s(res.getString("nome_s"));
                     func.setPreco(res.getDouble("preco"));
                     func.setResp(Integer.parseInt(res.getString("resp")));
-                    if (res.getString("modalidade") != null) {
-                        func.setResp(res.getInt("modalidade"));
-                    } else {
-                        func.setResp(-1);
-                    }
+//                    if (res.getString("modalidade") != null) {
+//                        func.setResp(res.getInt("modalidade"));
+//                    } else {
+//                        func.setResp(-1);
+//                    }
                     servicos.add(func);
 
                 }

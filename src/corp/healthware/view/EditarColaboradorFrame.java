@@ -1,21 +1,12 @@
 package corp.healthware.view;
 
 import com.formdev.flatlaf.FlatClientProperties;
-import corp.healthware.controller.AlunoController;
 import corp.healthware.controller.ColaboradorController;
-import corp.healthware.controller.ModalidadeController;
-import corp.healthware.controller.ServicoController;
 import corp.healthware.model.dao.DAOexception;
-import corp.healthware.model.entity.Aluno;
 import corp.healthware.model.entity.Colaborador;
-import corp.healthware.model.entity.Modalidade;
-import corp.healthware.model.entity.Servico;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 
@@ -409,7 +400,7 @@ public class EditarColaboradorFrame extends javax.swing.JPanel {
         try {
             String nome_c = jTextFieldNome.getText();
             String tel = jTextFieldTel.getText();
-            String data = jTextFieldData.getText();
+            String data = formatarData();
             String esp = jTextFieldEspecialidade.getText();
             String email = jTextFieldEmail.getText();
             String senha = jTextFieldSenha.getText();
@@ -424,7 +415,7 @@ public class EditarColaboradorFrame extends javax.swing.JPanel {
             }
             if (!nome_c.equals("")) {
                 ColaboradorController colabCtrl = new ColaboradorController();
-                if (colabCtrl.update(nome_c, tel, data, esp, email, senha, adm) != 0) {
+                if (colabCtrl.update(cod_c,nome_c, tel, data, esp, email, senha, adm) != 0) {
                     voltar();
                 }
             } else {
@@ -450,6 +441,11 @@ public class EditarColaboradorFrame extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_jTextFieldNomeFocusGained
 
+    private String formatarData() {
+        String str = jTextFieldData.getText();
+        return str.substring(6) + "-" + str.substring(3, 5) + "-" + str.substring(0, 2);
+    }
+    
     private void jTextFieldNomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldNomeActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextFieldNomeActionPerformed

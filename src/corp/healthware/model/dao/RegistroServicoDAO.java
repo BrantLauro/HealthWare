@@ -53,7 +53,7 @@ public class RegistroServicoDAO implements DAO<RegistroServico>{
         int linhasAfetadas = 0;
 
         try {
-            String uQuery = "UPDATE registro_servico SET nome_cliente = ?" + "where cod_rs = ? and where data_s = ? and hora_s = ?";
+            String uQuery = "UPDATE registro_servico SET nome_cliente = ? where cod_rs = ? and  data_s = ? and hora_s = ?";
 
             PreparedStatement st = conn.prepareStatement(uQuery);
             st.setString(1, entidade.getNome_cliente());  
@@ -65,6 +65,7 @@ public class RegistroServicoDAO implements DAO<RegistroServico>{
             linhasAfetadas = st.executeUpdate();
 
         } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
             throw new DAOexception("Erro ao tentar atualizar entidade RegistroServico. SQLSTATE: " + ex.getMessage());
         }
 
@@ -76,10 +77,12 @@ public class RegistroServicoDAO implements DAO<RegistroServico>{
         int linhasAfetadas = 0;
 
         try {
-            String delQuery = "DELETE from registro_servico WHERE cod_rs = ? and where data_s = ? and hora_s = ?";
+            String delQuery = "DELETE from registro_servico WHERE cod_rs = ? and data_s = ? and hora_s = ?";
 
             PreparedStatement st = conn.prepareStatement(delQuery);
             st.setInt(1, entidade.getCod_rs());
+            st.setString(2, entidade.getData());
+            st.setString(3, entidade.getHora());
             
             linhasAfetadas = st.executeUpdate();
             JOptionPane.showMessageDialog(null, "Registro de Servico Removido!");
@@ -125,11 +128,43 @@ public class RegistroServicoDAO implements DAO<RegistroServico>{
 
         return funcs;
     }
+    
+        public ArrayList<RegistroServico> findAll(RegistroServico rs) throws DAOexception {
+        ArrayList<RegistroServico> funcs = null;
+        PreparedStatement st = null;
+
+        try {
+            String query = "SELECT * FROM registro_servico WHERE cod_rs = ?";
+            st = conn.prepareStatement(query);
+            st.setInt(1, rs.getCod_rs());
+            ResultSet res = st.executeQuery();
+            if (res != null) {
+                funcs = new ArrayList<>();
+
+                while (res.next()) {
+
+                    RegistroServico func = new RegistroServico();
+
+                    func.setCod_s(Integer.parseInt(res.getString("cod_rs")));
+                    func.setData(res.getString("data_s"));
+                    func.setHora(res.getString("hora_s"));
+                    func.setNome_cliente(res.getString("nome_cliente"));                    
+                    funcs.add(func);
+
+                }
+            }
+        } catch (SQLException ex) {
+            throw new DAOexception("Erro ao tentar encontrar todos Servicos: " + ex.getMessage());
+        }
+
+        return funcs;
+    }
+    
 
     @Override
     public RegistroServico findOne(RegistroServico r) throws DAOexception {
         try {
-            String query = "SELECT cod_rs,data_s,hora_s,nome_cliente FROM registro_servico JOIN servico ON servico = cod_rs WHERE cod_s = ?";
+            String query = "SELECT cod_rs,data_s,hora_s,nome_cliente FROM registro_servico JOIN servico ON cod_rs = cod_s WHERE cod_s = ?";
             PreparedStatement st = conn.prepareStatement(query);
             st.setInt(1, r.getCod_rs());
             ResultSet res = st.executeQuery();
@@ -138,9 +173,9 @@ public class RegistroServicoDAO implements DAO<RegistroServico>{
             func.setCod_s(Integer.parseInt(res.getString("cod_rs")));
             func.setData(res.getString("data_s"));
             func.setHora(res.getString("hora_s"));
-            func.setNome_cliente(res.getString("nome_c"));
-            if (res.getString("servico") != null) {
-                func.setCod_s(res.getInt("servico"));
+            func.setNome_cliente(res.getString("nome_cliente"));
+            if (res.getString("cod_rs") != null) {
+                func.setCod_s(res.getInt("cod_rs"));
                 
             } else {
                 
@@ -158,7 +193,7 @@ public class RegistroServicoDAO implements DAO<RegistroServico>{
         ArrayList<RegistroServico> reg = null;
         PreparedStatement st = null;
         try {
-            String query = "SELECT cod_rs, data_s, hora_s, nome_c FROM registro_servico JOIN servico ON servico = cod_rs WHERE nome_s LIKE '%" + pesquisa + "%' order by nome_s";
+            String query = "SELECT cod_rs, data_s, hora_s, nome_cliente FROM registro_servico JOIN servico ON cod_rs = cod_s WHERE nome_cliente LIKE '%" + pesquisa + "%' order by nome_cliente";
 
             st = conn.prepareStatement(query);
             ResultSet res = st.executeQuery();
@@ -169,9 +204,9 @@ public class RegistroServicoDAO implements DAO<RegistroServico>{
                     func.setCod_s(Integer.parseInt(res.getString("cod_rs")));
                     func.setData(res.getString("data_s"));
                     func.setHora(res.getString("hora_s"));
-                    func.setNome_cliente(res.getString("nome_c"));
-                    if (res.getString("servico") != null) {
-                        func.setCod_s(res.getInt("servico"));
+                    func.setNome_cliente(res.getString("nome_cliente"));
+                    if (res.getString("cod_rs") != null) {
+                        func.setCod_s(res.getInt("cod_rs"));
                     } else {
                         func.setCod_s(-1);
                     }
@@ -180,7 +215,7 @@ public class RegistroServicoDAO implements DAO<RegistroServico>{
                 }
             }
         } catch (SQLException e) {
-            throw new DAOexception("Erro ao tentar achar Aluno : SQLState : " + e.getMessage());
+            throw new DAOexception("Erro ao tentar achar Registro : SQLState : " + e.getMessage());
         }
         return reg;
     }

@@ -8,16 +8,16 @@ import javax.swing.JTable;
 
 public class TableActionCellEditorNoViewNoMais extends DefaultCellEditor {
     
-    private TableActionEventNoViewNoMais event;
+    private TableActionEventNoView event;
     
-    public TableActionCellEditorNoViewNoMais(TableActionEventNoViewNoMais event) {
+    public TableActionCellEditorNoViewNoMais(TableActionEventNoView event) {
         super(new JCheckBox());
         this.event = event;
     }
 
     public Component getTableCellEditorComponent(JTable jtable, Object o, boolean bln, int row, int column) {
-        ActionPanelNoViewNoMais action = new ActionPanelNoViewNoMais();
-        action.initEvent((TableActionEventNoViewNoMais) event, row);
+        ActionPanelNoView action = new ActionPanelNoView();
+        action.initEvent(event, row);
         action.setBackground(jtable.getSelectionBackground());
         return action;
     }

@@ -24,6 +24,15 @@ public class Servico {
         this.cod_s = cod_s;
     }
 
+    public Servico(int cod_s, String nome_s, double preco, int resp) {
+        this.cod_s = cod_s;
+        this.nome_s = nome_s;
+        this.preco = preco;
+        this.resp = resp;
+    }
+    
+    
+
     public Servico(String nome_s, double preco, int resp) {
         this.nome_s = nome_s;
         this.preco = preco;

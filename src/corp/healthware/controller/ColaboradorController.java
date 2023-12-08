@@ -16,9 +16,9 @@ public class ColaboradorController {
         return 0;
     }
 
-    public int update(String nome_c, String tel_c, String data_nasc_c, String esp, String email, String senha, boolean adm) throws DAOexception, SQLException {
-        if (nome_c != null && tel_c != null && data_nasc_c != null && esp != null && email != null && senha != null && adm != false) {
-            Colaborador colaborador = new Colaborador(nome_c, tel_c, data_nasc_c, esp, email, senha, adm);
+    public int update(int codigo, String nome_c, String tel_c, String data_nasc_c, String esp, String email, String senha, boolean adm) throws DAOexception, SQLException {
+        if (codigo != -1 && nome_c != null && tel_c != null && data_nasc_c != null && esp != null && email != null && senha != null && adm != false) {
+            Colaborador colaborador = new Colaborador(codigo,nome_c, tel_c, data_nasc_c, esp, email, senha, adm);
             return colaborador.updateColaborador(colaborador);
         }
         return 0;

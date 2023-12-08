@@ -2,13 +2,10 @@
 package corp.healthware.view;
 
 import com.formdev.flatlaf.FlatClientProperties;
-import corp.healthware.controller.AlunoController;
 import corp.healthware.controller.ColaboradorController;
-import corp.healthware.controller.ModalidadeController;
 import corp.healthware.controller.ServicoController;
 import corp.healthware.model.dao.DAOexception;
 import corp.healthware.model.entity.Colaborador;
-import corp.healthware.model.entity.Modalidade;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.sql.SQLException;
@@ -48,10 +45,10 @@ public class NovoServicoFrame extends javax.swing.JPanel {
             ArrayList<Colaborador> resp = respCtrl.findAll();
             resp.forEach((Colaborador col) -> {
 
-                jComboBoxResp.addItem(col.getNome_c());
+                jComboBoxResp.addItem("Cod. " + col.getCod_c() + ": " + col.getNome_c());
             });
         } catch (SQLException | DAOexception ex) {
-            Logger.getLogger(NovoAlunoFrame.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(NovoColaboradorFrame.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -264,7 +261,7 @@ public class NovoServicoFrame extends javax.swing.JPanel {
         try {
             String nome = jTextFieldServico.getText();
             double preco = Double.parseDouble(jTextFieldPreco.getText().replace(',', '.'));
-            int resp = (int) jComboBoxResp.getSelectedIndex() + 1;
+            int resp = Integer.parseInt(jComboBoxResp.getSelectedItem().toString().substring(5, 7));
             if (!nome.equals("") && !jTextFieldServico.getForeground().equals(new Color(139, 137, 137))) {
                 ServicoController servicoCtrl = new ServicoController();
                 servicoCtrl.insert(nome, preco, resp);

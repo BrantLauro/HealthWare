@@ -25,8 +25,7 @@ public class RegistroServico {
     public RegistroServico(int cod_rs) {
         this.cod_rs = cod_rs;
     }
-    
-    
+
 
     public RegistroServico(int cod_rs, String data, String hora) {
         this.cod_rs = cod_rs;
@@ -67,6 +66,10 @@ public class RegistroServico {
     
     public ArrayList<RegistroServico> findAllRegistroServico() throws SQLException, DAOexception{
         return new RegistroServicoDAO().findAll();
+    }
+    
+    public ArrayList<RegistroServico> findAllRegistroServico(RegistroServico rs) throws SQLException, DAOexception{
+        return new RegistroServicoDAO().findAll(rs);
     }
     
     public RegistroServico findOneServico(RegistroServico registroservico) throws SQLException, DAOexception {
