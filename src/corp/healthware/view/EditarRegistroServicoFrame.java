@@ -296,19 +296,27 @@ public class EditarRegistroServicoFrame extends javax.swing.JPanel {
             String data = jTextFieldData.getText();
             String nome_c = jTextFieldNomeC.getText();
             String hora = (String) jComboBoxHorario.getSelectedItem();
+
             if (!nome_c.equals("")) {
                 RegistroServicoController regCtrl = new RegistroServicoController();
-                if (regCtrl.update(cod_s,data,hora,nome_c) != 0) {
+                int updateResult = regCtrl.update(cod_s, data, hora, nome_c);
+
+                System.out.println("Update Result: " + updateResult);
+
+                if (updateResult != 0) {
+                    System.out.println("Sucesso");
                     voltar();
+                } else {
+                    System.out.println("Erro.");
                 }
-                //System.out.println(regCtrl.update(cod_s,data,hora,nome_c));
             } else {
                 JOptionPane.showMessageDialog(null, "Todos os campos obrigatórios devem ser preenchidos!", "Erro", JOptionPane.ERROR_MESSAGE);
             }
         } catch (NumberFormatException ex) {
             JOptionPane.showMessageDialog(null, "Preencha os campos corretamente!", "Erro", JOptionPane.ERROR_MESSAGE);
         } catch (DAOexception | SQLException ex) {
-            System.out.println("Erro criacao statement: " + ex);
+            System.out.println("Erro durante a execução da atualização: " + ex);
+            ex.printStackTrace();
             System.exit(0);
         }
     }//GEN-LAST:event_jButtonSalvarActionPerformed
