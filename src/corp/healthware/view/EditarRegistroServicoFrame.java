@@ -34,7 +34,7 @@ public class EditarRegistroServicoFrame extends javax.swing.JPanel {
         jTextFieldNomeC.putClientProperty(FlatClientProperties.STYLE, "arc: 9");
         jTextFieldData.putClientProperty(FlatClientProperties.STYLE, "arc: 9");
         initComboBoxHorario();
-        cod_s = r.getCod_s();     
+        cod_s = r.getCod_rs();     
 
     }
 

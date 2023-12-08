@@ -175,7 +175,7 @@ public class ColaboradorDAO implements DAO<Colaborador>{
                 colaborador = new ArrayList<>();
                 while (res.next()) {
                     Colaborador func = new Colaborador();
-                    func.setCod_c(Integer.parseInt(res.getString("cod_s")));
+                    func.setCod_c(Integer.parseInt(res.getString("cod_c")));
                     func.setNome_c(res.getString("nome_c"));
                     func.setTel_c(res.getString("tel_c"));
                     func.setData_nasc_c(res.getString("data_nasc_c"));
