@@ -53,21 +53,25 @@ public class RegistroServicoDAO implements DAO<RegistroServico>{
         int linhasAfetadas = 0;
 
         try {
-            String uQuery = "UPDATE registro_servico SET nome_cliente = ? where cod_rs = ? and  data_s = ? and hora_s = ?";
+            String uQuery = "UPDATE registro_servico SET nome_cliente = ? WHERE cod_rs = ? AND data_s = ? AND hora_s = ?";
 
-            PreparedStatement st = conn.prepareStatement(uQuery);
-            st.setString(1, entidade.getNome_cliente());  
-            st.setInt(2, entidade.getCod_rs());
-            st.setString(3, entidade.getData());
-            st.setString(4, entidade.getHora());
+        System.out.println("Executando Consulta SQL: " + uQuery);
 
+        PreparedStatement st = conn.prepareStatement(uQuery);
+        st.setString(1, entidade.getNome_cliente());
+        st.setInt(2, entidade.getCod_rs());
+        st.setString(3, entidade.getData());
+        st.setString(4, entidade.getHora());
 
-            linhasAfetadas = st.executeUpdate();
+        linhasAfetadas = st.executeUpdate();
 
-        } catch (SQLException ex) {
-            System.out.println(ex.getMessage());
-            throw new DAOexception("Erro ao tentar atualizar entidade RegistroServico. SQLSTATE: " + ex.getMessage());
-        }
+        System.out.println("Atualização deu certo" + linhasAfetadas);
+
+    } catch (SQLException ex) {
+        System.out.println("Erro durante a atualização: " + ex.getMessage());
+
+        throw new DAOexception("Erro ao tentar atualizar entidade RegistroServico. SQLSTATE: " + ex.getMessage());
+    }
 
         return linhasAfetadas;
     }
