@@ -1,23 +1,12 @@
 package corp.healthware.view;
 
 import com.formdev.flatlaf.FlatClientProperties;
-import corp.healthware.controller.AlunoController;
-import corp.healthware.controller.ColaboradorController;
-import corp.healthware.controller.ModalidadeController;
 import corp.healthware.controller.RegistroServicoController;
-import corp.healthware.controller.ServicoController;
 import corp.healthware.model.dao.DAOexception;
-import corp.healthware.model.entity.Aluno;
-import corp.healthware.model.entity.Colaborador;
-import corp.healthware.model.entity.Modalidade;
 import corp.healthware.model.entity.RegistroServico;
-import corp.healthware.model.entity.Servico;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 
@@ -34,7 +23,11 @@ public class EditarRegistroServicoFrame extends javax.swing.JPanel {
         jTextFieldNomeC.putClientProperty(FlatClientProperties.STYLE, "arc: 9");
         jTextFieldData.putClientProperty(FlatClientProperties.STYLE, "arc: 9");
         initComboBoxHorario();
-        cod_s = r.getCod_rs();     
+        cod_s = r.getCod_rs();
+        jTextFieldData.setText(r.getData());
+        jTextFieldNomeC.setText(r.getNome_cliente());
+        //jComboBoxHorario.setSelectedItem(r.getHora());
+        
 
     }
 
@@ -302,12 +295,13 @@ public class EditarRegistroServicoFrame extends javax.swing.JPanel {
         try {
             String data = jTextFieldData.getText();
             String nome_c = jTextFieldNomeC.getText();
-            //String hor = (String) jComboBoxHorario.getSelectedIndex();
+            String hora = (String) jComboBoxHorario.getSelectedItem();
             if (!nome_c.equals("")) {
                 RegistroServicoController regCtrl = new RegistroServicoController();
-                if (regCtrl.update(nome_c) != 0) {
+                if (regCtrl.update(cod_s,data,hora,nome_c) != 0) {
                     voltar();
                 }
+                //System.out.println(regCtrl.update(cod_s,data,hora,nome_c));
             } else {
                 JOptionPane.showMessageDialog(null, "Todos os campos obrigatórios devem ser preenchidos!", "Erro", JOptionPane.ERROR_MESSAGE);
             }

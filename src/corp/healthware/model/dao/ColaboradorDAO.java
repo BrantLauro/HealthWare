@@ -54,8 +54,7 @@ public class ColaboradorDAO implements DAO<Colaborador>{
         int linhasAfetadas = 0;
 
         try {
-            String uQuery = "UPDATE aula SET nome_c = ?, tel_c = ?, data_nasc_c = ?, esp = ?, email = ?, senha = ?, adm = ?"
-                    + "where cod_c = ?";
+            String uQuery = "UPDATE colaborador SET nome_c = ?, tel_c = ?, data_nasc_c = ?, esp = ?, email = ?, senha = ?, adm = ? where cod_c = ?";
 
             PreparedStatement st = conn.prepareStatement(uQuery);
             st.setString(1, entidade.getNome_c());

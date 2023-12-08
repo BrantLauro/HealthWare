@@ -1,20 +1,11 @@
 package corp.healthware.view;
 
 import com.formdev.flatlaf.FlatClientProperties;
-import corp.healthware.controller.AulaController;
-import corp.healthware.controller.ModalidadeController;
 import corp.healthware.controller.RegistroServicoController;
 import corp.healthware.model.dao.DAOexception;
-import corp.healthware.model.entity.Modalidade;
-import corp.healthware.model.entity.Servico;
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Component;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 

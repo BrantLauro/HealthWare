@@ -1,14 +1,10 @@
 package corp.healthware.view;
 
 import com.formdev.flatlaf.FlatClientProperties;
-import corp.healthware.controller.AlunoController;
 import corp.healthware.controller.ColaboradorController;
-import corp.healthware.controller.ModalidadeController;
 import corp.healthware.controller.ServicoController;
 import corp.healthware.model.dao.DAOexception;
-import corp.healthware.model.entity.Aluno;
 import corp.healthware.model.entity.Colaborador;
-import corp.healthware.model.entity.Modalidade;
 import corp.healthware.model.entity.Servico;
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -35,7 +31,7 @@ public class EditarServicoFrame extends javax.swing.JPanel {
         cod_s = s.getCod_s();
         jLabelTitulo.setText(s.getNome_s());
         jTextFieldServico.setText(s.getNome_s());
-        //jTextFieldPreco.setText(s.getPreco());
+        jTextFieldPreco.setText(Double.toString(s.getPreco()));
 
     }
 
@@ -44,7 +40,7 @@ public class EditarServicoFrame extends javax.swing.JPanel {
             ColaboradorController colaboradorCtrl = new ColaboradorController();
             ArrayList<Colaborador> colab = colaboradorCtrl.findAll();
             colab.forEach((Colaborador col) -> {
-                jComboBoxResp.addItem(col.getNome_c());
+                jComboBoxResp.addItem("Cod. " + col.getCod_c() + ": " + col.getNome_c());
             });
         } catch (SQLException | DAOexception ex) {
             Logger.getLogger(NovoColaboradorFrame.class.getName()).log(Level.SEVERE, null, ex);
@@ -273,12 +269,13 @@ public class EditarServicoFrame extends javax.swing.JPanel {
         try {
             String nome_s = jTextFieldServico.getText();
             double preco = Double.parseDouble(jTextFieldPreco.getText().replace(',', '.'));
-            int resp = (int) jComboBoxResp.getSelectedIndex() + 1;
+            int resp = Integer.parseInt(jComboBoxResp.getSelectedItem().toString().substring(5, 7));
             if (!nome_s.equals("")) {
                 ServicoController servicoCtrl = new ServicoController();
-                if (servicoCtrl.update(nome_s,preco,resp) != 0) {
+                if (servicoCtrl.update(cod_s,nome_s,preco,resp) != 0) {
                     voltar();
                 }
+                //System.out.println(servicoCtrl.update(cod_s,nome_s,preco,resp));
             } else {
                 JOptionPane.showMessageDialog(null, "Todos os campos obrigatórios devem ser preenchidos!", "Erro", JOptionPane.ERROR_MESSAGE);
             }

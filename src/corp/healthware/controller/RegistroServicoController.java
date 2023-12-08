@@ -22,9 +22,9 @@ public class RegistroServicoController {
         return 0;
     }
 
-    public int update(String nome_cliente) throws DAOexception, SQLException {
-        if (nome_cliente != null) {
-            RegistroServico registroservico = new RegistroServico(nome_cliente);
+    public int update(int cod, String data, String hora, String nome_cliente) throws DAOexception, SQLException {
+        if (cod != -1 && data != null && hora != null && nome_cliente != null) {
+            RegistroServico registroservico = new RegistroServico(cod, data, hora, nome_cliente);
             return registroservico.updateRegistroServico(registroservico);
         }
         return 0;
@@ -40,6 +40,11 @@ public class RegistroServicoController {
 
     public ArrayList<RegistroServico> findAll() throws DAOexception, SQLException {
         return new RegistroServico().findAllRegistroServico();
+    }
+    
+    public ArrayList<RegistroServico> findAll(int cod) throws DAOexception, SQLException {
+        RegistroServico reg = new RegistroServico(cod);
+        return new RegistroServico().findAllRegistroServico(reg);
     }
     
     public RegistroServico findOne(int cod) throws DAOexception, SQLException {

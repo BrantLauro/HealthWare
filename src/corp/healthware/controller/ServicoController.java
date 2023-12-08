@@ -22,9 +22,9 @@ public class ServicoController {
         return 0;
     }
 
-    public int update(String nome_s, double preco, int resp) throws DAOexception, SQLException {
+    public int update(int codigo, String nome_s, double preco, int resp) throws DAOexception, SQLException {
         if(nome_s != null && preco != -1 && resp != -1) {
-            Servico servico = new Servico(nome_s, preco, resp);
+            Servico servico = new Servico(codigo, nome_s, preco, resp);
             return servico.updateServico(servico);
         }
         return 0;
