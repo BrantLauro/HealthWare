@@ -1,14 +1,19 @@
-
 package corp.healthware.view;
 
+import corp.healthware.model.entity.Colaborador;
 import java.awt.BorderLayout;
+import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 
 public class MainFrame extends javax.swing.JPanel {
 
-    public MainFrame() {
+    private Colaborador user;
+
+    public MainFrame(Colaborador user) {
         initComponents();
-        UIManager.put( "Button.arc", 10);
+        UIManager.put("Button.arc", 10);
+        jLabelUser.setText(user.getNome_c().toUpperCase());
+        this.user = user;
     }
 
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -125,17 +130,27 @@ public class MainFrame extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonAlunosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAlunosActionPerformed
-//        MainAlunos tAlunos = new MainAlunos();
-//        tAlunos.setSize(1000, 570);
-//        tAlunos.setLocation(0, 0);
-//        jPanelContent.removeAll();
-//        jPanelContent.add(tAlunos, BorderLayout.CENTER);
-//        jPanelContent.revalidate();
-//        jPanelContent.repaint();
+        MainAlunos tAlunos = new MainAlunos(user);
+        tAlunos.setSize(1000, 570);
+        tAlunos.setLocation(0, 0);
+        jPanelContent.removeAll();
+        jPanelContent.add(tAlunos, BorderLayout.CENTER);
+        jPanelContent.revalidate();
+        jPanelContent.repaint();
     }//GEN-LAST:event_jButtonAlunosActionPerformed
 
     private void jButtonServicosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonServicosActionPerformed
-
+        if (user.getAdm() == 1) {
+            MainColab tColab = new MainColab(user);
+            tColab.setSize(1000, 570);
+            tColab.setLocation(0, 0);
+            jPanelContent.removeAll();
+            jPanelContent.add(tColab, BorderLayout.CENTER);
+            jPanelContent.revalidate();
+            jPanelContent.repaint();
+        } else {
+            JOptionPane.showMessageDialog(null, "Somente adminstradores podem acessar a parte de Colaboradores!", "Acesso Negado", JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_jButtonServicosActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
