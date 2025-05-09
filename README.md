@@ -47,11 +47,6 @@ This system was developed to apply real-world software development practices in 
 - **FlatLaf** – Modern look and feel for Swing
 - **MySQL** – Relational database for persistent storage
 
-## 🚀 Installation
-
-```bash
-todo
-```
 
 ## 👥 Contributors
 
